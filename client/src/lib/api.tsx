@@ -11,7 +11,11 @@ export const deleteToken = () => {
 };
 
 export const usersClient = axios.create({
-  baseURL: "http://localhost:3000/api/users",
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "/api/users"
+      : "http://localhost:3000/api/users",
+
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${getAuthTokenFromCookie()}`,
@@ -19,7 +23,10 @@ export const usersClient = axios.create({
 });
 
 export const siteClient = axios.create({
-  baseURL: "http://localhost:3000/api/sites",
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "/api/sites"
+      : "http://localhost:3000/api/sites",
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${getAuthTokenFromCookie()}`,
