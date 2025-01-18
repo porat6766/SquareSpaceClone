@@ -73,7 +73,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
     };
     res.cookie("token", token, {
       httpOnly: false,
-      secure: true,
+      secure: false,
       sameSite: "strict",
     });
 
