@@ -1,0 +1,5 @@
+should I create a separate display app?
+Or add a display mode where editing capabilities won't be present?
+
+For now the direction is a separate display mode.
+For the next version, separating editing app and rendering app would be preferable?
