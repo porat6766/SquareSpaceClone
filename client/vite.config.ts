@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "../server/public",
+    outDir: path.resolve(__dirname, "../server/public"),
     emptyOutDir: true,
   },
 });
