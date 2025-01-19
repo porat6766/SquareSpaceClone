@@ -8,6 +8,8 @@ import AddBtn from "../EditorComponents/HeaderEditorTools/AddBtn";
 import { DialogAddElementHeader } from "../EditorComponents/HeaderEditorTools/DialogAddElementHeader";
 import EditBtn from "../EditorComponents/HeaderEditorTools/EditBtn";
 import { DialogEditHeader } from "../EditorComponents/HeaderEditorTools/DialogEditHeader";
+import { ImgContainer } from "./BasicEditor3ProComponents";
+import LogoEditorForm from "../EditorComponents/HeaderEditorTools/LogoEditorForm";
 
 export type Header3Props = {
   pages: BasicEditor3Page[];
@@ -58,7 +60,6 @@ function Header3({
   data,
   setData,
 }: any) {
-  //will depend on current screen width?
   const { isEditMode } = useContext(BasicEditorContext);
   const [editButtonVisible, setEditButtonVisible] = useState(false);
   const [headerEditButtonsVisible, setHeaderEditButtonsVisible] =
@@ -66,15 +67,18 @@ function Header3({
   const [addElementsMenuVisible, setAddElementsMenuVisible] = useState(false);
   const [editDesignMenuVisible, setEditDesignMenuVisible] = useState(false);
 
+  const [isLogoHover, setIsLogoHover] = useState<boolean>(false);
+  const [isLogoEditMenu, setIsLogoEditMenu] = useState<boolean>(false);
+
   const [isHamburger, setIsHamburger] = useState(false);
-  // const chosenPagesRef = useRef(pages.map(page => page.name));
-  // const [chosenPages, setChosenPages] = useState(pages.map(page => page.name));
   console.log(setIsHamburger);
 
-  const logo = {
+  const logo = data.logo || {
     text: "LOGO",
     imgSrc: defaultLogo,
   };
+  logo.imgSrc = data.logo.imgSrc || defaultLogo;
+
 
   const headerStyle: React.CSSProperties = {
     position: "relative",
@@ -107,6 +111,7 @@ function Header3({
     padding: "0.5rem 1rem 0.5rem 1rem",
     display: "flex",
     flexDirection: "column",
+    border: headerEditMode && isLogoHover ? '1px solid blue' : 'none'
   };
 
   const navContainerStyle = {
@@ -199,6 +204,12 @@ function Header3({
     }
   }
 
+  function handleLogoDivClick() {
+    if (isLogoHover) {
+      setIsLogoEditMenu(prev => !prev);
+    }
+  }
+
   return (
     <>
       <div
@@ -216,33 +227,40 @@ function Header3({
             </button>
           </div>
         )}
-        <div style={logoContainerStyle}>
+        <div
+          onClick={handleLogoDivClick}
+          onMouseEnter={() => setIsLogoHover(true)}
+          onMouseLeave={() => setIsLogoHover(false)}
+          style={logoContainerStyle}>
           <img src={logo.imgSrc} />
           {logo.text}
         </div>
+        {isLogoEditMenu &&
+          <LogoEditorForm data={data} setData={setData}/>
+        }
         <div>
           {/* {isHamburger && hamburger} */}
           {!isHamburger && (
             <div style={navContainerStyle}>
               {data.pages.length > 0
                 ? data.pages.map((name: any) => (
-                    <div
-                      key={name}
-                      style={navItemStyle}
-                      onClick={() => handleNavigateToPage(name)}
-                    >
-                      {name}
-                    </div>
-                  ))
+                  <div
+                    key={name}
+                    style={navItemStyle}
+                    onClick={() => handleNavigateToPage(name)}
+                  >
+                    {name}
+                  </div>
+                ))
                 : pages.map((page: any) => (
-                    <div
-                      key={page.name}
-                      style={navItemStyle}
-                      onClick={() => handleNavigateToPage(page.name)}
-                    >
-                      {page.name}
-                    </div>
-                  ))}
+                  <div
+                    key={page.name}
+                    style={navItemStyle}
+                    onClick={() => handleNavigateToPage(page.name)}
+                  >
+                    {page.name}
+                  </div>
+                ))}
               {data.hasExtraButton && (
                 <button style={navItemStyle}>Extra button</button>
               )}
@@ -270,20 +288,6 @@ function Header3({
       <div style={menusContainerStyle}>
         {
           addElementsMenuVisible && headerEditMode && (
-            // <div style={addElementsMenuStyle}>
-            //     <label>
-            //         Button
-            //         <input type='checkbox' defaultChecked={data.hasExtraButton} onChange={(e) => handleToggleElement(e, 'button')}></input>
-            //     </label>
-            //     <label>
-            //         Social Links
-            //         <input type='checkbox' defaultChecked={data.hasSocialLinks} onChange={(e) => handleToggleElement(e, 'social_links')}></input>
-            //     </label>
-            //     <label>
-            //         Account
-            //         <input type='checkbox' defaultChecked={data.hasAccount} onChange={(e) => handleToggleElement(e, 'account')}></input>
-            //     </label>
-            // </div>
             <DialogAddElementHeader
               handleToggleElement={handleToggleElement}
               data={data}
