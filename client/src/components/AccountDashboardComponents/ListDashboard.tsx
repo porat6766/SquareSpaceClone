@@ -86,11 +86,11 @@ const ListDashboard: React.FC<ListDashboardProps> = ({
               key={index}
               className="border relative shadow-lg flex flex-col lg:flex-row items-center lg:items-start mb-10"
             >
-              <div className="relative group w-full lg:w-[350px] h-[260px]">
+              <div className="relative group w-full lg:w-[450px] h-[260px]">
                 <img
                   src={site.screenShot}
                   alt={site.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 <div className="absolute inset-0 bg-white bg-opacity-0 group-hover:bg-opacity-25 transition duration-300 flex items-center justify-center">
                   <button

@@ -11,11 +11,10 @@ function Selling() {
         </div>
         <div className="mb-10">
           <img
-            src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/grow-your-business/designed-to-sell/en/designed-to-sell-2-500w.jpg"
+            src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/grow-your-business/designed-to-sell/en/designed-to-sell-2-1000w.jpg"
             alt="An ecommerce website showcasing a beige lighting fixture sculpture with a red curtain-like background, featuring a 'Shop Now' button and sale highlights."
             loading="lazy"
-            width="2744"
-            height="2744"
+            className="w-[2000px] h-auto"
             decoding="async"
           ></img>
         </div>
@@ -43,7 +42,7 @@ function Selling() {
       {/* Image Section */}
       <div className="mt-10">
         <img
-          src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/grow-your-business/tools/en/tools-2-500w.jpg"
+          src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/grow-your-business/tools/en/tools-2-1000w.jpg"
           alt="A fitness brand website with off-white background, maroon text, and a woman working out, offering scheduling capabilities with fitness professionals."
           loading="lazy"
           width="1500"
