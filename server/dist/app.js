@@ -12,11 +12,11 @@ const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const siteRoutes_1 = __importDefault(require("./routes/siteRoutes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 3000;
-app.use(express_1.default.static("public"));
+const PORT = 3000;
+app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: process.env.LOCAL_CLIENT_URL,
+    origin: ["http://localhost:5173", "https://squarespaceclone.onrender.com"],
     credentials: true,
 }));
 if (process.env.URI) {
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes_1.default);
 app.use("/api/sites", siteRoutes_1.default);
 app.get("*", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "public", "index.html"));
+    res.sendFile(path_1.default.join(__dirname, "../public", "index.html"));
 });
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
