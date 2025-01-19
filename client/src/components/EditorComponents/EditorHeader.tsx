@@ -9,6 +9,7 @@ interface EditorHeaderProps {
   isSidebarOpen: boolean;
   siteId: string;
   setSaveTrigger: Dispatch<SetStateAction<boolean>>;
+  screenshotRef: any;
 }
 
 const EditorHeader: React.FC<EditorHeaderProps> = ({

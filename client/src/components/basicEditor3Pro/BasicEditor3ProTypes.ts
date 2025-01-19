@@ -78,6 +78,7 @@ export enum RenderElementNames {
   Text_Block3 = "Text_Block3",
   Accordion = "Accordion",
   Button = "Button",
+  Form = "Form",
 }
 
 export type BasicEditorContextType = {
