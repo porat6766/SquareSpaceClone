@@ -17,6 +17,7 @@ import {
   ImgContainer,
   VideoContainer,
   TextBlock3,
+  Accordion,
 } from "./BasicEditor3ProComponents";
 
 export function isEmpty(obj: any) {
@@ -59,6 +60,12 @@ export function hydrateRenderElement(
     if (isEmpty(style)) {
       style = styles.default_video_Container_Style;
     }
+  }
+  if (renderElementName === RenderElementNames.Accordion) {
+    body = <Accordion id={id} />;
+    // if (isEmpty(style)) {
+    style = styles.default_Accordion_Style;
+    // }
   }
   if (renderElementName === RenderElementNames.Text_Block3) {
     body = <TextBlock3 id={id} />;
