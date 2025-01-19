@@ -101,7 +101,7 @@ function EditorLayout() {
         screenShot:
           "https://images.squarespace-cdn.com/content/624b503a44c70245022f56eb/4f087c54-b53a-44f7-9234-01f8e58d8ffb/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
         name: websiteName,
-        domain: `${websiteName}SquarespaceServices`,
+        domain: `https://squarespaceclone.onrender.com/userwebsite/${websiteName}SquarespaceServices`,
       });
     }
   }, [websiteName]);
