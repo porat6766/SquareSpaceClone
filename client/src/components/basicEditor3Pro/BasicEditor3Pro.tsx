@@ -107,9 +107,7 @@ BasicEditor3ProProps) {
     y: 0,
   });
 
-  const [headerData, setHeaderData] = useState(
-    currentWebsite?.headerData || {}
-  );
+  const [headerData, setHeaderData]:any = useState(currentWebsite?.headerData);
   const [pages, setPages] = useState<BasicEditor3Page[]>(
     currentWebsite?.pages || []
   );
@@ -157,7 +155,7 @@ BasicEditor3ProProps) {
   }, [currentWebsite]);
 
   useEffect(() => {
-    if (!headerData) {
+    if (!currentWebsite || !headerData) {
       return;
     }
     currentWebsite.headerData = headerData;
@@ -166,6 +164,7 @@ BasicEditor3ProProps) {
   useEffect(() => {
     //displays the current page
     displayPage(currentPage);
+    if(!currentWebsite) return;
     currentWebsite.pages = pages;
   }, [currentPage, pages]);
 
