@@ -38,6 +38,8 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 
   const frameBorder = isEditMode && isHovering ? "1px solid blue" : "none";
 
+  const frameZIndex = renderElement.data.extraData ? renderElement.data.extraData.zIndex : false;
+
   const frameStyle: React.CSSProperties = {
     position: "absolute",
     left: position.x,
@@ -52,6 +54,10 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     borderLeft: frameBorder,
     backgroundColor: "none",
   };
+
+  if(frameZIndex){
+    frameStyle.zIndex = frameZIndex;
+  }
 
   useEffect(() => {
     setPosition(renderElement.data.position);

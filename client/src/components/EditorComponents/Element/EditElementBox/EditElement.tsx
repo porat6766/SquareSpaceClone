@@ -19,11 +19,11 @@ const EditElement = ({
   handleDeleteClick,
 }: EditElementProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { baseFunctions, duplicateElement }: any =
-    useContext(BasicEditorContext);
+  const { baseFunctions, duplicateElement }: any = useContext(BasicEditorContext);
   const [backgroundColor, setBackgroundColor] = useState(
     element?.data.style.backgroundColor || "clear"
   );
+  const [zIndex, setZIndex] = useState<string>(element?.data.extraData?.zIndex || "50")
 
   useEffect(() => {
     const style = element?.data.style;
@@ -36,8 +36,18 @@ const EditElement = ({
     });
   }, [backgroundColor]);
 
+  useEffect(() => {
+    handleChangeZIndex(zIndex);
+  }, [zIndex])
+
   function handleToggleOpen() {
     setIsOpen((prev) => !prev);
+  }
+
+  function handleChangeZIndex(newValue:string){
+    if(!element) return;
+    if(!element.data.extraData) element.data.extraData = {};
+    element.data.extraData.zIndex = newValue;  
   }
 
   return (
@@ -77,13 +87,31 @@ const EditElement = ({
       <div className="relative">
         <PositionContent isOpen={isOpen} setIsOpen={handleToggleOpen} />
       </div>
-      <button
+      {/* <button
         className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"
         data-action="cross"
         title="Cross"
       >
         <X size={18} />
+      </button> */}
+      <button
+        className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"
+        data-action="cross"
+        title="Cross"
+      >
+        <label>z-index:</label>
+        <select
+          defaultValue={element?.data.style.zIndex || zIndex}
+          onChange={(e) => setZIndex(e.target.value)}>
+          <option value={'0'}>0</option>
+          <option value={'10'}>10</option>
+          <option value={'20'}>20</option>
+          <option value={'30'}>30</option>
+          <option value={'40'}>40</option>
+          <option value={'50'}>50</option>
+        </select>
       </button>
+
       <button
         className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"
         data-action="duplicate"
