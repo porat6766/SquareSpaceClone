@@ -9,10 +9,10 @@ const Guide: React.FC = () => {
 
   return (
     <div className="px-6 py-16 flex flex-col bg-rose-50 items-center">
-      <div className="flex">
+      <div className="flex w-full">
         {/* Title */}
-        <div className="w-1/2">
-          <h1 className="text-5xl">
+        <div className="relative w-1/2">
+          <h1 className="text-5xl text-left">
             Learn how to get started with Squarespace
           </h1>
         </div>
@@ -169,7 +169,7 @@ const Guide: React.FC = () => {
       <div className="w-11/12 h-auto flex mt-40 relative ">
         <div className="w-1/2">
           <img
-            src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/modern-solutions/made-with/made-with-2-500w.jpg"
+            src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/modern-solutions/made-with/made-with-2-1000w.jpg"
             alt="Orange stiletto shoes on orange and blue fabric, with an off-white portfolio website displaying dark text."
             loading="lazy"
             width="1840"
@@ -178,7 +178,7 @@ const Guide: React.FC = () => {
           ></img>
         </div>
         <div
-          className={`flex flex-col w-1/2 h-[563.84px] justify-center items-start bg-[#534936;]`}
+          className={`flex flex-col w-1/2 h-auto justify-center items-start bg-[#534936;]`}
         >
           <div className="ml-40 text-white">
             <p className="text-2xl font-bold mb-12">Made with Squarespace</p>
