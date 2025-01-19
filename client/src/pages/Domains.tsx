@@ -38,12 +38,12 @@ const Domains = () => {
                     <div>
                       <h3 className="text-lg font-semibold">{site.name}</h3>
                       <p className="text-sm text-gray-600 flex truncate">
-                        {site.domain}
+                        {`${site.domain}/${site._id}`}
                       </p>
                     </div>
                     <Button
                       onClick={() =>
-                        (window.location.href = `${site.domain}/${site._id}`)
+                        window.open(`${site.domain}/${site._id}`, "_blank")
                       }
                       className="bg-black text-white hover:bg-gray-800 rounded-lg px-4 py-2"
                     >
