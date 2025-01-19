@@ -38,7 +38,7 @@ const Domains = () => {
                     <div>
                       <h3 className="text-lg font-semibold">{site.name}</h3>
                       <p className="text-sm text-gray-600 flex truncate">
-                        {site.domain}
+                        {`${site.domain}/${site._id}`}
                       </p>
                     </div>
                     <Button
