@@ -289,7 +289,7 @@ export function Accordion({ id }: { id: string }) {
     textAlign: "left",
     display: "flex",
     justifyContent: "space-between",
-    cursor: isEditMode ? "pointer" : "not-allowed",
+    cursor: "pointer",
     border: "none",
     borderBottom: "1px solid #ccc",
     borderRadius: "8px 8px 0 0",
@@ -312,11 +312,10 @@ export function Accordion({ id }: { id: string }) {
       {content.items.map((item: any) => (
         <div key={item.itemId} style={{ ...accordionStyle, flexGrow: 1 }}>
           <button
-            onClick={() => isEditMode && toggleItem(item.itemId)}
+            onClick={() => toggleItem(item.itemId)}
             style={buttonStyle}
             onMouseEnter={(e: any) => (e.target.style.background = "#e0e0e0")}
             onMouseLeave={(e: any) => (e.target.style.background = "#f7f7f7")}
-            disabled={!isEditMode} // Disable if not in edit mode
           >
             <input
               type="text"
@@ -354,21 +353,23 @@ export function Accordion({ id }: { id: string }) {
               ) : (
                 <p>{item.content}</p>
               )}
-              <button
-                onClick={() => isEditMode && toggleEdit(item.itemId)}
-                style={{
-                  padding: "6px 12px",
-                  backgroundColor: "#f7f7f7",
-                  borderRadius: "5px",
-                  border: "none",
-                  cursor: isEditMode ? "pointer" : "not-allowed",
-                  fontWeight: "bold",
-                  marginTop: "8px",
-                }}
-                disabled={!isEditMode} // Disable if not in edit mode
-              >
-                {isEditing === item.itemId ? "Save" : "Edit"}
-              </button>
+              {isEditMode && (
+                <button
+                  onClick={() => isEditMode && toggleEdit(item.itemId)}
+                  style={{
+                    padding: "6px 12px",
+                    backgroundColor: "#f7f7f7",
+                    borderRadius: "5px",
+                    border: "none",
+                    cursor: isEditMode ? "pointer" : "not-allowed",
+                    fontWeight: "bold",
+                    marginTop: "8px",
+                  }}
+                  disabled={!isEditMode} // Disable if not in edit mode
+                >
+                  {isEditing === item.itemId ? "Save" : "Edit"}
+                </button>
+              )}
             </div>
           )}
         </div>
