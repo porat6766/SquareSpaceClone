@@ -283,7 +283,7 @@ export function Accordion({ id }: { id: string }) {
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
   };
 
-  const buttonStyle = {
+  const buttonStyle: any = {
     background: "#f7f7f7",
     padding: "12px",
     width: "100%",
@@ -315,8 +315,8 @@ export function Accordion({ id }: { id: string }) {
           <button
             onClick={() => toggleItem(item.itemId)}
             style={buttonStyle}
-            onMouseEnter={(e) => (e.target.style.background = "#e0e0e0")}
-            onMouseLeave={(e) => (e.target.style.background = "#f7f7f7")}
+            onMouseEnter={(e: any) => (e.target.style.background = "#e0e0e0")}
+            onMouseLeave={(e: any) => (e.target.style.background = "#f7f7f7")}
           >
             <input
               type="text"
