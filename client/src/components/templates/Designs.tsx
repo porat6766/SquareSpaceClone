@@ -43,7 +43,7 @@ function DesignCon() {
                 No templates match the selected filters.
               </p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 overflow-y-auto max-h-screen scrollbar-hide">
+              <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 overflow-y-auto max-h-screen scrollbar-hide">
                 {cardsToRender.map((card) => (
                   <Card
                     key={card.title}
