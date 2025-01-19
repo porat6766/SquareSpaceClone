@@ -26,6 +26,7 @@ export type DataObject3 = {
   position: Position;
   content: DataObject3Content;
   style: DataObject3Style;
+  extraData?:{[key:string]:any};
 };
 
 export type RenderElement3 = {
