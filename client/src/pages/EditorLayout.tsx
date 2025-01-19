@@ -4,6 +4,7 @@ import {
   createContext,
   SetStateAction,
   Dispatch,
+  useRef,
 } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import EditorHeader from "../components/EditorComponents/EditorHeader";
@@ -16,6 +17,7 @@ import { dataStringToWebsite } from "../components/basicEditor3Pro/utils";
 import LoadingSpinner from "../components/LoadingSpinner";
 import WebsiteNameDialog from "../components/WebsiteNameDialog";
 import { BasicEditor3Website } from "../components/basicEditor3Pro/BasicEditor3ProTypes";
+import ScreenshotCapture from "../components/ScreenShot";
 
 export type EditorLayoutContextType = {
   currentWebsite?: BasicEditor3Website | undefined;
@@ -37,6 +39,9 @@ function EditorLayout() {
   const [websiteToSave, setWebsiteToSave]: any = useState();
   const [currentWebsite, setCurrentWebsite] = useState<BasicEditor3Website>();
   const [saveTrigger, setSaveTrigger] = useState(false);
+  const [imageData, setImageData] = useState("");
+  const screenshotRef = useRef<{ captureScreenshot: () => void }>(null);
+
   const [pageNameFromLayout, setPageNameFromLayout] = useState(
     currentWebsite?.pages[0].name || "Home"
   );
@@ -76,13 +81,16 @@ function EditorLayout() {
 
   // Handle save action
   function saveCurrentWebsite(currentWebsite: ISite) {
+    if (!imageData) return;
     const websiteDataString = JSON.stringify(currentWebsite);
     setWebsiteToSave(websiteDataString);
+    // screenshotRef.current?.captureScreenshot();
+    console.log(imageData);
 
     if (websiteToEdit) {
       updateSite({
         siteId: id!,
-        updatedData: { data: websiteDataString },
+        updatedData: { data: websiteDataString, screenShot: imageData },
       });
     } else {
       if (!websiteName) {
@@ -98,8 +106,7 @@ function EditorLayout() {
       createNewSite({
         data: websiteToSave,
         owner: userData?.user?._id,
-        screenShot:
-          "https://images.squarespace-cdn.com/content/624b503a44c70245022f56eb/4f087c54-b53a-44f7-9234-01f8e58d8ffb/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
+        screenShot: imageData,
         name: websiteName,
         domain: `https://squarespaceclone.onrender.com/userwebsite/${websiteName}SquarespaceServices`,
       });
@@ -169,8 +176,10 @@ function EditorLayout() {
 
         {/* Main content */}
         <div className="flex-1 flex flex-col relative">
+          <ScreenshotCapture setImageData={setImageData} ref={screenshotRef} />
           {/* Header */}
           <EditorHeader
+            screenshotRef={screenshotRef}
             setSaveTrigger={setSaveTrigger}
             siteId={id!}
             toggleSidebarLayout={toggleSidebarLayout}

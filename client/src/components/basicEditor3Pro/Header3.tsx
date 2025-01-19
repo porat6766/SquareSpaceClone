@@ -69,7 +69,7 @@ function Header3({
   const [isHamburger, setIsHamburger] = useState(false);
   // const chosenPagesRef = useRef(pages.map(page => page.name));
   // const [chosenPages, setChosenPages] = useState(pages.map(page => page.name));
-  console.log(setIsHamburger);
+  // console.log(setIsHamburger);
 
   const logo = {
     text: "LOGO",
