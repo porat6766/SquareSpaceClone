@@ -73,6 +73,14 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   }
 
   useEffect(() => {
+   if(renderElement.data.extraData?.isBackground){
+      setPosition({x:0, y:renderElement.data.position.y})
+      baseFunctions?.setStyle(renderElement.data.id, {...renderElement.data.style, width:'100vw'})
+      renderElement.data.extraData.isBackground = false;  
+   } 
+  })
+
+  useEffect(() => {
     setPosition(renderElement.data.position);
   }, [renderElement.data.position]);
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BasicEditorContext } from "./BasicEditor3Pro";
 import { isEmpty } from "./utils";
 import { handleOpenWidget } from "./Cloudinary"; //
@@ -225,17 +225,17 @@ export function Accordion({ id }: { id: string }) {
     baseFunctions?.setContent(id, {
       items: [
         {
-          id: "1",
+          itemId: "0",
           title: "Title 1",
           content: "Content for Title 1",
         },
         {
-          id: "2",
+          itemId: "1",
           title: "Title 2",
           content: "Content for Title 2",
         },
         {
-          id: "3",
+          itemId: "2",
           title: "Title 3",
           content: "Content for Title 3",
         },
@@ -243,26 +243,33 @@ export function Accordion({ id }: { id: string }) {
     });
   }
 
-  const toggleItem = (id: any) => {
-    setOpenItem(openItem === id ? null : id);
+  const toggleItem = (itemId: any) => {
+    setOpenItem(openItem === itemId ? null : itemId);
   };
 
-  const toggleEdit = (id: any) => {
-    setIsEditing(isEditing === id ? null : id);
+  const toggleEdit = (itemId: any) => {
+    setIsEditing(isEditing === itemId ? null : itemId);
   };
 
-  const updateTitle = (itemiId: any, newTitle: string) => {
-    const updatedItem = content.items.find((item) => item.id === itemiId);
-    const updatedItemIndex = content.items.findIndex((item) => item.id === itemiId);
-    if (updatedItem) {
-      baseFunctions?.setContent(id, { items: items[updatedItemIndex]});
+  const updateTitle = (itemId: any, newTitle: string) => {
+    const updatedItemIndex = content.items.findIndex(
+      (item: any) => item.itemId === itemId
+    );
+    if (updatedItemIndex !== -1) {
+      const updatedItems = [...content.items];
+      updatedItems[updatedItemIndex].title = newTitle;
+      baseFunctions?.setContent(id, { items: updatedItems });
     }
   };
 
-  const updateContent = (id: any, newContent: string) => {
-    const updatedItem = items.find((item) => item.id === id);
-    if (updatedItem) {
-      baseFunctions?.setContent(id, { content: newContent });
+  const updateContent = (itemId: any, newContent: string) => {
+    const updatedItemIndex = content.items.findIndex(
+      (item: any) => item.itemId === itemId
+    );
+    if (updatedItemIndex !== -1) {
+      const updatedItems = [...content.items];
+      updatedItems[updatedItemIndex].content = newContent;
+      baseFunctions?.setContent(id, { items: updatedItems });
     }
   };
 
@@ -276,7 +283,7 @@ export function Accordion({ id }: { id: string }) {
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
   };
 
-  const buttonStyle = {
+  const buttonStyle: any = {
     background: "#f7f7f7",
     padding: "12px",
     width: "100%",
@@ -303,18 +310,18 @@ export function Accordion({ id }: { id: string }) {
 
   return (
     <div style={style}>
-      {content.items.map((item) => (
-        <div key={item.id} style={{ ...accordionStyle, flexGrow: 1 }}>
+      {content.items.map((item: any) => (
+        <div key={item.itemId} style={{ ...accordionStyle, flexGrow: 1 }}>
           <button
-            onClick={() => toggleItem(item.id)}
+            onClick={() => toggleItem(item.itemId)}
             style={buttonStyle}
-            onMouseEnter={(e) => (e.target.style.background = "#e0e0e0")}
-            onMouseLeave={(e) => (e.target.style.background = "#f7f7f7")}
+            onMouseEnter={(e: any) => (e.target.style.background = "#e0e0e0")}
+            onMouseLeave={(e: any) => (e.target.style.background = "#f7f7f7")}
           >
             <input
               type="text"
               value={item.title}
-              onChange={(e) => updateTitle(item.id, e.target.value)}
+              onChange={(e) => updateTitle(item.itemId, e.target.value)}
               style={{
                 border: "none",
                 background: "transparent",
@@ -322,14 +329,14 @@ export function Accordion({ id }: { id: string }) {
                 width: "80%",
               }}
             />
-            <span>{openItem === item.id ? "-" : "+"}</span>
+            <span>{openItem === item.itemId ? "-" : "+"}</span>
           </button>
-          {openItem === item.id && (
+          {openItem === item.itemId && (
             <div style={contentStyle}>
-              {isEditing === item.id ? (
+              {isEditing === item.itemId ? (
                 <textarea
                   value={item.content}
-                  onChange={(e) => updateContent(item.id, e.target.value)}
+                  onChange={(e) => updateContent(item.itemId, e.target.value)}
                   rows={4}
                   style={{
                     width: "100%",
@@ -342,7 +349,7 @@ export function Accordion({ id }: { id: string }) {
                 <p>{item.content}</p>
               )}
               <button
-                onClick={() => toggleEdit(item.id)}
+                onClick={() => toggleEdit(item.itemId)}
                 style={{
                   padding: "6px 12px",
                   backgroundColor: "#f7f7f7",
@@ -353,12 +360,74 @@ export function Accordion({ id }: { id: string }) {
                   marginTop: "8px",
                 }}
               >
-                {isEditing === item.id ? "Save" : "Edit"}
+                {isEditing === item.itemId ? "Save" : "Edit"}
               </button>
             </div>
           )}
         </div>
       ))}
     </div>
+  );
+}
+
+export function Button({ id }: any) {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { renderElements, baseFunctions } = useContext(BasicEditorContext);
+  const element = renderElements?.find(
+    (element: any) => element.data.id === id
+  );
+
+  const lastClickTime = useRef<number>(0);
+
+  if (!element || !element.data.content) return null;
+
+  const { style, content } = element.data;
+  if (isEmpty(content)) {
+    baseFunctions?.setContent(id, { btnName: "Click me" });
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    baseFunctions?.setContent(id, { btnName: event.target.value });
+  };
+
+  const handleButtonClick = () => {
+    const currentTime = Date.now();
+    if (currentTime - lastClickTime.current < 300) {
+      alert(`Button clicked with text: ${content.btnName}`);
+    } else {
+      setIsEditing(true);
+    }
+    lastClickTime.current = currentTime;
+  };
+
+  return (
+    <button
+      onClick={handleButtonClick}
+      onDoubleClick={() => setIsEditing(false)}
+      style={style}
+      onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.98)")}
+      onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
+    >
+      {isEditing ? (
+        <input
+          type="text"
+          value={content.btnName}
+          onChange={handleChange}
+          onBlur={() => setIsEditing(false)}
+          autoFocus
+          style={{
+            border: "none",
+            outline: "none",
+            backgroundColor: "transparent",
+            color: "white",
+            fontSize: "16px",
+            width: "100%",
+            textAlign: "center",
+          }}
+        />
+      ) : (
+        content.btnName
+      )}
+    </button>
   );
 }
