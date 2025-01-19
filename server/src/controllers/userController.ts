@@ -71,10 +71,11 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
       createdAt: newUser.createdAt,
       role: newUser.role,
     };
+
     res.cookie("token", token, {
-      httpOnly: false,
-      secure: false,
-      sameSite: "none",
+      httpOnly: true, // מונע גישה ל-Cookie מצד ה-Client
+      secure: true, // שולח את ה-Cookie רק דרך HTTPS
+      sameSite: "none", // מאפשר שליחת ה-Cookie בבקשות Cross-Origin
     });
 
     res.status(201).json({
@@ -121,11 +122,11 @@ export const logIn = async (req: Request, res: Response): Promise<void> => {
       createdAt: user.createdAt,
       role: user.role,
     };
-
-    res.cookie("token", token, {
-      httpOnly: false,
-      secure: true,
-      sameSite: "strict",
+    res.cook;
+    ie("token", token, {
+      httpOnly: true, // מונע גישה ל-Cookie מצד ה-Client
+      secure: true, // שולח את ה-Cookie רק דרך HTTPS
+      sameSite: "none", // מאפשר שליחת ה-Cookie בבקשות Cross-Origin
     });
 
     res.status(200).json({ message: "Login successful", user: userResponse });
