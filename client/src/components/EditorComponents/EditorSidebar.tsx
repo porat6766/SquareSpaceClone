@@ -201,8 +201,8 @@ const EditorSidebar = ({ siteId }: any) => {
         ) : (
           // Show profile image or first letter of user's name when logged in
           <div
-            onClick={() => navigate("/accountdashboard")}
-            className="w-10 h-10 rounded-full bg-black text-white justify-center items-center flex p-2 cursor-pointer"
+            onClick={() => navigate("/accountdashboard/dashboard")}
+            className="w-12 h-12 rounded-full bg-black text-white justify-center items-center flex p-2 cursor-pointer"
           >
             {userData.user.profileImage ? (
               <img
