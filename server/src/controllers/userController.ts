@@ -122,8 +122,8 @@ export const logIn = async (req: Request, res: Response): Promise<void> => {
       createdAt: user.createdAt,
       role: user.role,
     };
-    res.cook;
-    ie("token", token, {
+
+    res.cookie("token", token, {
       httpOnly: true, // מונע גישה ל-Cookie מצד ה-Client
       secure: true, // שולח את ה-Cookie רק דרך HTTPS
       sameSite: "none", // מאפשר שליחת ה-Cookie בבקשות Cross-Origin
