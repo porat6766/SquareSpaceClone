@@ -137,13 +137,18 @@ BasicEditor3ProProps) {
   useEffect(() => {
     if (saveTrigger) {
       saveChangesToWebsite();
-      setSaveTrigger(false);
+      if (setSaveTrigger) {
+        setSaveTrigger(false);
+      }
       console.log(saveTrigger + "is saving");
     }
     console.log(saveTrigger + "is Not !!!!!");
   }, [saveTrigger]);
 
   useEffect(() => {
+    if (!currentWebsite) {
+      return;
+    }
     setPages(currentWebsite.pages);
     if (currentWebsite.pages[0]) {
       setCurrentPage(currentWebsite.pages[0].name);
@@ -152,6 +157,9 @@ BasicEditor3ProProps) {
   }, [currentWebsite]);
 
   useEffect(() => {
+    if (!headerData) {
+      return;
+    }
     currentWebsite.headerData = headerData;
   }, [headerData]);
 
