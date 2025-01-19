@@ -23,6 +23,7 @@ const AccountAndSecurity = () => {
           </button>
           <button
             onClick={() => {
+              toast.dismiss(t.id);
               deleteUserMutation.mutate(userData.user._id, {
                 onError: () => {
                   toast.dismiss(t.id);

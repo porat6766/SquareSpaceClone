@@ -37,5 +37,8 @@ export const useDeleteUserMutation = () => {
       });
       window.location.href = "/";
     },
+    onError: (error) => {
+      console.error("Failed to delete profile:", error);
+    },
   });
 };
