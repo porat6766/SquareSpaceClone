@@ -79,7 +79,6 @@ function Header3({
   };
   logo.imgSrc = data.logo.imgSrc || defaultLogo;
 
-
   const headerStyle: React.CSSProperties = {
     position: "relative",
     border: "3px solid gray",
@@ -111,7 +110,8 @@ function Header3({
     padding: "0.5rem 1rem 0.5rem 1rem",
     display: "flex",
     flexDirection: "column",
-    border: headerEditMode && isLogoHover ? '1px solid blue' : 'none'
+    border: headerEditMode && isLogoHover ? "1px solid blue" : "none",
+    textAlign: "center",
   };
 
   const navContainerStyle = {
@@ -206,7 +206,7 @@ function Header3({
 
   function handleLogoDivClick() {
     if (isLogoHover) {
-      setIsLogoEditMenu(prev => !prev);
+      setIsLogoEditMenu((prev) => !prev);
     }
   }
 
@@ -231,36 +231,41 @@ function Header3({
           onClick={handleLogoDivClick}
           onMouseEnter={() => setIsLogoHover(true)}
           onMouseLeave={() => setIsLogoHover(false)}
-          style={logoContainerStyle}>
-          <img src={logo.imgSrc} />
+          style={logoContainerStyle}
+        >
+          <img
+            style={{ maxWidth: "70px", maxHeight: "70px" }}
+            src={logo.imgSrc}
+            onError={() => {
+              logo.imgSrc = defaultLogo;
+            }}
+          />
           {logo.text}
         </div>
-        {isLogoEditMenu &&
-          <LogoEditorForm data={data} setData={setData}/>
-        }
+        {isLogoEditMenu && <LogoEditorForm data={data} setData={setData} />}
         <div>
           {/* {isHamburger && hamburger} */}
           {!isHamburger && (
             <div style={navContainerStyle}>
               {data.pages.length > 0
                 ? data.pages.map((name: any) => (
-                  <div
-                    key={name}
-                    style={navItemStyle}
-                    onClick={() => handleNavigateToPage(name)}
-                  >
-                    {name}
-                  </div>
-                ))
+                    <div
+                      key={name}
+                      style={navItemStyle}
+                      onClick={() => handleNavigateToPage(name)}
+                    >
+                      {name}
+                    </div>
+                  ))
                 : pages.map((page: any) => (
-                  <div
-                    key={page.name}
-                    style={navItemStyle}
-                    onClick={() => handleNavigateToPage(page.name)}
-                  >
-                    {page.name}
-                  </div>
-                ))}
+                    <div
+                      key={page.name}
+                      style={navItemStyle}
+                      onClick={() => handleNavigateToPage(page.name)}
+                    >
+                      {page.name}
+                    </div>
+                  ))}
               {data.hasExtraButton && (
                 <button style={navItemStyle}>Extra button</button>
               )}

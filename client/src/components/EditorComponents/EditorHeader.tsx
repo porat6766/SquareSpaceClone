@@ -18,6 +18,7 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
   isSidebarOpen,
   siteId,
   setSaveTrigger,
+  screenshotRef,
 }) => {
   const navigate = useNavigate();
   const editorHeaderHide =
@@ -29,7 +30,6 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
         location.pathname === `/editor-page/website/pages/${siteId}`
       ? "flex p-5 mt-2"
       : "hidden p-0 m-0";
-  // console.log(siteId);
 
   return (
     <div
@@ -44,7 +44,10 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
           {isSidebarOpen ? "Edit" : "Exit"}
         </span>
         <span
-          onClick={() => setSaveTrigger((prev: boolean) => !prev)}
+          onClick={() => {
+            screenshotRef.current?.captureScreenshot();
+            setSaveTrigger((prev: boolean) => !prev);
+          }}
           className="flex justify-center items-center font-bold bg-black text-white rounded-lg px-5 cursor-pointer"
         >
           Save
