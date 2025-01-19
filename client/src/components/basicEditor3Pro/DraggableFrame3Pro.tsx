@@ -74,25 +74,22 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     frameStyle.zIndex = frameZIndex;
   }
 
-  //I could keep the is background true, and run this use effect only once.
-  //then, in the draggable frame, I could check if the element is background and if it is
-  //fix it's left as 0.
   useEffect(() => {
-   if(renderElement.data.extraData?.isBackground){
-      setPosition({x:BACKGROUND_LEFT, y:renderElement.data.position.y});
-      baseFunctions?.setStyle(renderElement.data.id, {...renderElement.data.style, width:'100vw'});
-      // renderElement.data.extraData?.zIndex? = '0';
-      // renderElement.data.extraData.isBackground = false;  
-   } 
-  },[renderElement.data.extraData?.isBackground])
+    if (renderElement.data.extraData?.isBackground) {
+      setPosition({ x: BACKGROUND_LEFT, y: renderElement.data.position.y });
+      baseFunctions?.setStyle(renderElement.data.id, { ...renderElement.data.style, width: '100vw' });
+      if (!renderElement.data.extraData) renderElement.data.extraData = {};
+      renderElement.data.extraData.zIndex = '0';
+    }
+  }, [renderElement.data.extraData?.isBackground])
 
   useEffect(() => {
     setPosition(renderElement.data.position);
   }, [renderElement.data.position]);
 
-  useEffect(() => {
-    // console.log("border hover says:", borderHover);
-  }, [borderHover]);
+  // useEffect(() => {
+  //   // console.log("border hover says:", borderHover);
+  // }, [borderHover]);
 
   function detectBorderHoverWrapper(e: any) {
     if (!divRef.current) return;
@@ -141,9 +138,9 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
         };
 
         //change in testing, for the background element.
-        // if(renderElement.data.extraData?.isBackground){
-        //   newPosition.x = BACKGROUND_LEFT;
-        // }
+        if(renderElement.data.extraData?.isBackground){
+          newPosition.x = BACKGROUND_LEFT;
+        }
         setPosition(newPosition);
         baseFunctions?.setPosition(renderElement.data.id, newPosition);
       } else if (borderHover === "right") {
