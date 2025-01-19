@@ -35,6 +35,7 @@ export const useDeleteUserMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["userProfile"],
       });
+      window.location.href = "/";
     },
   });
 };
