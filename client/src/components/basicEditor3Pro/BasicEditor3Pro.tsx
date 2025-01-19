@@ -30,6 +30,7 @@ import Header3 from "./Header3";
 
 import { EditorLayoutContext } from "../../pages/EditorLayout";
 import { DialogAddElement } from "../EditorComponents/Element/DialogAddElements";
+import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index";
 //goal 0.
 // Update the data structure of BasicEditor3 to fit the new data structure:
 // Website {
@@ -278,9 +279,16 @@ function BasicEditor3Pro({
 
   function mapRenderElements(): ReactNode[] {
     return isRenderElements
-      ? renderElements.map((element) => (
-        <DraggableFrame3 key={element.data.id} renderElement={element} />
-      ))
+      ? renderElements.map((element) => {
+        // if(element.data.extraData?.isBackground){
+        //   // baseFunctions.setPosition(element.data.id, originOfCoordinates);
+        //   // baseFunctions.setStyle(element.data.id, {...element.data.style, width:'100vw'})
+        //   element.data.style = {...element.data.style, position:'absolute', left:'0', top:'0', zIndex:'0'}
+        //   return element.body;
+        // }
+        // else return <DraggableFrame3 key={element.data.id} renderElement={element} />
+        return <DraggableFrame3 key={element.data.id} renderElement={element} />
+      })
       : [];
   }
 
