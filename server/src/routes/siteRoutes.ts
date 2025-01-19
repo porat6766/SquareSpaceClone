@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/create", authenticateUser, createNewSite);
 router.get("/", getSites);
-router.get("/:id", authenticateUser, getSite);
+router.get("/:id", getSite);
 router.get("/user/sites", authenticateUser, getUserSites);
 router.put("/:id", authenticateUser, updateSiteById);
 router.delete("/:id", authenticateUser, deleteSiteById);
