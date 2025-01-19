@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Error() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [currentWords, setCurrentWords] = useState<string[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(currentWords);
@@ -24,17 +27,19 @@ function Error() {
 
     const translations = [
       "sorry",
-      "désolé",
-      "es tut mir leid",
+      "disculpa",
+      "E kala mai ia'u",
       "lo siento",
-      "mi dispiace",
+      "Entschuldigung",
       "perdón",
-      "neobkhodimo",
+      "désolé",
       "pardon",
-      "afwan",
+      "Duìbùqǐ",
       "sumimasen",
-      "opos",
-      "scusa",
+      "съжалявам",
+      "bagişla",
+      "םירעטצמ",
+      "החילס",
     ];
 
     const friction = 0.95;
@@ -79,12 +84,12 @@ function Error() {
         ctx.fillStyle = "rgba(169, 169, 169, 0.7)";
         ctx.fillText(this.char, this.x, this.y);
       }
-
       update(
         ctx: CanvasRenderingContext2D,
         mouse: Mouse,
         canvasWidth: number,
-        canvasHeight: number
+        canvasHeight: number,
+        letters: Letter[] // This is explicitly defined as an array of `Letter`
       ) {
         if (this.delay > 0) {
           this.delay -= 16; // Countdown for delay
@@ -103,9 +108,11 @@ function Error() {
         // Prevent letters from going off the screen horizontally
         if (this.x + this.size > canvasWidth) {
           this.x = canvasWidth - this.size;
+          this.vx *= -0.6; // Bounce off the edge
         }
         if (this.x < 0) {
           this.x = 0;
+          this.vx *= -0.6; // Bounce off the edge
         }
 
         // Prevent letters from going off the screen vertically
@@ -131,6 +138,36 @@ function Error() {
           this.vy -= Math.sin(angle) * force * 8;
         }
 
+        // Collision detection with other letters
+        for (const other of letters) {
+          if (this === other) continue; // Skip self
+
+          const dx = other.x - this.x;
+          const dy = other.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < this.size) {
+            // Collision detected
+            const angle = Math.atan2(dy, dx);
+            const overlap = (this.size - distance) / 2;
+
+            // Separate the letters slightly
+            this.x -= Math.cos(angle) * overlap;
+            this.y -= Math.sin(angle) * overlap;
+            other.x += Math.cos(angle) * overlap;
+            other.y += Math.sin(angle) * overlap;
+
+            // Bounce effect
+            const combinedVelocity = Math.sqrt(
+              this.vx * this.vx + this.vy * this.vy
+            );
+            this.vx -= Math.cos(angle) * combinedVelocity * 0.5;
+            this.vy -= Math.sin(angle) * combinedVelocity * 0.5;
+            other.vx += Math.cos(angle) * combinedVelocity * 0.5;
+            other.vy += Math.sin(angle) * combinedVelocity * 0.5;
+          }
+        }
+
         this.draw(ctx);
       }
     }
@@ -153,9 +190,12 @@ function Error() {
     const animate = () => {
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Pass the entire `letterObjects` array to each letter's `update` method
         letterObjects.forEach((letter) =>
-          letter.update(ctx, mouse, canvas.width, canvas.height)
+          letter.update(ctx, mouse, canvas.width, canvas.height, letterObjects)
         );
+
         requestAnimationFrame(animate);
       }
     };
@@ -197,19 +237,39 @@ function Error() {
     };
   }, []);
 
+  function handleAlert() {
+    alert("currently on the works");
+  }
+
   return (
     <div className="relative -mt-14 bg-black h-screen w-screen text-white flex flex-col justify-center">
       <div className="absolute z-10 items-start ml-20 -mt-40">
-        <h1 className=" text-3xl mb-20  font-bold">
+        <h1 className="text-3xl mb-20 font-bold">
           The page you were looking for couldn't be found.
         </h1>
         <p className="mb-8  font-bold">Maybe try learning about:</p>
         <div className="flex flex-col font-bold">
-          <span className="mb-4">Templates→</span>
-          <span className="mb-4"> Websites→</span>
-          <span className="mb-4"> Domains→</span>
-          <span className="mb-4"> Online Stores→</span>
-          <span className="mb-4">Marketing Tools→</span>
+          <span
+            className="mb-4 cursor-pointer"
+            onClick={() => navigate("/templates")}
+          >
+            Templates→
+          </span>
+          <span className="mb-4 cursor-pointer" onClick={() => navigate("/")}>
+            Websites→
+          </span>
+          <span
+            className="mb-4 cursor-pointer"
+            onClick={() => navigate("/accountdashboard/dashboard")}
+          >
+            Domains→
+          </span>
+          <span className="mb-4 cursor-pointer" onClick={handleAlert}>
+            Online Stores→
+          </span>
+          <span className="mb-4 cursor-pointer" onClick={handleAlert}>
+            Marketing Tools→
+          </span>
         </div>
       </div>
       <canvas ref={canvasRef} className="absolute top-0 left-0" />
