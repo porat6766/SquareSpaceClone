@@ -4,11 +4,12 @@ function CreateWeb() {
       <div className="p-10">
         <div>
           <video
-            className="video-base__video"
+            className="w-full h-auto object-cover shadow-md"
             loop
             playsInline
-            disablePictureInPicture
-            preload="auto" // Load video automatically
+            autoPlay
+            muted
+            preload="metadata"
             controls // You can also add controls to show the video controls
           >
             <source
@@ -16,43 +17,6 @@ function CreateWeb() {
               type="video/mp4"
             />
           </video>
-          {/* <picture>
-            <source
-              srcSet="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-100w.webp 100w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-300w.webp 300w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-500w.webp 500w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-750w.webp 750w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-1000w.webp 1000w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-1500w.webp 1500w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-2500w.webp 2500w"
-              type="image/webp"
-              sizes="50vw"
-              width="660"
-              height="660"
-            />
-            <source
-              srcSet="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-100w.jpg 100w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-300w.jpg 300w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-500w.jpg 500w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-750w.jpg 750w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-1000w.jpg 1000w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-1500w.jpg 1500w, 
-              https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-2500w.jpg 2500w"
-              type="image/jpeg"
-              sizes="50vw"
-              width="660"
-              height="660"
-            />
-            <img
-              className="video-base__poster video-base__poster--hide"
-              src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/intro/en/intro-500w.jpg"
-              alt="Video poster"
-              loading="lazy"
-              width="660"
-              height="660"
-              decoding="async"
-            />
-          </picture> */}
           <button
             className="video-base__control"
             aria-pressed="false"
