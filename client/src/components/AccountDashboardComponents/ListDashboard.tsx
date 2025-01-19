@@ -112,9 +112,13 @@ const ListDashboard: React.FC<ListDashboardProps> = ({
                 </div>
 
                 <h3 className="text-lg font-semibold">{site.name}</h3>
-                <p className="text-sm text-gray-600">
-                  {site.domain + "/" + site._id}
+                <p className="text-sm text-gray-600 flex truncate">
+                  {"https://squarespaceclone.onrender.com/userwebsite/" +
+                    site.domain +
+                    "/" +
+                    site._id}
                 </p>
+
                 <p className="text-sm text-gray-600">
                   Website trial expires on{" "}
                   {new Date(site.createdAt).toLocaleDateString("en-US", {
