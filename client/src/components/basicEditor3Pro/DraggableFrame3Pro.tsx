@@ -39,6 +39,8 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 
   const frameZIndex = renderElement.data.extraData ? renderElement.data.extraData.zIndex : false;
 
+  const BACKGROUND_LEFT = 0;
+
   const frameStyle: React.CSSProperties = {
     position: "absolute",
     left: position.x,
@@ -73,20 +75,21 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   }
 
   useEffect(() => {
-   if(renderElement.data.extraData?.isBackground){
-      setPosition({x:0, y:renderElement.data.position.y})
-      baseFunctions?.setStyle(renderElement.data.id, {...renderElement.data.style, width:'100vw'})
-      renderElement.data.extraData.isBackground = false;  
-   } 
-  })
+    if (renderElement.data.extraData?.isBackground) {
+      setPosition({ x: BACKGROUND_LEFT, y: renderElement.data.position.y });
+      baseFunctions?.setStyle(renderElement.data.id, { ...renderElement.data.style, width: '100vw' });
+      if (!renderElement.data.extraData) renderElement.data.extraData = {};
+      renderElement.data.extraData.zIndex = '0';
+    }
+  }, [renderElement.data.extraData?.isBackground])
 
   useEffect(() => {
     setPosition(renderElement.data.position);
   }, [renderElement.data.position]);
 
-  useEffect(() => {
-    // console.log("border hover says:", borderHover);
-  }, [borderHover]);
+  // useEffect(() => {
+  //   // console.log("border hover says:", borderHover);
+  // }, [borderHover]);
 
   function detectBorderHoverWrapper(e: any) {
     if (!divRef.current) return;
@@ -133,6 +136,11 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
           x: e.clientX - offsetX - (originOfCoordinates?.x ?? 0),
           y: e.clientY - offsetY - (originOfCoordinates?.y ?? 0),
         };
+
+        //change in testing, for the background element.
+        if(renderElement.data.extraData?.isBackground){
+          newPosition.x = BACKGROUND_LEFT;
+        }
         setPosition(newPosition);
         baseFunctions?.setPosition(renderElement.data.id, newPosition);
       } else if (borderHover === "right") {
