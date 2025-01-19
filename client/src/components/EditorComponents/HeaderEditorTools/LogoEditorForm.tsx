@@ -15,12 +15,12 @@ const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
   }
 
   function handleChangeLogoSrcInput(e: React.ChangeEvent<HTMLInputElement>) {
-    // if (e.target.value === "") return;
+    if (e.target.value === "") return;
     setData({ ...data, logo: { ...data.logo, imgSrc: e.target.value } });
   }
 
   return (
-    <div className="z-10 top-full bg-white rounded-lg shadow-lg border border-gray-300 flex flex-col min-w-[410px] font-serif">
+    <div className="absolute z-10 top-full bg-white rounded-lg shadow-lg border border-gray-300 flex flex-col min-w-[300px] font-serif">
       <header className="relative pl-4 min-h-[60px] flex gap-6 items-center border-b-1 border-solid border-black text-[19px] mb-6">
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300"></div>
         <button
@@ -44,7 +44,7 @@ const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
           Text
         </button>
       </header>
-      <div className="px-8 flex flex-col gap-4">
+      <div className="px-8 flex flex-col gap-4 mb-3">
         <div className="space-y-4">
           {activeTab === "Logo" ? (
             <div className="flex flex-col gap-2">
