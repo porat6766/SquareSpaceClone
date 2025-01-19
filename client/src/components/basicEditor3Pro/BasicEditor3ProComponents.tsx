@@ -251,17 +251,25 @@ export function Accordion({ id }: { id: string }) {
     setIsEditing(isEditing === itemId ? null : itemId);
   };
 
-  const updateTitle = (itemiId: any, newTitle: string) => {
-    const updatedItemIndex = content.items.findIndex((item) => item.id === itemiId);
+  const updateTitle = (itemId: any, newTitle: string) => {
+    const updatedItemIndex = content.items.findIndex(
+      (item: any) => item.itemId === itemId
+    );
     if (updatedItemIndex !== -1) {
-      content.items[updatedItemIndex].title = newTitle;
+      const updatedItems = [...content.items];
+      updatedItems[updatedItemIndex].title = newTitle;
+      baseFunctions?.setContent(id, { items: updatedItems });
     }
   };
 
-  const updateContent = (itemiId: any, newContent: string) => {
-    const updatedItemIndex = content.items.findIndex((item) => item.id === itemiId);
+  const updateContent = (itemId: any, newContent: string) => {
+    const updatedItemIndex = content.items.findIndex(
+      (item: any) => item.itemId === itemId
+    );
     if (updatedItemIndex !== -1) {
-      content.items[updatedItemIndex].content = newContent;
+      const updatedItems = [...content.items];
+      updatedItems[updatedItemIndex].content = newContent;
+      baseFunctions?.setContent(id, { items: updatedItems });
     }
   };
 
@@ -302,7 +310,7 @@ export function Accordion({ id }: { id: string }) {
 
   return (
     <div style={style}>
-      {content.items.map((item) => (
+      {content.items.map((item: any) => (
         <div key={item.itemId} style={{ ...accordionStyle, flexGrow: 1 }}>
           <button
             onClick={() => toggleItem(item.itemId)}
