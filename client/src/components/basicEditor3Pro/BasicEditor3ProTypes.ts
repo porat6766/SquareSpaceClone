@@ -26,7 +26,10 @@ export type DataObject3 = {
   position: Position;
   content: DataObject3Content;
   style: DataObject3Style;
-  extraData?:{zIndex?:string, [key:string]:any};
+  extraData?:{
+    zIndex?:string,
+    isBackground?:boolean,
+     [key:string]:any};
 };
 
 export type RenderElement3 = {

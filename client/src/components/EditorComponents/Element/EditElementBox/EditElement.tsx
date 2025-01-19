@@ -44,10 +44,16 @@ const EditElement = ({
     setIsOpen((prev) => !prev);
   }
 
-  function handleChangeZIndex(newValue:string){
-    if(!element) return;
-    if(!element.data.extraData) element.data.extraData = {};
-    element.data.extraData.zIndex = newValue;  
+  function handleChangeZIndex(newValue: string) {
+    if (!element) return;
+    if (!element.data.extraData) element.data.extraData = {};
+    element.data.extraData.zIndex = newValue;
+  }
+
+  function toggleIsBackground() {
+    if (!element) return;
+    if (!element.data.extraData) element.data.extraData = {};
+    element.data.extraData.isBackground = !element.data.extraData.isBackground;
   }
 
   return (
@@ -111,6 +117,12 @@ const EditElement = ({
           <option value={'50'}>50</option>
         </select>
       </button>
+      <button
+        onClick={toggleIsBackground}
+        className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"
+        data-action="cross"
+        title="Cross"
+      >toggle background</button>
 
       <button
         className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"

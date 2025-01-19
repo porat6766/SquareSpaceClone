@@ -1,6 +1,6 @@
 import { useEffect, useRef, useContext, useState } from "react";
 
-import { type RenderElement3 } from "./BasicEditor3ProTypes";
+import { BaseFunctions, BasicEditorContextType, type RenderElement3 } from "./BasicEditor3ProTypes";
 import { Position } from "./BasicEditor3ProTypes";
 import BlockEditor3 from "./BlockEditor3Pro";
 import { BasicEditorContext } from "./BasicEditor3Pro";
@@ -31,8 +31,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   const [borderHover, setBorderHover] = useState<string>("none");
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const { baseFunctions, originOfCoordinates, isEditMode }: any =
-    useContext(BasicEditorContext);
+  const { baseFunctions, originOfCoordinates, isEditMode }: BasicEditorContextType = useContext(BasicEditorContext);
   const divRef = useRef<HTMLDivElement>(null);
   const borderWidth = 5;
 
@@ -55,7 +54,21 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     backgroundColor: "none",
   };
 
-  if(frameZIndex){
+  // useEffect(() => {
+  //   if (renderElement.data.extraData?.isBackground) {
+  //     const id = renderElement.data.id;
+  //     if (originOfCoordinates) {
+  //       // frameStyle.left = originOfCoordinates.x;
+  //       // frameStyle.top = originOfCoordinates.y;
+  //       baseFunctions?.setPosition(id, originOfCoordinates)
+  //     }
+  //     frameStyle.width = '100%';
+  //     frameStyle.height = '100%';
+  //     baseFunctions?.setStyle(id, { ...renderElement.data.style, width: '100%' })
+  //   }
+  // },[renderElement.data.extraData?.isBackground]);
+
+  if (frameZIndex) {
     frameStyle.zIndex = frameZIndex;
   }
 

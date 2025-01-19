@@ -111,7 +111,8 @@ function Header3({
     padding: "0.5rem 1rem 0.5rem 1rem",
     display: "flex",
     flexDirection: "column",
-    border: headerEditMode && isLogoHover ? '1px solid blue' : 'none'
+    border: headerEditMode && isLogoHover ? '1px solid blue' : 'none',
+    textAlign:'center'
   };
 
   const navContainerStyle = {
@@ -232,7 +233,11 @@ function Header3({
           onMouseEnter={() => setIsLogoHover(true)}
           onMouseLeave={() => setIsLogoHover(false)}
           style={logoContainerStyle}>
-          <img src={logo.imgSrc} />
+          <img 
+          style={{maxWidth:'70px', maxHeight:'70px'}}
+          src={logo.imgSrc} 
+          onError={() => {logo.imgSrc = defaultLogo}}          
+          />
           {logo.text}
         </div>
         {isLogoEditMenu &&
