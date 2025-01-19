@@ -19,10 +19,12 @@ import {
   RenderElement3,
   RenderElementNames,
   BasicEditorContextType,
+  BasicEditor3Page,
   BasicEditor3Website,
 } from "./BasicEditor3ProTypes";
 
 import DraggableFrame3 from "./DraggableFrame3Pro";
+
 import { hydrateRenderElement } from "./utils";
 import Header3 from "./Header3";
 
@@ -78,14 +80,14 @@ import { DialogAddElement } from "../EditorComponents/Element/DialogAddElements"
 // Save a few full websites and integrage with the back for saving and retrieving them.
 //task
 //create editor mode. the components should not be editable/moveable when not in editor mode
+
 export type BasicEditor3ProProps = {
-  // websites: BasicEditor3Website[]
   currentWebsite?: BasicEditor3Website;
-  saveCurrentWebsite?: (data: any) => void;
+  saveCurrentWebsite?: (newWebsite?: any) => void;
   isEditModeProp?: boolean;
   saveTrigger?: boolean;
   setSaveTrigger?: Dispatch<SetStateAction<boolean>>;
-  // setCurrentWebsite:Dispatch<SetStateAction<string>>
+  // pageNameFromLayout?: string
 };
 
 export const BasicEditorContext = createContext<BasicEditorContextType>({});
@@ -105,11 +107,13 @@ BasicEditor3ProProps) {
     y: 0,
   });
 
-  const [headerData, setHeaderData] = useState(currentWebsite?.headerData);
-  const [pages, setPages] = useState(currentWebsite?.pages);
-  const [currentPage, setCurrentPage] = useState<string>(
-    pages ? pages[0]?.name : ""
+  const [headerData, setHeaderData] = useState(
+    currentWebsite?.headerData || {}
   );
+  const [pages, setPages] = useState<BasicEditor3Page[]>(
+    currentWebsite?.pages || []
+  );
+  const [currentPage, setCurrentPage] = useState<string>(pages[0]?.name);
   const [renderElements, setRenderElements] = useState<RenderElement3[]>([]);
 
   const [addBlockMenuVisible, setAddBlockMenuVisible] =
@@ -117,8 +121,9 @@ BasicEditor3ProProps) {
 
   const { pageNameFromLayout } = useContext(EditorLayoutContext) || {};
 
-  const isPages = !(pages?.length === 0);
+  const isPages = !(pages.length === 0);
   const isRenderElements = !(renderElements.length === 0);
+  // const isPagesFetched = useRef(false);
   const editorRef = useRef<HTMLDivElement>(null);
   const TOLERANCE = 1;
 
@@ -132,40 +137,34 @@ BasicEditor3ProProps) {
   useEffect(() => {
     if (saveTrigger) {
       saveChangesToWebsite();
-      if (setSaveTrigger) {
-        setSaveTrigger(false);
-      }
+      setSaveTrigger(false);
       console.log(saveTrigger + "is saving");
     }
     console.log(saveTrigger + "is Not !!!!!");
   }, [saveTrigger]);
 
   useEffect(() => {
-    setPages(currentWebsite?.pages);
-    if (currentWebsite?.pages[0]) {
+    setPages(currentWebsite.pages);
+    if (currentWebsite.pages[0]) {
       setCurrentPage(currentWebsite.pages[0].name);
     }
-    setHeaderData(currentWebsite?.headerData);
+    setHeaderData(currentWebsite.headerData);
   }, [currentWebsite]);
 
   useEffect(() => {
-    if (headerData && currentWebsite) {
-      currentWebsite.headerData = headerData;
-    }
-  }, [headerData, currentWebsite]);
+    currentWebsite.headerData = headerData;
+  }, [headerData]);
 
   useEffect(() => {
+    //displays the current page
     displayPage(currentPage);
-
-    if (currentWebsite && pages) {
-      currentWebsite.pages = pages;
-    }
-  }, [currentPage, pages, currentWebsite]);
+    currentWebsite.pages = pages;
+  }, [currentPage, pages]);
 
   useEffect(() => {
     if (
       pageNameFromLayout &&
-      pages?.find((page) => page.name === pageNameFromLayout)
+      pages.find((page) => page.name === pageNameFromLayout)
     ) {
       setCurrentPage(pageNameFromLayout);
     } else if (pageNameFromLayout) {
@@ -213,6 +212,7 @@ BasicEditor3ProProps) {
         )
       );
     },
+
     saveChanges: () => {
       if (saveCurrentWebsite) {
         saveCurrentWebsite(currentWebsite);
@@ -238,7 +238,7 @@ BasicEditor3ProProps) {
 
   function addRenderElement(
     renderElementName: RenderElementNames,
-    position: Position = { x: 0, y: 0 },
+    position: Position = { x: 225, y: 225 },
     content: DataObject3Content = {},
     style: DataObject3Style = {}
   ) {
@@ -284,14 +284,12 @@ BasicEditor3ProProps) {
     const newPage = { name: pageName, renderElements };
     if (pageElements) newPage.renderElements = pageElements;
     if (isPages) {
-      const pageIndex = pages?.findIndex((page) => page.name === pageName);
+      const pageIndex = pages.findIndex((page) => page.name === pageName);
       if (pageIndex === -1) {
-        setPages((prev: any) => [...prev, newPage]);
+        setPages((prev) => [...prev, newPage]);
       } else {
-        if (pageIndex !== undefined && pages) {
-          const newPages = [...pages];
-          newPages[pageIndex].renderElements = renderElements;
-        }
+        const newPages = [...pages];
+        newPages[pageIndex].renderElements = renderElements;
         // setPages(newPages);
       }
     } else {
@@ -307,12 +305,23 @@ BasicEditor3ProProps) {
 
   function displayPage(pageName: string) {
     console.log("Attempting to display page:", pageName);
-    const displayPageElements = pages?.find(
+    const displayPageElements = pages.find(
       (page) => page.name === pageName
     )?.renderElements;
     if (displayPageElements) {
       setRenderElements(displayPageElements);
     }
+  }
+
+  function closeMenuAndRemoveListener() {
+    setAddBlockMenuVisible(false);
+    window.removeEventListener("click", closeMenuAndRemoveListener);
+  }
+
+  function handleAddMenuClick(e: any) {
+    e.stopPropagation();
+    setAddBlockMenuVisible(true);
+    window.addEventListener("click", closeMenuAndRemoveListener);
   }
 
   return (
@@ -326,78 +335,6 @@ BasicEditor3ProProps) {
       }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
-        {isEditMode && (
-          <div>
-            <button
-              onClick={saveChangesToWebsite}
-              style={{ border: "1px solid gray" }}
-            >
-              save changes from Basic editor
-            </button>
-            {!addBlockMenuVisible ? (
-              <button
-                onClick={() => setAddBlockMenuVisible(true)}
-                className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
-              >
-                <Plus size={26} />
-                <span className="font-medium">Add Block</span>
-              </button>
-            ) : (
-              <DialogAddElement />
-            )}
-            <div>
-              <button
-                onClick={() => addRenderElement(RenderElementNames.Text_Block3)}
-              >
-                +TextBlock3
-              </button>
-              <button
-                onClick={() =>
-                  addRenderElement(RenderElementNames.red_rectangle3)
-                }
-              >
-                +RedRectangle3
-              </button>
-              <button
-                onClick={() =>
-                  addRenderElement(RenderElementNames.red_text_rectangle3)
-                }
-              >
-                +RedTextRectangle3
-              </button>
-              <button
-                onClick={() =>
-                  addRenderElement(RenderElementNames.color_rectangle3)
-                }
-              >
-                +ColorRectangle3
-              </button>
-              <button
-                onClick={() => addRenderElement(RenderElementNames.text_box3)}
-              >
-                +TextBox3
-              </button>
-              <button>
-                <span
-                  onClick={() =>
-                    addRenderElement(RenderElementNames.ImgContainer)
-                  }
-                >
-                  +ImgContainer
-                </span>
-              </button>
-              <button>
-                <span
-                  onClick={() =>
-                    addRenderElement(RenderElementNames.VideoContainer)
-                  }
-                >
-                  +VideoContainer
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
         <Header3
           pages={pages}
           currentPage={currentPage}
@@ -407,6 +344,17 @@ BasicEditor3ProProps) {
           data={headerData}
           setData={setHeaderData}
         />
+        {!addBlockMenuVisible ? (
+          <button
+            onClick={(e) => handleAddMenuClick(e)}
+            className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
+          >
+            <Plus size={26} />
+            <span className="font-medium">Add Block</span>
+          </button>
+        ) : (
+          <DialogAddElement addRenderElement={addRenderElement} />
+        )}
         <div>{mapRenderElements()}</div>
       </div>
     </BasicEditorContext.Provider>
