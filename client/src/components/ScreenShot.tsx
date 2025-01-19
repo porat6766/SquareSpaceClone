@@ -11,7 +11,7 @@ const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
 
   // Function to capture the screenshot
   const captureScreenshot = () => {
-    const elementToCapture = document.body; // Capture the entire page (you can adjust this).
+    const elementToCapture = document.documentElement;
 
     // Wait for all images to load
     const images = Array.from(document.images);
