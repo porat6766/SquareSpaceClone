@@ -70,17 +70,21 @@ function Header3({
   const [isLogoHover, setIsLogoHover] = useState<boolean>(false);
   const [isLogoEditMenu, setIsLogoEditMenu] = useState<boolean>(false);
 
-  const [isHamburger, setIsHamburger] = useState(false);
-  console.log(setIsHamburger);
-
   const logo = data.logo || {
     text: "LOGO",
     imgSrc: defaultLogo,
   };
   logo.imgSrc = data.logo.imgSrc || defaultLogo;
 
+  const headerWrapperStyle:React.CSSProperties = {
+    position:'absolute',
+    zIndex:'100',
+    width:'100%'
+  }
+
   const headerStyle: React.CSSProperties = {
     position: "relative",
+    zIndex: "100",
     border: "3px solid gray",
     display: "flex",
     justifyContent: "space-between",
@@ -94,7 +98,7 @@ function Header3({
     width: "100%",
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    zIndex: "1",
+    zIndex: "10",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -211,7 +215,7 @@ function Header3({
   }
 
   return (
-    <>
+    <div style={headerWrapperStyle}>
       <div
         onMouseEnter={handleHeaderMouseEnter}
         onMouseLeave={handleHeaderMouseLeave}
@@ -242,39 +246,36 @@ function Header3({
           />
           {logo.text}
         </div>
-        {isLogoEditMenu && <LogoEditorForm data={data} setData={setData} />}
+        {isLogoEditMenu && isEditMode &&<LogoEditorForm data={data} setData={setData} />}
         <div>
-          {/* {isHamburger && hamburger} */}
-          {!isHamburger && (
-            <div style={navContainerStyle}>
-              {data.pages.length > 0
-                ? data.pages.map((name: any) => (
-                    <div
-                      key={name}
-                      style={navItemStyle}
-                      onClick={() => handleNavigateToPage(name)}
-                    >
-                      {name}
-                    </div>
-                  ))
-                : pages.map((page: any) => (
-                    <div
-                      key={page.name}
-                      style={navItemStyle}
-                      onClick={() => handleNavigateToPage(page.name)}
-                    >
-                      {page.name}
-                    </div>
-                  ))}
-              {data.hasExtraButton && (
-                <button style={navItemStyle}>Extra button</button>
-              )}
-              {data.hasSocialLinks && (
-                <div style={navItemStyle}>SOCIAL LINKS...</div>
-              )}
-              {data.hasAccount && <div style={navItemStyle}>Login</div>}
-            </div>
-          )}
+          <div style={navContainerStyle}>
+            {data.pages.length > 0
+              ? data.pages.map((name: any) => (
+                <div
+                  key={name}
+                  style={navItemStyle}
+                  onClick={() => handleNavigateToPage(name)}
+                >
+                  {name}
+                </div>
+              ))
+              : pages.map((page: any) => (
+                <div
+                  key={page.name}
+                  style={navItemStyle}
+                  onClick={() => handleNavigateToPage(page.name)}
+                >
+                  {page.name}
+                </div>
+              ))}
+            {data.hasExtraButton && (
+              <button style={navItemStyle}>Extra button</button>
+            )}
+            {data.hasSocialLinks && (
+              <div style={navItemStyle}>SOCIAL LINKS...</div>
+            )}
+            {data.hasAccount && <div style={navItemStyle}>Login</div>}
+          </div>
         </div>
       </div>
       {headerEditMode && headerEditButtonsVisible && (
@@ -307,7 +308,7 @@ function Header3({
           <DialogEditHeader />
         )}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -139,9 +139,7 @@ function BasicEditor3Pro({
       if (setSaveTrigger) {
         setSaveTrigger(false);
       }
-      console.log(saveTrigger + "is saving");
     }
-    console.log(saveTrigger + "is Not !!!!!");
   }, [saveTrigger]);
 
   useEffect(() => {
@@ -239,7 +237,6 @@ function BasicEditor3Pro({
       Math.abs(newPosition.y - originOfCoordinates.y) > TOLERANCE;
     if (updateRule2) {
       setOriginOfCoordinates(newPosition);
-      // console.log("new OoC:", newPosition);
     }
     setTimeout(updateOOC, 300);
   }
@@ -319,7 +316,6 @@ function BasicEditor3Pro({
   }
 
   function displayPage(pageName: string) {
-    console.log("Attempting to display page:", pageName);
     const displayPageElements = pages.find(
       (page) => page.name === pageName
     )?.renderElements;
@@ -359,19 +355,23 @@ function BasicEditor3Pro({
           data={headerData}
           setData={setHeaderData}
         />
-        {isEditMode && <>
+        {isEditMode && <div style={{position:'relative', top:'100px'}}>
           {!addBlockMenuVisible ? (
-            <button
-              onClick={(e) => handleAddMenuClick(e)}
-              className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
-            >
-              <Plus size={26} />
-              <span className="font-medium">Add Block</span>
-            </button>
+            <div style={{ position:'absolute', zIndex: '100' }}>
+              <button
+                onClick={(e) => handleAddMenuClick(e)}
+                className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
+              >
+                <Plus size={26} />
+                <span className="font-medium">Add Block</span>
+              </button>
+            </div>
           ) : (
-            <DialogAddElement addRenderElement={addRenderElement} />
+            <div style={{ zIndex: '100' }}>
+              <DialogAddElement addRenderElement={addRenderElement} />
+            </div>
           )}
-        </>
+        </div>
         }
         <div>{mapRenderElements()}</div>
       </div>
