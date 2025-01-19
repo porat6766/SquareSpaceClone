@@ -26,7 +26,7 @@ export type DataObject3 = {
   position: Position;
   content: DataObject3Content;
   style: DataObject3Style;
-  extraData?:{zIndex?:string, [key:string]:any};
+  extraData?: { zIndex?: string; [key: string]: any };
 };
 
 export type RenderElement3 = {
@@ -72,6 +72,7 @@ export enum RenderElementNames {
   ImgContainer = "ImgContainer",
   VideoContainer = "VideoContainer",
   Text_Block3 = "Text_Block3",
+  Accordion = "Accordion",
 }
 
 export type BasicEditorContextType = {
