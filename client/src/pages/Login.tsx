@@ -41,7 +41,7 @@ const Login = () => {
     mutationFn: loginService,
     onSuccess: (data) => {
       console.log("Login successful:", data);
-      window.location.href = "/";
+      // window.location.href = "/";
     },
     onError: (error) => {
       console.error("Login failed:", error);
