@@ -47,7 +47,7 @@ const ListDashboard: React.FC<ListDashboardProps> = ({
   };
 
   const handleMoveDisplayWeb = (id: string, domain: string) => {
-    navigate(`/userwebsite/${domain}/${id}`);
+    window.location.href = `${domain}/${id}`;
   };
 
   const handleMoveEditWeb = (id: string) => {
