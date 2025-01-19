@@ -38,7 +38,7 @@ function Promote() {
         </div>
         <div className="flex flex-col w-1/2 items-end mr-6">
           <img
-            src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/market-your-business/en/market-your-business-1-500w.jpg"
+            src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/market-your-business/en/market-your-business-1-1000w.jpg"
             alt="An email displaying purple jello cake on a glass structure, illustrating email automation."
             loading="lazy"
             width="555"
