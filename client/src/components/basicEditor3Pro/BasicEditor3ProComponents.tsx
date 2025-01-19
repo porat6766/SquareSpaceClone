@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BasicEditorContext } from "./BasicEditor3Pro";
 import { isEmpty } from "./utils";
 import { handleOpenWidget } from "./Cloudinary"; //
@@ -367,5 +367,67 @@ export function Accordion({ id }: { id: string }) {
         </div>
       ))}
     </div>
+  );
+}
+
+export function Button({ id }: any) {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { renderElements, baseFunctions } = useContext(BasicEditorContext);
+  const element = renderElements?.find(
+    (element: any) => element.data.id === id
+  );
+
+  const lastClickTime = useRef<number>(0);
+
+  if (!element || !element.data.content) return null;
+
+  const { style, content } = element.data;
+  if (isEmpty(content)) {
+    baseFunctions?.setContent(id, { btnName: "Click me" });
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    baseFunctions?.setContent(id, { btnName: event.target.value });
+  };
+
+  const handleButtonClick = () => {
+    const currentTime = Date.now();
+    if (currentTime - lastClickTime.current < 300) {
+      alert(`Button clicked with text: ${content.btnName}`);
+    } else {
+      setIsEditing(true);
+    }
+    lastClickTime.current = currentTime;
+  };
+
+  return (
+    <button
+      onClick={handleButtonClick}
+      onDoubleClick={() => setIsEditing(false)}
+      style={style}
+      onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.98)")}
+      onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
+    >
+      {isEditing ? (
+        <input
+          type="text"
+          value={content.btnName}
+          onChange={handleChange}
+          onBlur={() => setIsEditing(false)}
+          autoFocus
+          style={{
+            border: "none",
+            outline: "none",
+            backgroundColor: "transparent",
+            color: "white",
+            fontSize: "16px",
+            width: "100%",
+            textAlign: "center",
+          }}
+        />
+      ) : (
+        content.btnName
+      )}
+    </button>
   );
 }
