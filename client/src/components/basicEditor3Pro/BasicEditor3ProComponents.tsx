@@ -119,8 +119,8 @@ export function ImgContainer({ id }: { id: string }) {
   return (
     <div>
       {!content.src ? (
-        <button style={finalStyle} onClick={() => handleAddImage()}>
-          +
+        <button style={finalStyle}>
+          <span onClick={() => handleAddImage()}>+</span>
         </button>
       ) : (
         <img src={content.src} alt={content.alt} style={finalStyle} />
@@ -153,8 +153,8 @@ export function VideoContainer({ id }: { id: string }) {
   return (
     <div>
       {!content.src && (
-        <button onClick={() => handleAddVideo()} style={finalStyle}>
-          +
+        <button style={finalStyle}>
+          <span onClick={() => handleAddVideo()}>+</span>
         </button>
       )}
       {content.src && (

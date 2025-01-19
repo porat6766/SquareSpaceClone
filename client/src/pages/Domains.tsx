@@ -43,7 +43,7 @@ const Domains = () => {
                     </div>
                     <Button
                       onClick={() =>
-                        (window.location.href = `${site.domain}/${site._id}`)
+                        window.open(`${site.domain}/${site._id}`, "_blank")
                       }
                       className="bg-black text-white hover:bg-gray-800 rounded-lg px-4 py-2"
                     >
