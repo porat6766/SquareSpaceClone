@@ -379,7 +379,8 @@ export function Accordion({ id }: { id: string }) {
 
 export function Button({ id }: any) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const { renderElements, baseFunctions } = useContext(BasicEditorContext);
+  const { renderElements, baseFunctions, isEditMode } =
+    useContext(BasicEditorContext);
   const element = renderElements?.find(
     (element: any) => element.data.id === id
   );
@@ -401,7 +402,7 @@ export function Button({ id }: any) {
     const currentTime = Date.now();
     if (currentTime - lastClickTime.current < 300) {
       alert(`Button clicked with text: ${content.btnName}`);
-    } else {
+    } else if (isEditMode) {
       setIsEditing(true);
     }
     lastClickTime.current = currentTime;
@@ -415,7 +416,7 @@ export function Button({ id }: any) {
       onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.98)")}
       onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
     >
-      {isEditing ? (
+      {isEditing && isEditMode ? (
         <input
           type="text"
           value={content.btnName}
