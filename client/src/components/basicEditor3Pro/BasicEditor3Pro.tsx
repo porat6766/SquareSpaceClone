@@ -240,7 +240,7 @@ function BasicEditor3Pro({
     }
     setTimeout(updateOOC, 300);
   }
-//
+
   function addRenderElement(
     renderElementName: RenderElementNames,
     position: Position = { x: 225, y: 225 },
@@ -355,7 +355,7 @@ function BasicEditor3Pro({
           data={headerData}
           setData={setHeaderData}
         />
-        {isEditMode && <div style={{position:'relative', top:'100px'}}>
+        {isEditMode && <div style={{position:'relative', top:'200px'}}>
           {!addBlockMenuVisible ? (
             <div style={{ position:'absolute', zIndex: '100' }}>
               <button

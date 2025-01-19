@@ -39,6 +39,11 @@ function PagesSidebar() {
     setTimeout(() => setSaveTrigger(true), 1);
   }
 
+  function handlePageClick(pageName:string){
+    setPageNameFromLayout(pageName);
+    setTimeout(() => setSaveTrigger(true), 1);
+  }
+
   // Function to render the correct sidebar based on `activeSidebar`
   const renderSidebar = () => {
     switch (activeSidebar) {
@@ -113,7 +118,7 @@ function PagesSidebar() {
                     key={page.name}
                     className="flex justify-between items-center p-2 rounded-md"
                   >
-                    <button onClick={() => setPageNameFromLayout(page.name)}>
+                    <button onClick={() => handlePageClick(page.name)}>
                       {page.name}
                     </button>
                     <button
