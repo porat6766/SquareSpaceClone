@@ -39,6 +39,8 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 
   const frameZIndex = renderElement.data.extraData ? renderElement.data.extraData.zIndex : false;
 
+  const BACKGROUND_LEFT = 0;
+
   const frameStyle: React.CSSProperties = {
     position: "absolute",
     left: position.x,
@@ -72,13 +74,17 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     frameStyle.zIndex = frameZIndex;
   }
 
+  //I could keep the is background true, and run this use effect only once.
+  //then, in the draggable frame, I could check if the element is background and if it is
+  //fix it's left as 0.
   useEffect(() => {
    if(renderElement.data.extraData?.isBackground){
-      setPosition({x:0, y:renderElement.data.position.y})
-      baseFunctions?.setStyle(renderElement.data.id, {...renderElement.data.style, width:'100vw'})
-      renderElement.data.extraData.isBackground = false;  
+      setPosition({x:BACKGROUND_LEFT, y:renderElement.data.position.y});
+      baseFunctions?.setStyle(renderElement.data.id, {...renderElement.data.style, width:'100vw'});
+      // renderElement.data.extraData?.zIndex? = '0';
+      // renderElement.data.extraData.isBackground = false;  
    } 
-  })
+  },[renderElement.data.extraData?.isBackground])
 
   useEffect(() => {
     setPosition(renderElement.data.position);
@@ -133,6 +139,11 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
           x: e.clientX - offsetX - (originOfCoordinates?.x ?? 0),
           y: e.clientY - offsetY - (originOfCoordinates?.y ?? 0),
         };
+
+        //change in testing, for the background element.
+        // if(renderElement.data.extraData?.isBackground){
+        //   newPosition.x = BACKGROUND_LEFT;
+        // }
         setPosition(newPosition);
         baseFunctions?.setPosition(renderElement.data.id, newPosition);
       } else if (borderHover === "right") {
