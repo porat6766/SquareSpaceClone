@@ -39,6 +39,7 @@ const labelToRenderElementName: { [key: string]: RenderElementNames } = {
   Video: RenderElementNames.VideoContainer,
   Accordion: RenderElementNames.Accordion,
   Button: RenderElementNames.Button,
+  Form: RenderElementNames.Form,
 };
 
 export type DialogAddElementProps = {

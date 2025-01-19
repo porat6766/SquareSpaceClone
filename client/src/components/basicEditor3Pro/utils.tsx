@@ -19,6 +19,7 @@ import {
   TextBlock3,
   Accordion,
   Button,
+  Form,
 } from "./BasicEditor3ProComponents";
 
 export function isEmpty(obj: any) {
@@ -72,6 +73,12 @@ export function hydrateRenderElement(
     body = <Button id={id} />;
     if (isEmpty(style)) {
       style = styles.default_Button_Style;
+    }
+  }
+  if (renderElementName === RenderElementNames.Form) {
+    body = <Form id={id} />;
+    if (isEmpty(style)) {
+      style = styles.default_Form_Style;
     }
   }
   if (renderElementName === RenderElementNames.Text_Block3) {

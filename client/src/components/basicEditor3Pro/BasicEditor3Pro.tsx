@@ -30,7 +30,7 @@ import Header3 from "./Header3";
 
 import { EditorLayoutContext } from "../../pages/EditorLayout";
 import { DialogAddElement } from "../EditorComponents/Element/DialogAddElements";
-import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index";
+// import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index";
 //goal 0.
 // Update the data structure of BasicEditor3 to fit the new data structure:
 // Website {

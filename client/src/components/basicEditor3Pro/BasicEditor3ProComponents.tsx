@@ -210,9 +210,8 @@ export function TextBlock3({ id }: { id: string }) {
 
 export function Accordion({ id }: { id: string }) {
   const [openItem, setOpenItem] = useState<number | null>(null);
-  // const [items, setItems] = useState();
-
-  const { renderElements, baseFunctions } = useContext(BasicEditorContext);
+  const { renderElements, baseFunctions, isEditMode } =
+    useContext(BasicEditorContext);
   const [isEditing, setIsEditing] = useState<number | null>(null);
   const element = renderElements?.find(
     (element: any) => element.data.id === id
@@ -290,7 +289,7 @@ export function Accordion({ id }: { id: string }) {
     textAlign: "left",
     display: "flex",
     justifyContent: "space-between",
-    cursor: "pointer",
+    cursor: isEditMode ? "pointer" : "not-allowed",
     border: "none",
     borderBottom: "1px solid #ccc",
     borderRadius: "8px 8px 0 0",
@@ -313,21 +312,25 @@ export function Accordion({ id }: { id: string }) {
       {content.items.map((item: any) => (
         <div key={item.itemId} style={{ ...accordionStyle, flexGrow: 1 }}>
           <button
-            onClick={() => toggleItem(item.itemId)}
+            onClick={() => isEditMode && toggleItem(item.itemId)}
             style={buttonStyle}
             onMouseEnter={(e: any) => (e.target.style.background = "#e0e0e0")}
             onMouseLeave={(e: any) => (e.target.style.background = "#f7f7f7")}
+            disabled={!isEditMode} // Disable if not in edit mode
           >
             <input
               type="text"
               value={item.title}
-              onChange={(e) => updateTitle(item.itemId, e.target.value)}
+              onChange={(e) =>
+                isEditMode && updateTitle(item.itemId, e.target.value)
+              }
               style={{
                 border: "none",
                 background: "transparent",
                 fontWeight: "bold",
                 width: "80%",
               }}
+              disabled={!isEditMode} // Disable if not in edit mode
             />
             <span>{openItem === item.itemId ? "-" : "+"}</span>
           </button>
@@ -336,7 +339,9 @@ export function Accordion({ id }: { id: string }) {
               {isEditing === item.itemId ? (
                 <textarea
                   value={item.content}
-                  onChange={(e) => updateContent(item.itemId, e.target.value)}
+                  onChange={(e) =>
+                    isEditMode && updateContent(item.itemId, e.target.value)
+                  }
                   rows={4}
                   style={{
                     width: "100%",
@@ -344,21 +349,23 @@ export function Accordion({ id }: { id: string }) {
                     color: "#555",
                     borderRadius: "8px",
                   }}
+                  disabled={!isEditMode} // Disable if not in edit mode
                 />
               ) : (
                 <p>{item.content}</p>
               )}
               <button
-                onClick={() => toggleEdit(item.itemId)}
+                onClick={() => isEditMode && toggleEdit(item.itemId)}
                 style={{
                   padding: "6px 12px",
                   backgroundColor: "#f7f7f7",
                   borderRadius: "5px",
                   border: "none",
-                  cursor: "pointer",
+                  cursor: isEditMode ? "pointer" : "not-allowed",
                   fontWeight: "bold",
                   marginTop: "8px",
                 }}
+                disabled={!isEditMode} // Disable if not in edit mode
               >
                 {isEditing === item.itemId ? "Save" : "Edit"}
               </button>
@@ -429,5 +436,132 @@ export function Button({ id }: any) {
         content.btnName
       )}
     </button>
+  );
+}
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export function Form({ id }: { id: string }) {
+  const { renderElements, baseFunctions } = useContext(BasicEditorContext);
+  const element = renderElements?.find(
+    (element: any) => element.data.id === id
+  );
+
+  if (!element || !element.data.content) return null;
+
+  const { style, content } = element.data;
+
+  useEffect(() => {
+    if (!content.firstName && !content.lastName && !content.email) {
+      baseFunctions?.setContent(id, {
+        firstName: "Your first name...",
+        lastName: "Your last name...",
+        email: "Your Email...",
+      });
+    }
+  }, [content, id, baseFunctions]);
+
+  const [formData, setFormData] = useState<FormData>({
+    firstName: content.firstName,
+    lastName: content.lastName,
+    email: content.email,
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    baseFunctions?.setContent(id, {
+      ...content,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const validationErrors: { [key: string]: string } = {};
+    if (!formData.firstName)
+      validationErrors.firstName = "First name is required";
+    if (!formData.lastName) validationErrors.lastName = "Last name is required";
+    if (!formData.email) validationErrors.email = "Email is required";
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      alert(`Form submitted: ${JSON.stringify(formData)}`);
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      style={{ ...style, maxWidth: "400px", margin: "0 auto" }}
+    >
+      <div>
+        <label htmlFor="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+        />
+        {errors.firstName && (
+          <span style={{ color: "red" }}>{errors.firstName}</span>
+        )}
+      </div>
+      <div>
+        <label htmlFor="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+        />
+        {errors.lastName && (
+          <span style={{ color: "red" }}>{errors.lastName}</span>
+        )}
+      </div>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+        />
+        {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
+      </div>
+      <div>
+        <button
+          type="submit"
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Submit
+        </button>
+      </div>
+    </form>
   );
 }

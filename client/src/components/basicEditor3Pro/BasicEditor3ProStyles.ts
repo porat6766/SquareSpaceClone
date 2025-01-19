@@ -3,6 +3,8 @@
 // import { color } from "html2canvas/dist/types/css/types/color";
 // import { AlignJustify } from "lucide-react";
 
+// import { textAlign } from "html2canvas/dist/types/css/property-descriptors/text-align";
+
 const styles = {
   default_red_rectangle_style: {
     width: "8rem",
@@ -49,6 +51,12 @@ const styles = {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     outline: "none",
     width: "auto",
+  },
+  default_Form_Style: {
+    maxWidth: "400px",
+    margin: "0 auto",
+    textAlign: "center",
+    padding: "10px",
   },
 };
 
