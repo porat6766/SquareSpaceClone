@@ -225,17 +225,17 @@ export function Accordion({ id }: { id: string }) {
     baseFunctions?.setContent(id, {
       items: [
         {
-          id: "1",
+          itemId: "0",
           title: "Title 1",
           content: "Content for Title 1",
         },
         {
-          id: "2",
+          itemId: "1",
           title: "Title 2",
           content: "Content for Title 2",
         },
         {
-          id: "3",
+          itemId: "2",
           title: "Title 3",
           content: "Content for Title 3",
         },
@@ -243,26 +243,25 @@ export function Accordion({ id }: { id: string }) {
     });
   }
 
-  const toggleItem = (id: any) => {
-    setOpenItem(openItem === id ? null : id);
+  const toggleItem = (itemId: any) => {
+    setOpenItem(openItem === itemId ? null : itemId);
   };
 
-  const toggleEdit = (id: any) => {
-    setIsEditing(isEditing === id ? null : id);
+  const toggleEdit = (itemId: any) => {
+    setIsEditing(isEditing === itemId ? null : itemId);
   };
 
   const updateTitle = (itemiId: any, newTitle: string) => {
-    const updatedItem = content.items.find((item) => item.id === itemiId);
     const updatedItemIndex = content.items.findIndex((item) => item.id === itemiId);
-    if (updatedItem) {
-      baseFunctions?.setContent(id, { items: items[updatedItemIndex]});
+    if (updatedItemIndex !== -1) {
+      content.items[updatedItemIndex].title = newTitle;
     }
   };
 
-  const updateContent = (id: any, newContent: string) => {
-    const updatedItem = items.find((item) => item.id === id);
-    if (updatedItem) {
-      baseFunctions?.setContent(id, { content: newContent });
+  const updateContent = (itemiId: any, newContent: string) => {
+    const updatedItemIndex = content.items.findIndex((item) => item.id === itemiId);
+    if (updatedItemIndex !== -1) {
+      content.items[updatedItemIndex].content = newContent;
     }
   };
 
@@ -304,9 +303,9 @@ export function Accordion({ id }: { id: string }) {
   return (
     <div style={style}>
       {content.items.map((item) => (
-        <div key={item.id} style={{ ...accordionStyle, flexGrow: 1 }}>
+        <div key={item.itemId} style={{ ...accordionStyle, flexGrow: 1 }}>
           <button
-            onClick={() => toggleItem(item.id)}
+            onClick={() => toggleItem(item.itemId)}
             style={buttonStyle}
             onMouseEnter={(e) => (e.target.style.background = "#e0e0e0")}
             onMouseLeave={(e) => (e.target.style.background = "#f7f7f7")}
@@ -314,7 +313,7 @@ export function Accordion({ id }: { id: string }) {
             <input
               type="text"
               value={item.title}
-              onChange={(e) => updateTitle(item.id, e.target.value)}
+              onChange={(e) => updateTitle(item.itemId, e.target.value)}
               style={{
                 border: "none",
                 background: "transparent",
@@ -322,14 +321,14 @@ export function Accordion({ id }: { id: string }) {
                 width: "80%",
               }}
             />
-            <span>{openItem === item.id ? "-" : "+"}</span>
+            <span>{openItem === item.itemId ? "-" : "+"}</span>
           </button>
-          {openItem === item.id && (
+          {openItem === item.itemId && (
             <div style={contentStyle}>
-              {isEditing === item.id ? (
+              {isEditing === item.itemId ? (
                 <textarea
                   value={item.content}
-                  onChange={(e) => updateContent(item.id, e.target.value)}
+                  onChange={(e) => updateContent(item.itemId, e.target.value)}
                   rows={4}
                   style={{
                     width: "100%",
@@ -342,7 +341,7 @@ export function Accordion({ id }: { id: string }) {
                 <p>{item.content}</p>
               )}
               <button
-                onClick={() => toggleEdit(item.id)}
+                onClick={() => toggleEdit(item.itemId)}
                 style={{
                   padding: "6px 12px",
                   backgroundColor: "#f7f7f7",
@@ -353,7 +352,7 @@ export function Accordion({ id }: { id: string }) {
                   marginTop: "8px",
                 }}
               >
-                {isEditing === item.id ? "Save" : "Edit"}
+                {isEditing === item.itemId ? "Save" : "Edit"}
               </button>
             </div>
           )}
