@@ -53,7 +53,8 @@ const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
               </label>
               <input
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                defaultValue={data.logo.imgSrc || "No source provided"}
+                // defaultValue={data.logo.imgSrc || "No source provided"}
+                value={data.logo.imgSrc || "No source provided"}
                 onChange={(e: any) => handleChangeLogoSrcInput(e)}
                 placeholder="Enter image URL"
               />
@@ -65,8 +66,9 @@ const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
               </label>
               <input
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                defaultValue={data.logo.text}
+                // defaultValue={data.logo.text}
                 onChange={(e: any) => handleChangeLogoTextInput(e)}
+                value={data.logo.text || "default logo text"}
                 placeholder="Enter logo text"
               />
             </div>
