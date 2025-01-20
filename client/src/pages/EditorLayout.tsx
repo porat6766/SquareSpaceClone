@@ -50,12 +50,14 @@ function EditorLayout() {
 
   const { id } = useParams();
   const location = useLocation();
-  const dataTemplete = location.state || {};
+  const dataTemplete = location?.state;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!JSON.parse(dataTemplete)) return;
+    if (!dataTemplete) {
+      return;
+    }
     const hydrateTemplate = dataStringToWebsite(dataTemplete);
     setTemplate(hydrateTemplate);
   }, []);
