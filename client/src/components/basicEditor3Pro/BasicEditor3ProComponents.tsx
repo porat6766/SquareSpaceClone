@@ -175,7 +175,7 @@ export function VideoContainer({ id }: { id: string }) {
 }
 
 export function TextBlock3({ id }: { id: string }) {
-  const { renderElements, baseFunctions } = useContext(BasicEditorContext);
+  const { renderElements, baseFunctions, isEditMode } = useContext(BasicEditorContext);
   const element = renderElements?.filter(
     (element) => element.data.id === id
   )[0];
@@ -199,11 +199,17 @@ export function TextBlock3({ id }: { id: string }) {
 
   return (
     <div style={style}>
+      {isEditMode ?
       <textarea
-        style={textAreaStyle}
-        onChange={(e) => updateTextContentValue(e.target.value)}
-        defaultValue={element?.data.content.textContent}
+      style={textAreaStyle}
+      onChange={(e) => updateTextContentValue(e.target.value)}
+      defaultValue={element?.data.content.textContent}
       ></textarea>
+      :<div
+      style={textAreaStyle}
+      >{element?.data.content.textContent}</div>
+    }
+
     </div>
   );
 }
