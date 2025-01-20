@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUpdateUserMutation, useUserProfile } from "../hooks/useUser";
 import CardsData from "../components/templates/CardData";
 
@@ -8,12 +8,14 @@ interface Favorite {
   title: string;
   type: string;
   imageUrl: string;
+  data?: string;
 }
 
 function Favorites() {
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const { data: userData, isLoading } = useUserProfile();
   const { mutate: updateUser } = useUpdateUserMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoading || !userData?.user?.favoriteTemplates) return;
@@ -60,6 +62,13 @@ function Favorites() {
     );
   };
 
+  const handleTempleteClick = (data: any) => {
+    if (!data) {
+      return;
+    }
+    navigate("/editor-page", { state: data });
+  };
+
   return (
     <div className="flex flex-col items-center h-screen w-screen p-4">
       {/* Back button */}
@@ -88,9 +97,10 @@ function Favorites() {
           favorites.map((favorite) => (
             <div key={favorite.title} className="p-4 rounded-md relative">
               <img
+                onClick={() => handleTempleteClick(favorite.data)}
                 src={favorite.imageUrl}
                 alt={favorite.title}
-                className="w-full min-w-[420px] h-72 object-cover rounded-md mb-4 shadow"
+                className="w-full min-w-[420px] h-72 object-cover rounded-md mb-4 shadow cursor-pointer"
               />
               <div className="relative min-w-96 flex mb-10">
                 <h3 className="text-xl font-bold mt-5">{favorite.title}</h3>
