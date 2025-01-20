@@ -58,24 +58,16 @@ function DesignCon() {
               </p>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 overflow-y-auto max-h-screen scrollbar-hide">
-                {cardsToRender.map((card) => (
+                {uniqueCards.map((card) => (
                   <div onClick={() => handleTempleteClick(card?.data)}>
                     <Card
-                      key={card.title}
+                      key={card.id} // Use id as the unique key
                       title={card.title}
                       type={card.type}
                       imageUrl={card.imageUrl}
                       id={card.id}
                     />
                   </div>
-                {uniqueCards.map((card) => (
-                  <Card
-                    key={card.id} // Use id as the unique key
-                    title={card.title}
-                    type={card.type}
-                    imageUrl={card.imageUrl}
-                    id={card.id}
-                  />
                 ))}
               </div>
             )}
