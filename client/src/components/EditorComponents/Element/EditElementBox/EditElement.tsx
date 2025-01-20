@@ -1,4 +1,4 @@
-import { Pencil, X, Copy, Trash2 } from "lucide-react";
+import { Pencil, Copy, Trash2 } from "lucide-react";
 import { useState, useContext, useEffect } from "react";
 import PositionContent from "./PositionContent";
 import { RenderElement3 } from "../../../basicEditor3Pro/BasicEditor3ProTypes";
@@ -19,11 +19,14 @@ const EditElement = ({
   handleDeleteClick,
 }: EditElementProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { baseFunctions, duplicateElement }: any = useContext(BasicEditorContext);
+  const { baseFunctions, duplicateElement }: any =
+    useContext(BasicEditorContext);
   const [backgroundColor, setBackgroundColor] = useState(
     element?.data.style.backgroundColor || "clear"
   );
-  const [zIndex, setZIndex] = useState<string>(element?.data.extraData?.zIndex || "50")
+  const [zIndex, setZIndex] = useState<string>(
+    element?.data.extraData?.zIndex || "50"
+  );
 
   useEffect(() => {
     const style = element?.data.style;
@@ -38,7 +41,7 @@ const EditElement = ({
 
   useEffect(() => {
     handleChangeZIndex(zIndex);
-  }, [zIndex])
+  }, [zIndex]);
 
   function handleToggleOpen() {
     setIsOpen((prev) => !prev);
@@ -108,13 +111,14 @@ const EditElement = ({
         <label>z-index:</label>
         <select
           defaultValue={element?.data.style.zIndex || zIndex}
-          onChange={(e) => setZIndex(e.target.value)}>
-          <option value={'0'}>0</option>
-          <option value={'10'}>10</option>
-          <option value={'20'}>20</option>
-          <option value={'30'}>30</option>
-          <option value={'40'}>40</option>
-          <option value={'50'}>50</option>
+          onChange={(e) => setZIndex(e.target.value)}
+        >
+          <option value={"0"}>0</option>
+          <option value={"10"}>10</option>
+          <option value={"20"}>20</option>
+          <option value={"30"}>30</option>
+          <option value={"40"}>40</option>
+          <option value={"50"}>50</option>
         </select>
       </button>
       <button
@@ -122,7 +126,9 @@ const EditElement = ({
         className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"
         data-action="cross"
         title="Cross"
-      >toggle background</button>
+      >
+        toggle background
+      </button>
 
       <button
         className="p-2 mx-1 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded focus:outline-none"

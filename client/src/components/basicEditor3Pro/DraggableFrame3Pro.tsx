@@ -1,6 +1,9 @@
 import { useEffect, useRef, useContext, useState } from "react";
 
-import { BaseFunctions, BasicEditorContextType, type RenderElement3 } from "./BasicEditor3ProTypes";
+import {
+  BasicEditorContextType,
+  type RenderElement3,
+} from "./BasicEditor3ProTypes";
 import { Position } from "./BasicEditor3ProTypes";
 import BlockEditor3 from "./BlockEditor3Pro";
 import { BasicEditorContext } from "./BasicEditor3Pro";
@@ -31,13 +34,19 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   const [borderHover, setBorderHover] = useState<string>("none");
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const { baseFunctions, originOfCoordinates, isEditMode }: BasicEditorContextType = useContext(BasicEditorContext);
+  const {
+    baseFunctions,
+    originOfCoordinates,
+    isEditMode,
+  }: BasicEditorContextType = useContext(BasicEditorContext);
   const divRef = useRef<HTMLDivElement>(null);
   const borderWidth = 5;
 
   const frameBorder = isEditMode && isHovering ? "1px solid blue" : "none";
 
-  const frameZIndex = renderElement.data.extraData ? renderElement.data.extraData.zIndex : false;
+  const frameZIndex = renderElement.data.extraData
+    ? renderElement.data.extraData.zIndex
+    : false;
 
   const BACKGROUND_LEFT = 0;
 
@@ -48,8 +57,14 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     cursor: "grab",
     overflow: "hidden",
     borderTop: frameBorder,
-    borderRight: borderHover === "right" && isEditMode ? `${borderWidth}px solid blue` : frameBorder,
-    borderBottom: borderHover === "bottom" && isEditMode ? `${borderWidth}px solid blue` : frameBorder,
+    borderRight:
+      borderHover === "right" && isEditMode
+        ? `${borderWidth}px solid blue`
+        : frameBorder,
+    borderBottom:
+      borderHover === "bottom" && isEditMode
+        ? `${borderWidth}px solid blue`
+        : frameBorder,
     borderLeft: frameBorder,
     backgroundColor: "none",
   };
@@ -61,11 +76,14 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   useEffect(() => {
     if (renderElement.data.extraData?.isBackground) {
       setPosition({ x: BACKGROUND_LEFT, y: renderElement.data.position.y });
-      baseFunctions?.setStyle(renderElement.data.id, { ...renderElement.data.style, width: '100vw' });
+      baseFunctions?.setStyle(renderElement.data.id, {
+        ...renderElement.data.style,
+        width: "100vw",
+      });
       if (!renderElement.data.extraData) renderElement.data.extraData = {};
-      renderElement.data.extraData.zIndex = '0';
+      renderElement.data.extraData.zIndex = "0";
     }
-  }, [renderElement.data.extraData?.isBackground])
+  }, [renderElement.data.extraData?.isBackground]);
 
   useEffect(() => {
     setPosition(renderElement.data.position);
@@ -138,6 +156,9 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
         );
       } else if (borderHover === "bottom") {
         const newHeight = e.clientY - rect.top;
+        if (!baseFunctions) {
+          return;
+        }
         utils2.update0LayerStyle(
           renderElement,
           "height",

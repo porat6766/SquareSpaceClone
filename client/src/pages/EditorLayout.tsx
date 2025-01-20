@@ -32,7 +32,9 @@ export const EditorLayoutContext = createContext<EditorLayoutContextType>({});
 function EditorLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileView, setIsMobileView] = useState(false);
-  const [templete, setTemplete] = useState();
+  const [template, setTemplate] = useState<BasicEditor3Website | undefined>(
+    undefined
+  );
   const [websiteToEdit, setWebsiteToEdit]: any = useState(null);
   const [isOpenDialogName, setIsOpenDialogName] = useState(false);
   const [websiteName, setWebsiteName] = useState("");
@@ -53,9 +55,8 @@ function EditorLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(dataTemplete);
     const hydrateTemplate = dataStringToWebsite(dataTemplete);
-    setTemplete(hydrateTemplate);
+    setTemplate(hydrateTemplate);
   }, []);
 
   const { mutate: createNewSite } = useCreateSite({
@@ -84,7 +85,6 @@ function EditorLayout() {
       const web = dataStringToWebsite(existWeb.data);
       setWebsiteToEdit(web);
     }
-    console.log(setTemplete);
   }, [userData, id]);
 
   // Handle save action
@@ -209,7 +209,7 @@ function EditorLayout() {
               setSaveTrigger={setSaveTrigger}
               currentWebsite={currentWebsite}
               setCurrentWebsite={setCurrentWebsite}
-              templete={templete}
+              templete={template}
               websiteToEdit={websiteToEdit}
               saveCurrentWebsite={saveCurrentWebsite}
             />
