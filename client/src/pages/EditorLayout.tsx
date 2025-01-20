@@ -48,7 +48,15 @@ function EditorLayout() {
 
   const { id } = useParams();
   const location = useLocation();
+  const dataTemplete = location.state || {};
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(dataTemplete);
+    const hydrateTemplate = dataStringToWebsite(dataTemplete);
+    setTemplete(hydrateTemplate);
+  }, []);
 
   const { mutate: createNewSite } = useCreateSite({
     onSuccess: (data: any) => {
