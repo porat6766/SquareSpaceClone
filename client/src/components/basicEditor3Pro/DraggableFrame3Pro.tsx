@@ -48,27 +48,11 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     cursor: "grab",
     overflow: "hidden",
     borderTop: frameBorder,
-    borderRight:
-      borderHover === "right" ? `${borderWidth}px solid blue` : frameBorder,
-    borderBottom:
-      borderHover === "bottom" ? `${borderWidth}px solid blue` : frameBorder,
+    borderRight: borderHover === "right" && isEditMode ? `${borderWidth}px solid blue` : frameBorder,
+    borderBottom: borderHover === "bottom" && isEditMode ? `${borderWidth}px solid blue` : frameBorder,
     borderLeft: frameBorder,
     backgroundColor: "none",
   };
-
-  // useEffect(() => {
-  //   if (renderElement.data.extraData?.isBackground) {
-  //     const id = renderElement.data.id;
-  //     if (originOfCoordinates) {
-  //       // frameStyle.left = originOfCoordinates.x;
-  //       // frameStyle.top = originOfCoordinates.y;
-  //       baseFunctions?.setPosition(id, originOfCoordinates)
-  //     }
-  //     frameStyle.width = '100%';
-  //     frameStyle.height = '100%';
-  //     baseFunctions?.setStyle(id, { ...renderElement.data.style, width: '100%' })
-  //   }
-  // },[renderElement.data.extraData?.isBackground]);
 
   if (frameZIndex) {
     frameStyle.zIndex = frameZIndex;
@@ -138,13 +122,14 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
         };
 
         //change in testing, for the background element.
-        if(renderElement.data.extraData?.isBackground){
+        if (renderElement.data.extraData?.isBackground) {
           newPosition.x = BACKGROUND_LEFT;
         }
         setPosition(newPosition);
         baseFunctions?.setPosition(renderElement.data.id, newPosition);
       } else if (borderHover === "right") {
         const newWidth = e.clientX - rect.left;
+        if (!baseFunctions) return;
         utils2.update0LayerStyle(
           renderElement,
           "width",

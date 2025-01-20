@@ -81,12 +81,10 @@ function EditorLayout() {
 
   // Handle save action
   function saveCurrentWebsite(currentWebsite: ISite) {
-    if (!imageData) return;
     const websiteDataString = JSON.stringify(currentWebsite);
     setWebsiteToSave(websiteDataString);
     // screenshotRef.current?.captureScreenshot();
     console.log(imageData);
-
     if (websiteToEdit) {
       updateSite({
         siteId: id!,

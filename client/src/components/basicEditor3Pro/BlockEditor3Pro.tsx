@@ -49,13 +49,14 @@ function BlockEditor3({ blockId, blockRect }: BlockEditor3Props) {
     position: "absolute",
     left: blockRect.left - (originOfCoordinates?.x ?? 0),
     top: blockRect.top - 60 - (originOfCoordinates?.y ?? 0),
+    zIndex:'100'
   };
 
   const editFormStyle: React.CSSProperties = {
     position: "absolute",
     left: 5 + blockRect.right - (originOfCoordinates?.x ?? 0),
     top: blockRect.y - (originOfCoordinates?.y ?? 0),
-    zIndex: 10,
+    zIndex: '100',
   };
 
   function handleEditClick() {
