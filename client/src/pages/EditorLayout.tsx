@@ -55,6 +55,7 @@ function EditorLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!JSON.parse(dataTemplete)) return;
     const hydrateTemplate = dataStringToWebsite(dataTemplete);
     setTemplate(hydrateTemplate);
   }, []);

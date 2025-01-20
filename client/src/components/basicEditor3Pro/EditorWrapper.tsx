@@ -70,22 +70,6 @@ function EditorWrapper({
     }
   }, [websiteToEdit, templete]);
 
-  // function addWebsite(
-  //   name: string,
-  //   owner: BasicEditor3User = currentUser,
-  //   headerData: Header3Data = defaultHeaderData,
-  //   pages: BasicEditor3Page[] = [],
-  //   footerData: Footer3Data = {}
-  // ) {
-  //   const newWebsite: BasicEditor3Website = {
-  //     owner,
-  //     name,
-  //     headerData,
-  //     pages,
-  //     footerData,
-  //   };
-  // }
-
   return (
     <>
       {currentWebsite && (
