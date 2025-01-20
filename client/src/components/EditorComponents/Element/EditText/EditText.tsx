@@ -72,6 +72,15 @@ const paragraphOptions = [
   "Monospace",
 ];
 
+const fontSizeOptions = [
+  "1rem",
+  "1.5rem",
+  "2rem",
+  "4rem",
+  "6rem",
+  "8rem"
+]
+
 const boldButtonPressed = "p-1 bg-gray-100 rounded";
 const boldButtonNotPressed = "p-1 hover:bg-gray-100 rounded";
 
@@ -116,6 +125,14 @@ const FormattingToolbar = ({ element }: { element: RenderElement3 }) => {
     });
   }
 
+  function handleFontSizeOptionChange(newValue:string){
+    const style = element.data.style;
+    baseFunctions?.setStyle(element.data.id, {
+      ...style,
+      fontSize:newValue,
+    });
+  }
+
   function handleDuplicateClick() {
     duplicateElement(element);
   }
@@ -128,6 +145,23 @@ const FormattingToolbar = ({ element }: { element: RenderElement3 }) => {
           className="p-1 min-w-36 border rounded-md text-sm bg-white hover:bg-gray-50"
         >
           {paragraphOptions.map((option, index) => (
+            <option
+              key={index}
+              // value={option.toLowerCase().replace(" ", "-")}
+              className="hover:bg-gray-50"
+            >
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="relative">
+        <select
+          onChange={(e) => handleFontSizeOptionChange(e.target.value)}
+          className="p-1 min-w-36 border rounded-md text-sm bg-white hover:bg-gray-50"
+        >
+          {fontSizeOptions.map((option, index) => (
             <option
               key={index}
               // value={option.toLowerCase().replace(" ", "-")}
