@@ -139,9 +139,7 @@ BasicEditor3ProProps) {
       if (setSaveTrigger) {
         setSaveTrigger(false);
       }
-      console.log(saveTrigger + "is saving");
     }
-    console.log(saveTrigger + "is Not !!!!!");
   }, [saveTrigger]);
 
   useEffect(() => {
@@ -239,7 +237,6 @@ BasicEditor3ProProps) {
       Math.abs(newPosition.y - originOfCoordinates.y) > TOLERANCE;
     if (updateRule2) {
       setOriginOfCoordinates(newPosition);
-      // console.log("new OoC:", newPosition);
     }
     setTimeout(updateOOC, 300);
   }
@@ -321,7 +318,6 @@ BasicEditor3ProProps) {
   }
 
   function displayPage(pageName: string) {
-    console.log("Attempting to display page:", pageName);
     const displayPageElements = pages.find(
       (page) => page.name === pageName
     )?.renderElements;
@@ -361,9 +357,9 @@ BasicEditor3ProProps) {
           data={headerData}
           setData={setHeaderData}
         />
-        {isEditMode && (
-          <>
-            {!addBlockMenuVisible ? (
+        {isEditMode && <div style={{position:'relative', top:'200px'}}>
+          {!addBlockMenuVisible ? (
+            <div style={{ position:'absolute', zIndex: '100' }}>
               <button
                 onClick={(e) => handleAddMenuClick(e)}
                 className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
@@ -371,11 +367,14 @@ BasicEditor3ProProps) {
                 <Plus size={26} />
                 <span className="font-medium">Add Block</span>
               </button>
-            ) : (
+            </div>
+          ) : (
+            <div style={{ zIndex: '100' }}>
               <DialogAddElement addRenderElement={addRenderElement} />
-            )}
-          </>
-        )}
+            </div>
+          )}
+        </div>
+        }
         <div>{mapRenderElements()}</div>
       </div>
     </BasicEditorContext.Provider>
