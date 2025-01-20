@@ -114,70 +114,70 @@ const CardsData = [
       "https://images.squarespace-cdn.com/content/64c97785aeec8c4ae8b4e934/c9e9eb3d-bb5c-41a7-82e7-02c5a356de91/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a3f",
+    id: "64b7f1e7a4c5b21e2a7d4a3f22",
     title: "Modern Online Store",
     type: "Online Store",
     imageUrl:
       "https://images.squarespace-cdn.com/content/624b3c6de8311d5139f663a9/ec75de87-6e61-4ada-b9fe-6b46e0f08109/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a41",
+    id: "64b7f1e7a4c5b21e2a7d4a4133",
     title: "Membership Platform",
     type: "Memberships",
     imageUrl:
       "https://images.squarespace-cdn.com/content/624b503a44c70245022f56eb/4f087c54-b53a-44f7-9234-01f8e58d8ffb/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a4f",
+    id: "64b7f1e7a4c5b21e2a7d4a4f44",
     title: "food menu",
     type: "Portfolio",
     imageUrl:
       "https://static1.squarespace.com/static/images/5dce99f81a9b990037c3dcd5?format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a50",
+    id: "64b7f1e7a4c5b21e2a7d4a5055",
     title: "apartment Blog",
     type: "Blog",
     imageUrl:
       "https://static1.squarespace.com/static/images/5dd2ab19eeaff55ce69655c0?format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a51",
+    id: "64b7f1e7a4c5b21e2a7d4a5661",
     title: "Event Planner",
     type: "Services",
     imageUrl:
       "https://images.squarespace-cdn.com/content/65ca6e41558ea420ef592763/16d969e4-eb18-4e1c-bf63-424bbc02d303/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a52",
+    id: "64b7f1e7a4c5b21e2a7d4a5277",
     title: "Dogs Coach Platform",
     type: "Services",
     imageUrl:
       "https://static1.squarespace.com/static/images/5dd2c5d3ce90f5420a82e307?format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a53",
+    id: "64b7f1e7a4c5b21e2a7d4a5388",
     title: "Fashion E-Commerce",
     type: "Online Store",
     imageUrl:
       "https://static1.squarespace.com/static/images/5dd2ba77b03c02447dad1320?format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a54",
+    id: "64b7f1e7a4c5b21e2a7d4a5499",
     title: "Travel Planner",
     type: "Scheduling",
     imageUrl:
       "https://images.squarespace-cdn.com/content/63b7280f1480f03182fa6b95/ec676ed2-c338-4646-9ae4-42b429f0a3d8/image-asset.png?content-type=image%2Fpng&amp;format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a55",
+    id: "64b7f1e7a4c5b21e2a7d4a5510",
     title: "Art Gallery Showcase",
     type: "Portfolio",
     imageUrl:
       "https://static1.squarespace.com/static/images/5dd2d9e2ff2a192650cf46a7?format=1000w",
   },
   {
-    id: "64b7f1e7a4c5b21e2a7d4a56",
+    id: "64b7f1e7a4c5b21e2a7d4a5611",
     title: "Fitness Coach Page",
     type: "Courses",
     imageUrl:

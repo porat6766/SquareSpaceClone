@@ -21,6 +21,7 @@ function Favorites() {
     const filteredFavorites = CardsData.filter((template) =>
       userData.user.favoriteTemplates.includes(template.id)
     );
+    console.log(filteredFavorites);
 
     setFavorites(filteredFavorites);
   }, [userData, isLoading]);

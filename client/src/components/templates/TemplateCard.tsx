@@ -6,9 +6,17 @@ interface CardProps {
   type: string;
   imageUrl: string;
   id: string;
+  data: any;
+  handleTempleteClick: any;
 }
 
-const Card: React.FC<CardProps> = ({ title, imageUrl, id }) => {
+const Card: React.FC<CardProps> = ({
+  title,
+  imageUrl,
+  id,
+  data,
+  handleTempleteClick,
+}) => {
   const [isHeartFilled, setIsHeartFilled] = useState(false);
   const { data: userData, isLoading } = useUserProfile();
   const { mutate: updateUser } = useUpdateUserMutation();
@@ -47,6 +55,7 @@ const Card: React.FC<CardProps> = ({ title, imageUrl, id }) => {
   return (
     <div className="p-4 rounded-md relative">
       <img
+        onClick={() => handleTempleteClick(data)}
         src={imageUrl}
         alt={title}
         className="w-full min-w-96 h-56 object-cover rounded-md mb-4 shadow cursor-pointer"
