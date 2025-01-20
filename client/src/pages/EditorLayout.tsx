@@ -92,6 +92,7 @@ function EditorLayout() {
 
   // Handle save action
   function saveCurrentWebsite(currentWebsite: ISite) {
+    if (!imageData) return;
     const websiteDataString = JSON.stringify(currentWebsite);
     setWebsiteToSave(websiteDataString);
     if (websiteToEdit) {
