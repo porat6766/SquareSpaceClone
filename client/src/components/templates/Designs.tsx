@@ -20,6 +20,12 @@ function DesignCon() {
     ? filteredCards
     : CardsData;
 
+  // Remove duplicate titles
+  const uniqueCards = cardsToRender.filter(
+    (card, index, self) =>
+      index === self.findIndex((t) => t.title === card.title)
+  );
+
   return (
     <SidebarProvider>
       <div className="my-14 flex relative">
@@ -38,15 +44,15 @@ function DesignCon() {
           </div>
           {/* Render Cards */}
           <div>
-            {cardsToRender.length === 0 ? (
+            {uniqueCards.length === 0 ? (
               <p className="text-center text-gray-500 mt-10">
                 No templates match the selected filters.
               </p>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 overflow-y-auto max-h-screen scrollbar-hide">
-                {cardsToRender.map((card) => (
+                {uniqueCards.map((card) => (
                   <Card
-                    key={card.title}
+                    key={card.id} // Use id as the unique key
                     title={card.title}
                     type={card.type}
                     imageUrl={card.imageUrl}

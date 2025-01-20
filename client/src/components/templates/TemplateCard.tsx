@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({ title, imageUrl, id }) => {
 
   const toggleHeart = () => {
     if (!userData?.user._id) {
-      console.error("User ID not found");
+      alert("You must log in to mark templates as favorites.");
       return;
     }
 
