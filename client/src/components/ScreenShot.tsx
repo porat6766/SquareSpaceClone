@@ -30,7 +30,7 @@ const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
     Promise.all(promises).then(() => {
       html2canvas(elementToCapture, {
         useCORS: true, // Handles cross-origin images
-        scale: 1, // Reduces the resolution to 50% to reduce image size
+        scale: 0.5, // Reduces the resolution to 50% to reduce image size
       })
         .then((canvas) => {
           // Convert the canvas to a data URL (Base64) with reduced quality (JPEG compression)
