@@ -13,12 +13,13 @@ const siteRoutes_1 = __importDefault(require("./routes/siteRoutes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = 3000;
-app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: "50mb" }));
+app.use(express_1.default.urlencoded({ limit: "50mb", extended: true }));
 app.use((0, cors_1.default)({
     origin: ["http://localhost:5173", "https://squarespaceclone.onrender.com"],
     credentials: true,
 }));
+app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
 if (process.env.URI) {
     mongoose_1.default
         .connect(process.env.URI)

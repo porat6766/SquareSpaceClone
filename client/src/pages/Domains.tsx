@@ -33,7 +33,7 @@ const Domains = () => {
                 {sites.map((site: any) => (
                   <li
                     key={site.id}
-                    className="flex items-center justify-between p-4 bg-white shadow-sm rounded-lg border border-gray-200"
+                    className="flex items-center justify-between p-4 bg-white shadow-sm rounded-lg border border-gray-200 overflow-x-auto"
                   >
                     <div>
                       <h3 className="text-lg font-semibold">{site.name}</h3>

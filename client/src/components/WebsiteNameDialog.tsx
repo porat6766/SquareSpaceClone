@@ -37,7 +37,7 @@ const WebsiteNameDialog: React.FC<WebsiteNameDialogProps> = ({
       <DialogTrigger asChild>
         <Button className="hidden" />
       </DialogTrigger>
-      <DialogContent className="max-w-sm p-6 bg-white rounded-lg">
+      <DialogContent className="max-w-sm p-6 bg-white rounded-lg z-[100]">
         <DialogTitle className="text-xl font-bold text-black">
           What will be your website's name?
         </DialogTitle>
