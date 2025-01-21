@@ -34,7 +34,7 @@ const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
         scale: 0.5, // Lower resolution for better compression
       }).then((canvas) => {
         // Convert canvas to WebP format with compression (better than JPEG)
-        const imageUrl = canvas.toDataURL("image/webp", 0.7); // Adjust quality here (0.5 for more compression)
+        const imageUrl = canvas.toDataURL("image/webp", 0.7);
 
         // Use Compressor.js for post-compression if necessary
         const imageBlob = dataURItoBlob(imageUrl); // Convert data URL to Blob for Compressor.js
@@ -42,7 +42,7 @@ const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
         console.log(imageBlob.size);
 
         new Compressor(imageBlob, {
-          quality: 0.5, // Reduce quality for further compression (keep experimenting with this value)
+          quality: 1,
           success(result) {
             const reader = new FileReader();
             reader.readAsDataURL(result);
