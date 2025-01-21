@@ -30,24 +30,7 @@ import Header3 from "./Header3";
 
 import { EditorLayoutContext } from "../../pages/EditorLayout";
 import { DialogAddElement } from "../EditorComponents/Element/DialogAddElements";
-// import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index";
-//goal 0.
-// Update the data structure of BasicEditor3 to fit the new data structure:
-// Website {
-//
-//       Header{
-//           image/logo block
-//           navigation blocks
-//       }
-//       Page(s){
-//           blocks(5 different options)
-//       }
-//       Footer{
-//           navigation blocks
-//           social blocks
-//       }
-//
-// }
+import BackgroundGrid from "./BackgroundGrid";
 
 //task DONE.
 //create a basic header element that is editable, saveable, retrievable and serves to navigate the website
@@ -375,7 +358,10 @@ BasicEditor3ProProps) {
           )}
         </div>
         }
-        <div>{mapRenderElements()}</div>
+        <div>
+          <BackgroundGrid />
+          {mapRenderElements()}
+        </div>
       </div>
     </BasicEditorContext.Provider>
   );
