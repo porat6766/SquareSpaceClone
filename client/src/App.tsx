@@ -13,6 +13,7 @@ import Domains from "./pages/Domains";
 import Dashboard from "./pages/Dashboard";
 import Assets from "./components/EditorComponents/sidebarComponents/Assets";
 import UserWebsite from "./pages/UserWebsite";
+import LogoMaker from "./pages/LogoMaker";
 
 import "./App.css";
 import Wrapper3Pro from "./components/basicEditor3Pro/Wrapper3Pro";
@@ -135,6 +136,10 @@ function App() {
     {
       path: "/wrapper3",
       element: <Wrapper3Pro />,
+    },
+    {
+      path: "/logo-maker",
+      element: <LogoMaker />,
     },
   ]);
 

@@ -94,11 +94,11 @@ const Header: React.FC = () => {
   ];
 
   const buildYourBrandButtons = [
-    "Marketing Overview",
-    "Email Marketing",
-    "SEO Tools",
-    "Creator Tools",
-    "Logo Maker",
+    { name: "Marketing Overview", url: "/marketing-overview" },
+    { name: "Email Marketing", url: "/email-marketing" },
+    { name: "SEO Tools", url: "/seo-tools" },
+    { name: "Creator Tools", url: "/creator-tools" },
+    { name: "Logo Maker", url: "/logo-maker" },
   ];
 
   useEffect(() => {
@@ -264,7 +264,7 @@ const Header: React.FC = () => {
                                 key={index}
                                 className="relative group text-white cursor-pointer"
                               >
-                                <span className="block hover:underline mb-5">
+                                <span className="block mb-5 opacity-70 hover:opacity-100">
                                   {button}
                                   <span className="absolute opacity-0 ml-1 text-white transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-2">
                                     →
@@ -285,7 +285,7 @@ const Header: React.FC = () => {
                                 key={index}
                                 className="relative group text-white cursor-pointer"
                               >
-                                <span className="block hover:underline mb-5">
+                                <span className="block mb-5 opacity-70 hover:opacity-100">
                                   {button}
                                   <span className="absolute opacity-0 ml-1 text-white transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-2">
                                     →
@@ -302,17 +302,23 @@ const Header: React.FC = () => {
                           </h1>
                           <div className="flex flex-col space-y-2 mt-10">
                             {buildYourBrandButtons.map((button, index) => (
-                              <span
+                              <a
                                 key={index}
-                                className="relative group text-white cursor-pointer"
+                                onClick={() => navigate(button.url)}
+                                className="relative group text-white cursor-pointer opacity-70 hover:opacity-100"
                               >
-                                <span className="block hover:underline mb-5">
-                                  {button}
+                                <span className="block mb-5">
+                                  {button.name}
+                                  {button.name === "Logo Maker" && (
+                                    <span className="ml-3 p-2 w-10 h-9 text-base text-black bg-gray-300">
+                                      new
+                                    </span>
+                                  )}
                                   <span className="absolute opacity-0 ml-1 text-white transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-2">
                                     →
                                   </span>
                                 </span>
-                              </span>
+                              </a>
                             ))}
                           </div>
                         </div>
@@ -411,13 +417,17 @@ const Header: React.FC = () => {
                         {images.map((item, index) => (
                           <h2
                             key={index}
-                            className="relative text-5xl font-semibold cursor-pointer transition-all duration-300 opacity-50 hover:opacity-100 hover:text-white group"
+                            className="group relative text-5xl font-semibold cursor-pointer transition-all duration-500 opacity-50 hover:opacity-100 hover:text-white"
                             onMouseEnter={() =>
                               handleResources(item.image, item.text)
                             }
                           >
-                            {item.hl}
-                            <span className="relative left-0 top-0 opacity-0 ml-1 text-white transition-all duration-300 group-hover:opacity-100 z-10">
+                            <span className="relative inline-block">
+                              {item.hl}
+                              <span className="absolute left-0 -bottom-5 w-0 h-[3px] bg-white transition-all duration-500 group-hover:w-full"></span>
+                            </span>
+                            {/* Animated Arrow */}
+                            <span className="relative opacity-0 ml-2 text-white transition-all duration-500 transform group-hover:opacity-100 group-hover:translate-x-2">
                               →
                             </span>
                           </h2>
