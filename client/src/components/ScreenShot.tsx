@@ -10,7 +10,6 @@ interface ScreenshotCaptureProps {
 const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
   const { onSave, setImageData } = props;
 
-  // Function to capture the screenshot
   const captureScreenshot = () => {
     const elementToCapture = document.documentElement;
 
@@ -31,12 +30,10 @@ const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
     Promise.all(promises).then(() => {
       html2canvas(elementToCapture, {
         useCORS: true,
-        scale: 0.5, // Lower resolution for better compression
+        scale: 0.5,
       }).then((canvas) => {
-        // Convert canvas to WebP format with compression (better than JPEG)
         const imageUrl = canvas.toDataURL("image/webp", 0.7);
 
-        // Use Compressor.js for post-compression if necessary
         const imageBlob = dataURItoBlob(imageUrl); // Convert data URL to Blob for Compressor.js
         console.log(imageBlob);
         console.log(imageBlob.size);
@@ -78,12 +75,11 @@ const ScreenshotCapture = forwardRef((props: ScreenshotCaptureProps, ref) => {
     return new Blob([uintArray], { type: "image/webp" });
   };
 
-  // Expose captureScreenshot to parent components
   useImperativeHandle(ref, () => ({
     captureScreenshot,
   }));
 
-  return null; // No visible UI, it’s used programmatically
+  return null;
 });
 
 export default ScreenshotCapture;
