@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from 'react'
 import { Position } from './BasicEditor3ProTypes';
-import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 import { BasicEditorContext } from './BasicEditor3Pro';
 
 const backgroundGridStyle = {
