@@ -19,9 +19,14 @@ const cellStyle = {
 
 function BackgroundGrid() {
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
-    const [closestPosition, setClosestPosition] = useState<Position>();
+    const gridPositionsRef = useRef<Position[]>([])
+    const [closestPosition, setClosestPosition] = useState<Position>({x:0, y:0});
     const { originOfCoordinates } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
+
+    useEffect(() => {
+        console.log("closest position:", closestPosition)
+    }, [closestPosition])
 
     useEffect(() => {
         const gridElement = gridRef.current;
@@ -32,8 +37,10 @@ function BackgroundGrid() {
                 return { x: rect.left, y: rect.top };
             });
             setGridPositions(positions);
+            gridPositionsRef.current = positions;
+            console.log("gridPositionsRef: ", gridPositionsRef.current);
         }
-    }, []);
+    },[]);
 
     useEffect(() => {
         window.addEventListener('mousemove', handleCursorMove);
@@ -41,9 +48,7 @@ function BackgroundGrid() {
     }, [])
 
     function handleCursorMove(e) {
-        console.log("cursor move");
-        console.log(closestPosition);
-        findClosestPosition(e.clientX, e.clientY, gridPositions);
+        findClosestPosition(e.clientX - originOfCoordinates.x, e.clientY - originOfCoordinates.y - window.scrollY, gridPositionsRef.current);
     }
 
     //instead of this, I could add to each div a function that sets the closest position
@@ -51,15 +56,15 @@ function BackgroundGrid() {
     function findClosestPosition(cursorX: number, cursorY: number, positions: Position[]) {
         let closestPosition = { x: 0, y: 0 };
         let minDistance = Infinity;
-
-        for (const position of positions) {
+        
+        positions.forEach((position) => {
             const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
 
             if (distance < minDistance) {
                 minDistance = distance;
                 closestPosition = position;
             }
-        }
+        })
 
         setClosestPosition(closestPosition || { x: 0, y: 0 });
     }
