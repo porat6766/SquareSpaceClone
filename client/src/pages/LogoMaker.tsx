@@ -6,7 +6,7 @@ function LogoMaker() {
   const navigate = useNavigate();
 
   return (
-    <div className=" bg-white h-screen w-screen">
+    <div className=" bg-white h-screen w-screen pt-20 overflow-hidden">
       <span
         className="absolute left-10 top-8 cursor-pointer"
         onClick={() => navigate("/templates")}
