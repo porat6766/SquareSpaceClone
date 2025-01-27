@@ -1,34 +1,59 @@
 import { useNavigate } from "react-router-dom";
 import Icon from "../assets/icon-squarespace.svg";
 import Banner from "../assets/splash-businesscard-copy.png";
+import { useState } from "react";
 
 function LogoMaker() {
+  const [companyName, setCompanyName] = useState("");
   const navigate = useNavigate();
 
+  const makerNavigate = () => {
+    if (!companyName) {
+      alert("you have'nt entered any name");
+    } else {
+      localStorage.setItem("companyName", companyName);
+      navigate(`/logo-maker/${companyName}`);
+    }
+  };
+
   return (
-    <div className=" bg-white h-screen w-screen pt-20 overflow-hidden">
+    <div className="bg-white h-screen w-screen pt-20 overflow-hidden">
       <span
-        className="absolute left-10 top-8 cursor-pointer"
+        className="absolute opacity-30 hover:opacity-60 left-10 top-8 cursor-pointer"
         onClick={() => navigate("/templates")}
       >
-        <img src={Icon} alt="logo" className="max-w-8 max-h-8 opacity-40" />
+        <img src={Icon} alt="logo" className="max-w-10 max-h-10" />
       </span>
       <div className="flex flex-col justify-center items-center h-screen w-screen">
         <div className="h-auto z-10 flex flex-col justify-center items-center">
-          <h1 className=" text-black text-7xl font-bold">Create your Logo</h1>
-          <p className=" opacity-60 mt-10">
+          <h1 className="text-black text-7xl font-bold mt-14">
+            Create your Logo
+          </h1>
+          <p className="opacity-60 mt-10">
             Enter your company name below to get started with our logo maker.
           </p>
         </div>
-        <div className="relative bottom-0">
-          <input
-            placeholder="company name"
-            className="absolute top-64 right-1/3 mr-10 p-1 pl-3 w-96 bg-black text-white z-10 placeholder:opacity-60"
-          ></input>
+        <div className="relative w-full">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className="relative flex items-center p-1 pl-3 w-96 mb-10">
+              <input
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                placeholder="company name"
+                className="bg-black text-white placeholder:opacity-60 p-2 rounded-sm w-screen"
+              />
+              <span
+                onClick={makerNavigate}
+                className="text-6xl pb-3 opacity-50 ml-8 text-black transition-all duration-300 hover:opacity-100 cursor-pointer"
+              >
+                →
+              </span>
+            </div>
+          </div>
           <img
             src={Banner}
             alt="banner"
-            className="relative -bottom-4 -left-[300px] h-auto w-auto"
+            className="relative h-auto w-full object-cover -left-[370px]"
           />
         </div>
       </div>

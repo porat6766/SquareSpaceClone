@@ -14,9 +14,10 @@ import Dashboard from "./pages/Dashboard";
 import Assets from "./components/EditorComponents/sidebarComponents/Assets";
 import UserWebsite from "./pages/UserWebsite";
 import LogoMaker from "./pages/LogoMaker";
+import MakerCore from "./pages/MakerCore";
+import Wrapper3Pro from "./components/basicEditor3Pro/Wrapper3Pro";
 
 import "./App.css";
-import Wrapper3Pro from "./components/basicEditor3Pro/Wrapper3Pro";
 
 function App() {
   const router = createBrowserRouter([
@@ -140,6 +141,10 @@ function App() {
     {
       path: "/logo-maker",
       element: <LogoMaker />,
+    },
+    {
+      path: "/logo-maker/:companyName",
+      element: <MakerCore />,
     },
   ]);
 
