@@ -23,6 +23,7 @@ function BackgroundGrid() {
     const [closestPosition, setClosestPosition] = useState<Position>({x:0, y:0});
     const { originOfCoordinates } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
+    const markerDivRef = useRef(null);
 
     useEffect(() => {
         console.log("closest position:", closestPosition)
@@ -34,21 +35,28 @@ function BackgroundGrid() {
             const cells = gridElement.querySelectorAll('div');
             const positions = Array.from(cells).map((cell) => {
                 const rect = cell.getBoundingClientRect();
-                return { x: rect.left, y: rect.top };
+                const pos:Position = { x: rect.left, y: rect.top }
+                cell.addEventListener('mouseover', () => handleCellHover(pos));
+                return pos;
             });
             setGridPositions(positions);
             gridPositionsRef.current = positions;
-            console.log("gridPositionsRef: ", gridPositionsRef.current);
         }
     },[]);
 
     useEffect(() => {
-        window.addEventListener('mousemove', handleCursorMove);
-        return () => window.removeEventListener('mousemove', handleCursorMove);
+        // window.addEventListener('mousemove', handleCursorMove);
+        // return () => window.removeEventListener('mousemove', handleCursorMove);
     }, [])
 
+    function handleCellHover(pos:Position){
+        setClosestPosition(pos);
+    }
+
     function handleCursorMove(e) {
-        findClosestPosition(e.clientX - originOfCoordinates.x, e.clientY - originOfCoordinates.y - window.scrollY, gridPositionsRef.current);
+        const xPos = e.clientX - (originOfCoordinates?.x ?? 0);
+        const yPos = e.clientY - (originOfCoordinates?.y ?? 0);
+        findClosestPosition(xPos, yPos, gridPositionsRef.current);
     }
 
     //instead of this, I could add to each div a function that sets the closest position
@@ -73,17 +81,19 @@ function BackgroundGrid() {
         width: '4rem',
         height: '4rem',
         position: 'absolute',
-        left: closestPosition?.x || 0,
-        top: closestPosition?.y || 0,
+        // left: '400px',
+        // top: '400px',
+        left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),
+        top: (closestPosition?.y || 0) - (originOfCoordinates?.y || 0),
         border: '3px solid yellow'
     }
 
     return (
         <>
-            <div style={markerDivStyle}></div>
+            <div style={markerDivStyle} ref={markerDivRef}></div>
             <div ref={gridRef} style={backgroundGridStyle}>
                 {Array.from({ length: 200 }).map((_, index) => (
-                    <div key={index} style={cellStyle} />
+                    <div key={index} style={cellStyle}/>
                 ))}
             </div>
         </>
