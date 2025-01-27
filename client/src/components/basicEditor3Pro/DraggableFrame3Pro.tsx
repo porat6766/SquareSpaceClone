@@ -9,19 +9,6 @@ import BlockEditor3 from "./BlockEditor3Pro";
 import { BasicEditorContext } from "./BasicEditor3Pro";
 import { utils2 } from "./utils2";
 
-// interface Props {
-//   element: React.ComponentType<any>; // Type for the dynamic component
-//   propsForElement: any; // Type for the props to be passed
-// }
-
-// const DynamicComponent: React.FC<Props> = ({ element, propsForElement }) => {
-//   return (
-//     <>
-//       {React.createElement(element, propsForElement)}
-//     </>
-//   );
-// };
-
 export type DraggableFrame3Props = {
   renderElement: RenderElement3;
 };

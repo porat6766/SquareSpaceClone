@@ -92,7 +92,10 @@ function EditorLayout() {
 
   // Handle save action
   function saveCurrentWebsite(currentWebsite: ISite) {
-    if (!imageData) return;
+    //this makes the system fragile.
+    // if (!imageData) return;
+    //the image data should be sent separately from the website data.
+    //they should not depend on each other.
     const websiteDataString = JSON.stringify(currentWebsite);
     setWebsiteToSave(websiteDataString);
     if (websiteToEdit) {
