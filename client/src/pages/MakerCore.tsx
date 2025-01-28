@@ -65,69 +65,67 @@ const MakerCore = () => {
   };
 
   return (
-    <div className="flex relative w-screen min-h-screen overflow-hidden">
+    <div className="flex relative w-screen min-h-screen overflow-x-hidden">
       {/* Sidebar */}
-      {!fullscreen && (
-        <div className="relative min-w-[300px] p-4 bg-zinc-100 text-black">
-          {/* icon */}
-          <span
-            className="absolute opacity-30 hover:opacity-60 left-6 top-5 cursor-pointer"
-            onClick={() => navigate("/templates")}
-          >
-            <img src={Icon} alt="logo" className="max-w-9 max-h-9" />
-          </span>
-          {/* inputs */}
-          <div className="mt-16 flex flex-col items-center">
-            <input
-              placeholder="company name"
-              className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60 mb-4"
-            />
-            <input
-              placeholder="add text"
-              className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60"
-            />
-            {/* search button */}
-            <div className="relative group flex self-start ml-6 mt-10 text-gray-500 group-hover:text-black cursor-pointer">
-              <button className="flex items-center pr-3" type="submit">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 group-hover:text-black"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.9 14.32a8 8 0 111.42-1.42l4.93 4.93a1 1 0 11-1.42 1.42l-4.93-4.93zM8 14a6 6 0 100-12 6 6 0 000 12z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <span className="text-gray-500 group-hover:text-black">
-                Search
-              </span>
-            </div>
-            {/* icons to choose from list */}
-            <div className="mt-4 border-t-2 border-opacity-35 border-gray-500 w-5/6 overflow-y-visible max-h-[365px] h-screen">
-              <div className="grid grid-cols-3 gap-4 p-4"></div>
-            </div>
-            <button className="p-5 px-20 mt-8 text-opacity-70 hover:text-opacity-100 bg-black text-white text-sm font-bold">
-              SAVE LOGO
+      <div
+        className={`relative bg-zinc-100 text-black transition-all duration-500 ease-in-out ${
+          fullscreen ? "w-0 opacity-0" : "w-[300px] opacity-100"
+        }`}
+      >
+        {/* icon */}
+        <span
+          className="absolute opacity-30 hover:opacity-60 left-6 top-5 cursor-pointer"
+          onClick={() => navigate("/templates")}
+        >
+          <img src={Icon} alt="logo" className="max-w-9 max-h-9" />
+        </span>
+        {/* inputs */}
+        <div className="mt-16 flex flex-col items-center">
+          <input
+            placeholder="company name"
+            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60 mb-4"
+          />
+          <input
+            placeholder="add text"
+            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60"
+          />
+          {/* search button */}
+          <div className="relative group flex self-start ml-6 mt-10 text-gray-500 group-hover:text-black cursor-pointer">
+            <button className="flex items-center pr-3" type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 group-hover:text-black"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.9 14.32a8 8 0 111.42-1.42l4.93 4.93a1 1 0 11-1.42 1.42l-4.93-4.93zM8 14a6 6 0 100-12 6 6 0 000 12z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </button>
+            <span className="text-gray-500 group-hover:text-black">Search</span>
           </div>
+          {/* icons to choose from list */}
+          <div className="mt-4 border-t-2 border-opacity-35 border-gray-500 w-5/6 overflow-y-visible max-h-[365px] h-screen">
+            <div className="grid grid-cols-3 gap-4 p-4"></div>
+          </div>
+          <button className="p-5 px-20 mt-8 text-opacity-70 hover:text-opacity-100 bg-black text-white text-sm font-bold">
+            SAVE LOGO
+          </button>
         </div>
-      )}
+      </div>
       {/* Canvas */}
       <div
-        className={`flex flex-grow flex-col relative overflow-hidden ${
-          fullscreen ? "h-screen w-screen" : "h-2/3 w-auto"
-        }`}
+        className={`flex flex-grow flex-col relative overflow-hidden h-screen w-screen`}
       >
         <canvas
           ref={canvasRef}
-          className="relative shadow h-screen w-screen"
+          className={`relative shadow transition-all duration-500 ease-in-out h-screen w-screen`}
         ></canvas>
         <span
-          className={`absolute text-black right-6 opacity-70 ${
+          className={`absolute text-black right-6 opacity-70 transition-all duration-500 ease-in-out ${
             fullscreen ? "bottom-8" : "bottom-[265px]"
           }`}
         >
@@ -142,19 +140,21 @@ const MakerCore = () => {
         <img
           src={fullscreen ? Smallscreen : Fullscreen}
           alt="fullscreen"
-          className={`absolute left-5 flex space-x-4 w-6 h-6 cursor-pointer opacity-65 hover:opacity-100 rotate-90 ${
-            fullscreen ? "bottom-8" : "bottom-[280px]"
+          className={`absolute left-0 flex space-x-4 w-6 h-6 m-10 cursor-pointer opacity-65 hover:opacity-100 rotate-90 transition-all duration-500 ease-in-out ${
+            fullscreen ? "bottom-0" : "bottom-[280px]"
           }`}
           onClick={handleFullscreenToggle}
         />
         {/* footer */}
-        {!fullscreen && (
-          <footer className="bg-black text-white p-6 h-[250px] w-full absolute bottom-0 right-0">
-            <div className="text-center">
-              <p>Footer Content</p>
-            </div>
-          </footer>
-        )}
+        <footer
+          className={`bg-black text-white p-6 transition-all duration-500 ease-in-out absolute bottom-0 left-0 w-full ${
+            fullscreen ? "opacity-0 h-0" : "opacity-100 min-h-[250px]"
+          }`}
+        >
+          <div className="text-center">
+            <p>Footer Content</p>
+          </div>
+        </footer>
       </div>
     </div>
   );
