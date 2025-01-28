@@ -35,16 +35,16 @@ function LogoMaker() {
         </div>
         <div className="relative w-full">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-            <div className="relative flex items-center p-1 pl-3 w-96 mb-10">
+            <div className="relative flex items-center p-1 pl-3 w-80 mb-10">
               <input
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="company name"
-                className="bg-black text-white placeholder:opacity-60 p-2 rounded-sm w-screen"
+                className="bg-black text-white placeholder:opacity-70 p-2 rounded-sm w-screen"
               />
               <span
                 onClick={makerNavigate}
-                className="text-6xl pb-3 opacity-50 ml-8 text-black transition-all duration-300 hover:opacity-100 cursor-pointer"
+                className="text-4xl pb-3 opacity-50 ml-3 text-black transition-all duration-300 hover:opacity-100 cursor-pointer"
               >
                 →
               </span>
@@ -53,7 +53,7 @@ function LogoMaker() {
           <img
             src={Banner}
             alt="banner"
-            className="relative h-auto w-full object-cover -left-[370px]"
+            className="relative h-auto w-[50%] object-cover left-52"
           />
         </div>
       </div>
