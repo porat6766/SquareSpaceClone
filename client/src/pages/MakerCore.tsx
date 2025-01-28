@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import Icon from "../assets/icon-squarespace.svg";
+import { Icons } from "../components/LogoMaker/Icons";
 import Fullscreen from "../assets/icon-fullscreen-open.svg";
 import Smallscreen from "../assets/icon-fullscreen-close.svg";
 import Options from "../assets/icon-gear.svg";
 import { useNavigate } from "react-router-dom";
 
-// Canvas Component with Grid Dots
 const MakerCore = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gridSize, setGridSize] = useState(20);
   const [fullscreen, setFullscreen] = useState(false);
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [shapeIcons, setShapeIcons] = useState([]);
+
   const navigate = useNavigate();
 
   const dotRadius = 1; // Dot (radius)
@@ -34,7 +38,7 @@ const MakerCore = () => {
       const width = canvas.width;
       const height = canvas.height;
 
-      context.clearRect(0, 0, width, height); // Clear the canvas before drawing
+      context.clearRect(0, 0, width, height); // Clear the canvas before drawing # # # # # # # # # # ## # # ## # #
       context.fillStyle = "#9e9e9e";
 
       // Draw dots in a grid pattern
@@ -59,28 +63,43 @@ const MakerCore = () => {
     }
   }, [gridSize]);
 
-  // Toggle Fullscreen Mode
+  useEffect(() => {
+    axios
+      .get("https://your-api-endpoint.com/shapes")
+      .then((response) => {
+        setShapeIcons(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching shape icons:", error);
+      });
+  }, []);
+
   const handleFullscreenToggle = () => {
     setFullscreen(!fullscreen);
+  };
+
+  const toggleDialog = () => {
+    setIsOptionsOpen((prev) => !prev);
   };
 
   return (
     <div className="flex relative w-screen min-h-screen overflow-x-hidden">
       {/* Sidebar */}
       <div
-        className={`relative bg-zinc-100 text-black transition-all duration-500 ease-in-out ${
-          fullscreen ? "w-0 opacity-0" : "w-[300px] opacity-100"
+        className={`relative bg-zinc-100 text-black transition-all duration-500 ease-in-out flex flex-col justify-center ${
+          fullscreen ? "w-0 opacity-0" : "w-[380px] opacity-100"
         }`}
       >
         {/* icon */}
         <span
-          className="absolute opacity-30 hover:opacity-60 left-6 top-5 cursor-pointer"
+          className="absolute opacity-50 hover:opacity-80 left-6 top-5 cursor-pointer"
           onClick={() => navigate("/templates")}
         >
           <img src={Icon} alt="logo" className="max-w-9 max-h-9" />
         </span>
-        {/* inputs */}
+        {/* sidebar content */}
         <div className="mt-16 flex flex-col items-center">
+          {/* inputs */}
           <input
             placeholder="company name"
             className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60 mb-4"
@@ -89,37 +108,172 @@ const MakerCore = () => {
             placeholder="add text"
             className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60"
           />
-          {/* search button */}
-          <div className="relative group flex self-start ml-6 mt-10 text-gray-500 group-hover:text-black cursor-pointer">
-            <button className="flex items-center pr-3" type="submit">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 group-hover:text-black"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.9 14.32a8 8 0 111.42-1.42l4.93 4.93a1 1 0 11-1.42 1.42l-4.93-4.93zM8 14a6 6 0 100-12 6 6 0 000 12z"
-                  clipRule="evenodd"
+          <div className="group relative w-full flex flex-col items-center">
+            {/* search button */}
+            <div className="relative group flex self-start ml-6 mt-10 text-gray-500 group-hover:text-black cursor-pointer">
+              <button className="flex items-center pr-3" type="submit">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 group-hover:text-black"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.9 14.32a8 8 0 111.42-1.42l4.93 4.93a1 1 0 11-1.42 1.42l-4.93-4.93zM8 14a6 6 0 100-12 6 6 0 000 12z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span className="text-gray-600 group-hover:text-black">
+                Search
+              </span>
+            </div>
+            {/* icons to choose from list */}
+            <div className="group relative mt-4 border-t-2 border-opacity-35 border-gray-600 group-hover:border-black w-5/6 max-h-[365px] h-screen">
+              <div className="grid grid-cols-3 gap-4 p-4 overflow-y-auto max-h-[365px]">
+                <Icons.sun
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
                 />
-              </svg>
-            </button>
-            <span className="text-gray-500 group-hover:text-black">Search</span>
+                <Icons.moon
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.readMore
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.bookmark
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.share
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.copyLink
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.facebook
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.linkedin
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.more
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.hide
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.block
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.report
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.left
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.right
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.flame
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.upvote
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.discussion
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.search
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.notification
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.history
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.user
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.close
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.settings
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.logout
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.read
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.chevronLeft
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.chevronRight
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.articlesSettings
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.home
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.loading
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.checkCircle
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.edit
+                  size={48}
+                  className="cursor-grab active:cursor-grabbing"
+                />
+                <Icons.gitHub className="cursor-grab active:cursor-grabbing max-w-[44px]" />
+              </div>
+            </div>
           </div>
-          {/* icons to choose from list */}
-          <div className="mt-4 border-t-2 border-opacity-35 border-gray-500 w-5/6 overflow-y-visible max-h-[365px] h-screen">
-            <div className="grid grid-cols-3 gap-4 p-4"></div>
-          </div>
-          <button className="p-5 px-20 mt-8 text-opacity-70 hover:text-opacity-100 bg-black text-white text-sm font-bold">
-            SAVE LOGO
-          </button>
         </div>
+        <button className="flex p-5 px-24 mt-8 text-opacity-80 hover:text-opacity-100 bg-black text-white text-sm font-bold self-center">
+          SAVE LOGO
+        </button>
       </div>
-      {/* Canvas */}
+      {/* body */}
       <div
         className={`flex flex-grow flex-col relative overflow-hidden h-screen w-screen`}
       >
+        {/* Canvas */}
         <canvas
           ref={canvasRef}
           className={`relative shadow transition-all duration-500 ease-in-out h-screen w-screen`}
@@ -135,13 +289,39 @@ const MakerCore = () => {
         <img
           src={Options}
           alt="gear"
-          className="absolute top-5 left-5 flex space-x-4 w-6 h-6 cursor-pointer opacity-65 hover:opacity-100"
+          onClick={toggleDialog}
+          className="absolute top-5 left-5 flex space-x-4 w-5 h-5 cursor-pointer opacity-65 hover:opacity-100"
         />
+        {isOptionsOpen && (
+          <div
+            className="absolute top-5 left-16 bg-black text-gray-300 p-4 text-sm shadow-lg z-50 w-48 space-y-6"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the dialog
+          >
+            <div className="flex flex-col">
+              <span className="uppercase cursor-pointer mb-5">guides</span>
+              <span className="uppercase cursor-pointer">snap to grid</span>
+            </div>
+            <div className="mb-4">
+              <input
+                type="range"
+                min="10"
+                max="50"
+                step="1"
+                value={gridSize}
+                onChange={(e) => setGridSize(Number(e.target.value))}
+                className="w-full hover:cursor-grab active:cursor-grabbing"
+              />
+              <label className="block text-xs opacity-65">
+                Grid Size {gridSize}px
+              </label>
+            </div>
+          </div>
+        )}
         <img
           src={fullscreen ? Smallscreen : Fullscreen}
           alt="fullscreen"
-          className={`absolute left-0 flex space-x-4 w-6 h-6 m-10 cursor-pointer opacity-65 hover:opacity-100 rotate-90 transition-all duration-500 ease-in-out ${
-            fullscreen ? "bottom-0" : "bottom-[280px]"
+          className={`absolute left-0 w-5 h-5 m-5 cursor-pointer opacity-65 hover:opacity-100 rotate-90 transition-all duration-500 ease-in-out ${
+            fullscreen ? "bottom-8" : "bottom-[260px]"
           }`}
           onClick={handleFullscreenToggle}
         />
@@ -151,7 +331,7 @@ const MakerCore = () => {
             fullscreen ? "opacity-0 h-0" : "opacity-100 min-h-[250px]"
           }`}
         >
-          <div className="text-center">
+          <div className={`text-center ${fullscreen ? "hidden" : "block"}`}>
             <p>Footer Content</p>
           </div>
         </footer>
@@ -161,19 +341,3 @@ const MakerCore = () => {
 };
 
 export default MakerCore;
-
-{
-  /* <h2 className="text-xl mt-24">Controls</h2>
-<div className="mb-4">
-  <label className="block">Grid Size {gridSize}px</label>
-  <input
-    type="range"
-    min="10"
-    max="50"
-    step="1"
-    value={gridSize}
-    onChange={(e) => setGridSize(Number(e.target.value))}
-    className="w-full"
-  />
-</div> */
-}
