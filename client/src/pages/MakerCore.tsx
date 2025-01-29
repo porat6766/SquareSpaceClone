@@ -1,20 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
 import Icon from "../assets/icon-squarespace.svg";
-import { Icons } from "../components/LogoMaker/Icons";
 import Fullscreen from "../assets/icon-fullscreen-open.svg";
 import Smallscreen from "../assets/icon-fullscreen-close.svg";
+import CardImg from "../assets/preview-website.jpg";
+import Tshirt from "../assets/preview-tshirt.jpg";
+import Banner from "../assets/splash-businesscard-copy.png";
 import Options from "../assets/icon-gear.svg";
 import { useNavigate } from "react-router-dom";
+
+// # # # # # # # icons importing
+import { ShadcnIcons, Iconscn } from "../components/LogoMaker/ShadcnIcons";
 
 const MakerCore = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gridSize, setGridSize] = useState(20);
   const [fullscreen, setFullscreen] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const [shapeIcons, setShapeIcons] = useState([]);
-
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const dotRadius = 1; // Dot (radius)
 
@@ -63,17 +68,6 @@ const MakerCore = () => {
     }
   }, [gridSize]);
 
-  useEffect(() => {
-    axios
-      .get("https://your-api-endpoint.com/shapes")
-      .then((response) => {
-        setShapeIcons(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching shape icons:", error);
-      });
-  }, []);
-
   const handleFullscreenToggle = () => {
     setFullscreen(!fullscreen);
   };
@@ -81,6 +75,74 @@ const MakerCore = () => {
   const toggleDialog = () => {
     setIsOptionsOpen((prev) => !prev);
   };
+
+  const toggleSearch = () => {
+    setIsSearchOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    }
+    if (isSearchOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isSearchOpen]);
+
+  const handleSearch = (e: any) => {
+    setSearchQuery(e.target.value);
+  };
+
+  type IconName = keyof typeof ShadcnIcons;
+  const IconscnMap: { [key in IconName]: React.ComponentType<any> } = {
+    sun: ShadcnIcons.sun,
+    moon: ShadcnIcons.moon,
+    readMore: ShadcnIcons.readMore,
+    dooropen: ShadcnIcons.dooropen,
+    newspaper: ShadcnIcons.newspaper,
+    bookmark: ShadcnIcons.bookmark,
+    share: ShadcnIcons.share,
+    copyLink: ShadcnIcons.copyLink,
+    facebook: ShadcnIcons.facebook,
+    linkedin: ShadcnIcons.linkedin,
+    more: ShadcnIcons.more,
+    hide: ShadcnIcons.hide,
+    block: ShadcnIcons.block,
+    report: ShadcnIcons.report,
+    left: ShadcnIcons.left,
+    right: ShadcnIcons.right,
+    flame: ShadcnIcons.flame,
+    upvote: ShadcnIcons.upvote,
+    discussion: ShadcnIcons.discussion,
+    search: ShadcnIcons.search,
+    notification: ShadcnIcons.notification,
+    history: ShadcnIcons.history,
+    user: ShadcnIcons.user,
+    close: ShadcnIcons.close,
+    settings: ShadcnIcons.settings,
+    logout: ShadcnIcons.logout,
+    read: ShadcnIcons.read,
+    chevronLeft: ShadcnIcons.chevronLeft,
+    chevronRight: ShadcnIcons.chevronRight,
+    articlesSettings: ShadcnIcons.articlesSettings,
+    home: ShadcnIcons.home,
+    loading: ShadcnIcons.loading,
+    checkCircle: ShadcnIcons.checkCircle,
+    edit: ShadcnIcons.edit,
+    gitHub: ShadcnIcons.gitHub,
+  };
+
+  const iconNames = Object.keys(IconscnMap);
+
+  const filteredIcons = iconNames.filter((icon) =>
+    icon.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="flex relative w-screen min-h-screen overflow-x-hidden">
@@ -92,7 +154,7 @@ const MakerCore = () => {
       >
         {/* icon */}
         <span
-          className="absolute opacity-50 hover:opacity-80 left-6 top-5 cursor-pointer"
+          className="transition-all duration-700 ease-in-out absolute opacity-50 hover:opacity-80 left-6 top-5 cursor-pointer"
           onClick={() => navigate("/templates")}
         >
           <img src={Icon} alt="logo" className="max-w-9 max-h-9" />
@@ -102,15 +164,18 @@ const MakerCore = () => {
           {/* inputs */}
           <input
             placeholder="company name"
-            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60 mb-4"
+            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black mb-4"
           />
           <input
             placeholder="add text"
-            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-60"
+            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black"
           />
           <div className="group relative w-full flex flex-col items-center">
             {/* search button */}
-            <div className="relative group flex self-start ml-6 mt-10 text-gray-500 group-hover:text-black cursor-pointer">
+            <div
+              onClick={toggleSearch}
+              className="relative group flex self-start ml-6 mt-10 text-gray-500 group-hover:text-black cursor-pointer"
+            >
               <button className="flex items-center pr-3" type="submit">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -126,141 +191,45 @@ const MakerCore = () => {
                 </svg>
               </button>
               <span className="text-gray-600 group-hover:text-black">
-                Search
+                {searchQuery ? searchQuery : "search"}
               </span>
+              {isSearchOpen && (
+                <div className="fixed inset-0 flex items-center justify-start pl-10 pb-24 bg-black/50 z-50 cursor-auto">
+                  <div
+                    ref={dialogRef}
+                    className="bg-white bg-opacity-10 p-4 rounded-md shadow-lg w-96 max-w-full"
+                    onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                  >
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={handleSearch}
+                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                      placeholder="Search for icons ..."
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-            {/* icons to choose from list */}
+            {/* # # # # # # # # icons to choose from list  # # # # # # #*/}
             <div className="group relative mt-4 border-t-2 border-opacity-35 border-gray-600 group-hover:border-black w-5/6 max-h-[365px] h-screen">
-              <div className="grid grid-cols-3 gap-4 p-4 overflow-y-auto max-h-[365px]">
-                <Icons.sun
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.moon
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.readMore
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.bookmark
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.share
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.copyLink
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.facebook
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.linkedin
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.more
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.hide
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.block
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.report
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.left
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.right
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.flame
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.upvote
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.discussion
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.search
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.notification
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.history
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.user
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.close
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.settings
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.logout
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.read
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.chevronLeft
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.chevronRight
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.articlesSettings
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.home
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.loading
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.checkCircle
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.edit
-                  size={48}
-                  className="cursor-grab active:cursor-grabbing"
-                />
-                <Icons.gitHub className="cursor-grab active:cursor-grabbing max-w-[44px]" />
+              <div className="grid overflow-y-auto max-h-[365px]">
+                {!searchQuery ? (
+                  <Iconscn />
+                ) : (
+                  <div className="grid grid-cols-3 gap-4 p-4">
+                    {filteredIcons.map((icon) => {
+                      const IconComponent = IconscnMap[icon as IconName];
+                      return IconComponent ? (
+                        <IconComponent
+                          key={icon}
+                          size={48}
+                          className="cursor-grab active:cursor-grabbing"
+                        />
+                      ) : null;
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -271,12 +240,12 @@ const MakerCore = () => {
       </div>
       {/* body */}
       <div
-        className={`flex flex-grow flex-col relative overflow-hidden h-screen w-screen`}
+        className={`flex flex-col relative overflow-hidden h-screen w-screen `}
       >
         {/* Canvas */}
         <canvas
           ref={canvasRef}
-          className={`relative shadow transition-all duration-500 ease-in-out h-screen w-screen`}
+          className={`relative top-0 left-0 shadow transition-all duration-700 ease-in-out w-screen h-screen`}
         ></canvas>
         <span
           className={`absolute text-black right-6 opacity-70 transition-all duration-500 ease-in-out ${
@@ -290,8 +259,9 @@ const MakerCore = () => {
           src={Options}
           alt="gear"
           onClick={toggleDialog}
-          className="absolute top-5 left-5 flex space-x-4 w-5 h-5 cursor-pointer opacity-65 hover:opacity-100"
+          className="transition-all duration-700 ease-in-out absolute top-5 left-5 flex space-x-4 w-5 h-5 cursor-pointer opacity-65 hover:opacity-100"
         />
+        {/* options dialog */}
         {isOptionsOpen && (
           <div
             className="absolute top-5 left-16 bg-black text-gray-300 p-4 text-sm shadow-lg z-50 w-48 space-y-6"
@@ -301,6 +271,7 @@ const MakerCore = () => {
               <span className="uppercase cursor-pointer mb-5">guides</span>
               <span className="uppercase cursor-pointer">snap to grid</span>
             </div>
+            {/* grid change in px */}
             <div className="mb-4">
               <input
                 type="range"
@@ -327,12 +298,27 @@ const MakerCore = () => {
         />
         {/* footer */}
         <footer
-          className={`bg-black text-white p-6 transition-all duration-500 ease-in-out absolute bottom-0 left-0 w-full ${
-            fullscreen ? "opacity-0 h-0" : "opacity-100 min-h-[250px]"
+          className={`bg-white text-black p-6 transition-all duration-500 ease-in-out absolute bottom-0 left-0 w-full shadow-inner ${
+            fullscreen ? "opacity-0 h-0" : "opacity-100 max-h-[245px]"
           }`}
         >
-          <div className={`text-center ${fullscreen ? "hidden" : "block"}`}>
-            <p>Footer Content</p>
+          <div
+            className={`text-center ml-20 ${
+              fullscreen ? "hidden" : "flex"
+            } space-x-14 relative -bottom-6 items-end`}
+          >
+            <img
+              src={Banner}
+              className="w-[400px] h-52 hover:scale-110 cursor-pointer"
+            />
+            <img
+              src={CardImg}
+              className="w-80 h-52 hover:scale-110 cursor-pointer"
+            />
+            <img
+              src={Tshirt}
+              className="w-52 h-52 hover:scale-110 cursor-pointer"
+            />
           </div>
         </footer>
       </div>
