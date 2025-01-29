@@ -83,13 +83,11 @@ function BasicEditor3Pro({
   saveTrigger,
   setSaveTrigger,
 }: // pageNameFromLayout
-BasicEditor3ProProps) {
+  BasicEditor3ProProps) {
   const [isEditMode, setIsEditMode] = useState(true);
   const [headerEditMode, setHeaderEditMode] = useState(false);
-  const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>({
-    x: 0,
-    y: 0,
-  });
+  const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>({ x: 0, y: 0, });
+  const [closestPosition, setClosestPosition] = useState<Position>({ x: 0, y: 0 });
 
   const [headerData, setHeaderData]: any = useState(currentWebsite?.headerData);
   const [pages, setPages] = useState<BasicEditor3Page[]>(
@@ -172,9 +170,9 @@ BasicEditor3ProProps) {
         prev.map((element) =>
           element.data.id === id
             ? {
-                data: { ...element.data, position: newPosition },
-                body: element.body,
-              }
+              data: { ...element.data, position: newPosition },
+              body: element.body,
+            }
             : element
         )
       );
@@ -184,9 +182,9 @@ BasicEditor3ProProps) {
         prev.map((element) =>
           element.data.id === id
             ? {
-                data: { ...element.data, content: newContent },
-                body: element.body,
-              }
+              data: { ...element.data, content: newContent },
+              body: element.body,
+            }
             : element
         )
       );
@@ -260,17 +258,17 @@ BasicEditor3ProProps) {
   function mapRenderElements(): ReactNode[] {
     return isRenderElements
       ? renderElements.map((element) => {
-          // if(element.data.extraData?.isBackground){
-          //   // baseFunctions.setPosition(element.data.id, originOfCoordinates);
-          //   // baseFunctions.setStyle(element.data.id, {...element.data.style, width:'100vw'})
-          //   element.data.style = {...element.data.style, position:'absolute', left:'0', top:'0', zIndex:'0'}
-          //   return element.body;
-          // }
-          // else return <DraggableFrame3 key={element.data.id} renderElement={element} />
-          return (
-            <DraggableFrame3 key={element.data.id} renderElement={element} />
-          );
-        })
+        // if(element.data.extraData?.isBackground){
+        //   // baseFunctions.setPosition(element.data.id, originOfCoordinates);
+        //   // baseFunctions.setStyle(element.data.id, {...element.data.style, width:'100vw'})
+        //   element.data.style = {...element.data.style, position:'absolute', left:'0', top:'0', zIndex:'0'}
+        //   return element.body;
+        // }
+        // else return <DraggableFrame3 key={element.data.id} renderElement={element} />
+        return (
+          <DraggableFrame3 key={element.data.id} renderElement={element} />
+        );
+      })
       : [];
   }
 
@@ -328,6 +326,7 @@ BasicEditor3ProProps) {
         isEditMode,
         originOfCoordinates,
         duplicateElement,
+        closestPosition
       }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
@@ -340,9 +339,9 @@ BasicEditor3ProProps) {
           data={headerData}
           setData={setHeaderData}
         />
-        {isEditMode && <div style={{position:'relative', top:'200px'}}>
+        {isEditMode && <div style={{ position: 'relative', top: '200px' }}>
           {!addBlockMenuVisible ? (
-            <div style={{ position:'absolute', zIndex: '100' }}>
+            <div style={{ position: 'absolute', zIndex: '100' }}>
               <button
                 onClick={(e) => handleAddMenuClick(e)}
                 className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
@@ -359,7 +358,7 @@ BasicEditor3ProProps) {
         </div>
         }
         <div>
-          <BackgroundGrid />
+          <BackgroundGrid setClosestPosition={setClosestPosition}/>
           {mapRenderElements()}
         </div>
       </div>

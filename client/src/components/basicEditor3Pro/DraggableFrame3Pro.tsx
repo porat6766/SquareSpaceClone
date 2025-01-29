@@ -21,19 +21,13 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   const [borderHover, setBorderHover] = useState<string>("none");
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const {
-    baseFunctions,
-    originOfCoordinates,
-    isEditMode,
-  }: BasicEditorContextType = useContext(BasicEditorContext);
+  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition }: BasicEditorContextType = useContext(BasicEditorContext);
   const divRef = useRef<HTMLDivElement>(null);
   const borderWidth = 5;
 
   const frameBorder = isEditMode && isHovering ? "1px solid blue" : "none";
 
-  const frameZIndex = renderElement.data.extraData
-    ? renderElement.data.extraData.zIndex
-    : false;
+  const frameZIndex = renderElement.data.extraData ? renderElement.data.extraData.zIndex : false;
 
   const BACKGROUND_LEFT = 0;
 
@@ -158,6 +152,13 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     const handleMouseUp = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      //In testing, may need to remove>
+      if(!renderElement.data.extraData?.isBackground){
+        // setPosition(closestPosition)
+        // baseFunctions?.setPosition(renderElement.data.id, closestPosition);
+        console.log(closestPosition)
+      }
+      //<In testing, may need to remove
     };
 
     window.addEventListener("mousemove", handleMouseMove);
