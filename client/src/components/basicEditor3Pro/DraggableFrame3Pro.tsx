@@ -14,26 +14,19 @@ export type DraggableFrame3Props = {
 };
 
 function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
-  const [position, setPosition] = useState<Position>(
-    renderElement.data.position
-  );
+  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition, offset, setOffset }: BasicEditorContextType = useContext(BasicEditorContext);
+  const [position, setPosition] = useState<Position>(renderElement.data.position);
   const [displayEditButtons, setDisplayEditButtons] = useState(false);
   const [borderHover, setBorderHover] = useState<string>("none");
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [positionTrigger, setPositionTrigger] = useState<boolean>(false);
 
-  const {
-    baseFunctions,
-    originOfCoordinates,
-    isEditMode,
-  }: BasicEditorContextType = useContext(BasicEditorContext);
   const divRef = useRef<HTMLDivElement>(null);
   const borderWidth = 5;
 
   const frameBorder = isEditMode && isHovering ? "1px solid blue" : "none";
 
-  const frameZIndex = renderElement.data.extraData
-    ? renderElement.data.extraData.zIndex
-    : false;
+  const frameZIndex = renderElement.data.extraData ? renderElement.data.extraData.zIndex : false;
 
   const BACKGROUND_LEFT = 0;
 
@@ -76,6 +69,17 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     setPosition(renderElement.data.position);
   }, [renderElement.data.position]);
 
+  useEffect(() => {
+    if (positionTrigger) {
+      baseFunctions?.setPosition(renderElement.data.id, closestPosition)
+    }
+    setPositionTrigger(false);
+  }, [positionTrigger])
+
+  useEffect(() => {
+    console.log("offset:",offset);
+  },[offset])
+
   // useEffect(() => {
   //   // console.log("border hover says:", borderHover);
   // }, [borderHover]);
@@ -109,6 +113,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 
   //the problem might be that the ooc from the pov of the div is the ooc of wrapper3,
   //but the ooc for e.client and rect are relative to the viewport.
+
   const handleMouseDown = (e: any) => {
     if (!isEditMode) return;
     const rect = divRef?.current?.getBoundingClientRect();
@@ -117,6 +122,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     }
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
+    setOffset({x:offsetX, y:offsetY});
     // console.log(`x:${e.clientX} y:${e.clientY}`);
 
     const handleMouseMove = (e: any) => {
@@ -158,8 +164,12 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     const handleMouseUp = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      //In testing, may need to remove>
+      if (!renderElement.data.extraData?.isBackground) {
+        setPositionTrigger(true);
+      }
+      //<In testing, may need to remove
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
   };
@@ -192,3 +202,4 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 }
 
 export default DraggableFrame3;
+

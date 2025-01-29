@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, SetStateAction, Dispatch } from "react";
 import { Header3Data } from "./Header3";
 import { Footer3Data } from "./Footer3";
 
@@ -87,4 +87,7 @@ export type BasicEditorContextType = {
   isEditMode?: boolean;
   originOfCoordinates?: Position;
   duplicateElement?: (element: RenderElement3) => void;
+  closestPosition:Position;
+  offset:Position,
+  setOffset:Dispatch<SetStateAction<Position>>
 };

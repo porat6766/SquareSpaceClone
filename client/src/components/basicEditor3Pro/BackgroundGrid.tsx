@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from 'react'
+import { useRef, useEffect, useContext, useState, SetStateAction, Dispatch } from 'react'
 import { Position } from './BasicEditor3ProTypes';
 import { BasicEditorContext } from './BasicEditor3Pro';
 
@@ -17,16 +17,19 @@ const cellStyle = {
     aspectRatio: '1/1'
 }
 
-function BackgroundGrid() {
+export type backgroundGridPropType = {
+    setClosestPosition: Dispatch<SetStateAction<Position>>
+}
+
+function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
     const gridPositionsRef = useRef<Position[]>([])
-    const [closestPosition, setClosestPosition] = useState<Position>({x:0, y:0});
-    const { originOfCoordinates } = useContext(BasicEditorContext);
+    const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
 
     useEffect(() => {
-        console.log("closest position:", closestPosition)
+        // console.log("closest position:", closestPosition)
     }, [closestPosition])
 
     useEffect(() => {
@@ -36,7 +39,7 @@ function BackgroundGrid() {
             const positions = Array.from(cells).map((cell) => {
                 const rect = cell.getBoundingClientRect();
                 const pos:Position = { x: rect.left, y: rect.top }
-                cell.addEventListener('mouseover', () => handleCellHover(pos));
+                // cell.addEventListener('mouseover', () => handleCellHover(pos));
                 return pos;
             });
             setGridPositions(positions);
@@ -45,13 +48,13 @@ function BackgroundGrid() {
     },[]);
 
     useEffect(() => {
-        // window.addEventListener('mousemove', handleCursorMove);
-        // return () => window.removeEventListener('mousemove', handleCursorMove);
+        window.addEventListener('mousemove', handleCursorMove);
+        return () => window.removeEventListener('mousemove', handleCursorMove);
     }, [])
 
-    function handleCellHover(pos:Position){
-        setClosestPosition(pos);
-    }
+    // function handleCellHover(pos:Position){
+    //     setClosestPosition(pos);
+    // }
 
     function handleCursorMove(e) {
         const xPos = e.clientX - (originOfCoordinates?.x ?? 0);
@@ -66,11 +69,18 @@ function BackgroundGrid() {
         let minDistance = Infinity;
         
         positions.forEach((position) => {
-            const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
-
+            //this offset business needs some work...------------------------------
+            const distance = offset ?
+            Math.sqrt(Math.pow(cursorX - offset.x - position.x, 2) + Math.pow(cursorY - offset.y - position.y, 2))
+            : Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
+             
             if (distance < minDistance) {
                 minDistance = distance;
                 closestPosition = position;
+                if(originOfCoordinates){
+                    closestPosition.x -= originOfCoordinates.x 
+                    closestPosition.y -= originOfCoordinates.y
+                }
             }
         })
 
@@ -81,10 +91,10 @@ function BackgroundGrid() {
         width: '4rem',
         height: '4rem',
         position: 'absolute',
-        // left: '400px',
-        // top: '400px',
-        left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),
-        top: (closestPosition?.y || 0) - (originOfCoordinates?.y || 0),
+        left: closestPosition?.x || 0,
+        top: closestPosition?.y || 0,
+        // left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),
+        // top: (closestPosition?.y || 0) - (originOfCoordinates?.y || 0),
         border: '3px solid yellow'
     }
 

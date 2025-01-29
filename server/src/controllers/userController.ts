@@ -130,7 +130,7 @@ export const logIn = async (req: Request, res: Response): Promise<void> => {
 
     res.status(200).json({ message: "Login successful", user: userResponse });
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err });
+    res.status(500).json({ message: "Server error from login", error: err });
   }
 };
 
