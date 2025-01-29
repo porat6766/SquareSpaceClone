@@ -39,7 +39,7 @@ function LogoMaker() {
               <input
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                placeholder="company name"
+                placeholder="your logo / company name . . ."
                 className="bg-black text-white placeholder:opacity-70 p-2 rounded-sm w-screen"
               />
               <span

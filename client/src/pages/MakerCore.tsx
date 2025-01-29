@@ -6,7 +6,7 @@ import CardImg from "../assets/preview-website.jpg";
 import Tshirt from "../assets/preview-tshirt.jpg";
 import Banner from "../assets/splash-businesscard-copy.png";
 import Options from "../assets/icon-gear.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // # # # # # # # icons importing
 import { ShadcnIcons, Iconscn } from "../components/LogoMaker/ShadcnIcons";
@@ -18,6 +18,7 @@ const MakerCore = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { companyName } = useParams<string>();
   const navigate = useNavigate();
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
@@ -163,12 +164,12 @@ const MakerCore = () => {
         <div className="mt-16 flex flex-col items-center">
           {/* inputs */}
           <input
-            placeholder="company name"
-            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black mb-4"
+            placeholder={companyName ? companyName : "company name"}
+            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black focus:placeholder:text-transparent mb-4"
           />
           <input
             placeholder="add text"
-            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black"
+            className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black focus:placeholder:text-transparent"
           />
           <div className="group relative w-full flex flex-col items-center">
             {/* search button */}
