@@ -14,14 +14,13 @@ export type DraggableFrame3Props = {
 };
 
 function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
-  const [position, setPosition] = useState<Position>(
-    renderElement.data.position
-  );
+  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition }: BasicEditorContextType = useContext(BasicEditorContext);
+  const [position, setPosition] = useState<Position>(renderElement.data.position);
   const [displayEditButtons, setDisplayEditButtons] = useState(false);
   const [borderHover, setBorderHover] = useState<string>("none");
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [positionTrigger, setPositionTrigger] = useState<boolean>(false);
 
-  const { baseFunctions, originOfCoordinates, isEditMode, getClosestPosition }: BasicEditorContextType = useContext(BasicEditorContext);
   const divRef = useRef<HTMLDivElement>(null);
   const borderWidth = 5;
 
@@ -69,6 +68,13 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   useEffect(() => {
     setPosition(renderElement.data.position);
   }, [renderElement.data.position]);
+
+  useEffect(() => {
+    if (positionTrigger) {
+      baseFunctions?.setPosition(renderElement.data.id, closestPosition)
+    }
+    setPositionTrigger(false);
+  }, [positionTrigger])
 
   // useEffect(() => {
   //   // console.log("border hover says:", borderHover);
@@ -155,24 +161,13 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
       window.removeEventListener("mouseup", handleMouseUp);
       //In testing, may need to remove>
       if (!renderElement.data.extraData?.isBackground) {
-        //seems the "closestPosition" this knows is the one that was recorded when handleMouseDown
-        //was first called
-        // setPosition(closestPosition)
-        // baseFunctions?.setPosition(renderElement.data.id, closestPosition);
-        // console.log(closestPosition)
-        moveToClosestPosition();
+        setPositionTrigger(true);
       }
       //<In testing, may need to remove
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
   };
-
-  function moveToClosestPosition() {
-    const closestPosition = getClosestPosition();
-    baseFunctions?.setPosition(renderElement.data.id, closestPosition);
-  }
 
   function toggleDisplayEditButtons() {
     setDisplayEditButtons((prev) => !prev);

@@ -88,5 +88,4 @@ export type BasicEditorContextType = {
   originOfCoordinates?: Position;
   duplicateElement?: (element: RenderElement3) => void;
   closestPosition:Position;
-  getClosestPosition: () => Position;
 };

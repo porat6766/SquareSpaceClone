@@ -331,7 +331,6 @@ function BasicEditor3Pro({
         originOfCoordinates,
         duplicateElement,
         closestPosition,
-        getClosestPosition
       }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
