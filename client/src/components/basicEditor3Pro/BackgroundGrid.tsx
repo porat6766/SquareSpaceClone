@@ -18,12 +18,9 @@ const cellStyle = {
 }
 
 export type backgroundGridPropType = {
-    // closestPosition:Position
     setClosestPosition: Dispatch<SetStateAction<Position>>
 }
 
-//seems there is no choice but to make the tracking based on cursor position rather
-//than mouseover event. The mouseover event is obstructed by the element being dragged.
 function BackgroundGrid({ setClosestPosition}:backgroundGridPropType) {
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
     const gridPositionsRef = useRef<Position[]>([])
