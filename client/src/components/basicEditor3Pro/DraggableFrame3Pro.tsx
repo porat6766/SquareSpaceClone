@@ -14,7 +14,7 @@ export type DraggableFrame3Props = {
 };
 
 function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
-  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition }: BasicEditorContextType = useContext(BasicEditorContext);
+  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition, offset, setOffset }: BasicEditorContextType = useContext(BasicEditorContext);
   const [position, setPosition] = useState<Position>(renderElement.data.position);
   const [displayEditButtons, setDisplayEditButtons] = useState(false);
   const [borderHover, setBorderHover] = useState<string>("none");
@@ -76,6 +76,10 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     setPositionTrigger(false);
   }, [positionTrigger])
 
+  useEffect(() => {
+    console.log("offset:",offset);
+  },[offset])
+
   // useEffect(() => {
   //   // console.log("border hover says:", borderHover);
   // }, [borderHover]);
@@ -118,6 +122,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     }
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
+    setOffset({x:offsetX, y:offsetY});
     // console.log(`x:${e.clientX} y:${e.clientY}`);
 
     const handleMouseMove = (e: any) => {

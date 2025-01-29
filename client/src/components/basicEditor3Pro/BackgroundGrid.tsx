@@ -21,15 +21,15 @@ export type backgroundGridPropType = {
     setClosestPosition: Dispatch<SetStateAction<Position>>
 }
 
-function BackgroundGrid({ setClosestPosition}:backgroundGridPropType) {
+function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
     const gridPositionsRef = useRef<Position[]>([])
-    const { originOfCoordinates, closestPosition } = useContext(BasicEditorContext);
+    const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
 
     useEffect(() => {
-        console.log("closest position:", closestPosition)
+        // console.log("closest position:", closestPosition)
     }, [closestPosition])
 
     useEffect(() => {
@@ -69,13 +69,16 @@ function BackgroundGrid({ setClosestPosition}:backgroundGridPropType) {
         let minDistance = Infinity;
         
         positions.forEach((position) => {
-            const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
-
+            //this offset business needs some work...------------------------------
+            const distance = offset ?
+            Math.sqrt(Math.pow(cursorX - offset.x - position.x, 2) + Math.pow(cursorY - offset.y - position.y, 2))
+            : Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
+             
             if (distance < minDistance) {
                 minDistance = distance;
                 closestPosition = position;
                 if(originOfCoordinates){
-                    closestPosition.x -= originOfCoordinates.x
+                    closestPosition.x -= originOfCoordinates.x 
                     closestPosition.y -= originOfCoordinates.y
                 }
             }

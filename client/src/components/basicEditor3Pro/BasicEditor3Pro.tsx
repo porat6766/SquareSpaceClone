@@ -87,7 +87,9 @@ function BasicEditor3Pro({
   const [isEditMode, setIsEditMode] = useState(true);
   const [headerEditMode, setHeaderEditMode] = useState(false);
   const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>({ x: 0, y: 0, });
+
   const [closestPosition, setClosestPosition] = useState<Position>({ x: 0, y: 0 });
+  const [offset, setOffset] = useState<Position>({ x: 0, y: 0 });
 
   const [headerData, setHeaderData]: any = useState(currentWebsite?.headerData);
   const [pages, setPages] = useState<BasicEditor3Page[]>(
@@ -207,7 +209,7 @@ function BasicEditor3Pro({
     },
   };
 
-  function getClosestPosition(){
+  function getClosestPosition() {
     return closestPosition
   }
 
@@ -331,6 +333,8 @@ function BasicEditor3Pro({
         originOfCoordinates,
         duplicateElement,
         closestPosition,
+        offset,
+        setOffset
       }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
@@ -362,7 +366,7 @@ function BasicEditor3Pro({
         </div>
         }
         <div>
-          <BackgroundGrid setClosestPosition={setClosestPosition}/>
+          <BackgroundGrid setClosestPosition={setClosestPosition} />
           {mapRenderElements()}
         </div>
       </div>
