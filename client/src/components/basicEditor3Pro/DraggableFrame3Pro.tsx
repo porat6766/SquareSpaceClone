@@ -21,7 +21,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
   const [borderHover, setBorderHover] = useState<string>("none");
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition }: BasicEditorContextType = useContext(BasicEditorContext);
+  const { baseFunctions, originOfCoordinates, isEditMode, getClosestPosition }: BasicEditorContextType = useContext(BasicEditorContext);
   const divRef = useRef<HTMLDivElement>(null);
   const borderWidth = 5;
 
@@ -103,6 +103,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 
   //the problem might be that the ooc from the pov of the div is the ooc of wrapper3,
   //but the ooc for e.client and rect are relative to the viewport.
+
   const handleMouseDown = (e: any) => {
     if (!isEditMode) return;
     const rect = divRef?.current?.getBoundingClientRect();
@@ -153,10 +154,13 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
       //In testing, may need to remove>
-      if(!renderElement.data.extraData?.isBackground){
+      if (!renderElement.data.extraData?.isBackground) {
+        //seems the "closestPosition" this knows is the one that was recorded when handleMouseDown
+        //was first called
         // setPosition(closestPosition)
         // baseFunctions?.setPosition(renderElement.data.id, closestPosition);
-        console.log(closestPosition)
+        // console.log(closestPosition)
+        moveToClosestPosition();
       }
       //<In testing, may need to remove
     };
@@ -164,6 +168,11 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
   };
+
+  function moveToClosestPosition() {
+    const closestPosition = getClosestPosition();
+    baseFunctions?.setPosition(renderElement.data.id, closestPosition);
+  }
 
   function toggleDisplayEditButtons() {
     setDisplayEditButtons((prev) => !prev);
@@ -193,3 +202,4 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
 }
 
 export default DraggableFrame3;
+

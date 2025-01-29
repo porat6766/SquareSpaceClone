@@ -18,6 +18,7 @@ import MakerCore from "./pages/MakerCore";
 import Wrapper3Pro from "./components/basicEditor3Pro/Wrapper3Pro";
 
 import "./App.css";
+import EditorTestingEnv from "./pages/EditorTestingEnv";
 
 function App() {
   const router = createBrowserRouter([
@@ -69,6 +70,10 @@ function App() {
     {
       path: "/fakeEditor",
       element: <FakeEditor />,
+    },
+    {
+      path: "/editorTestingEnv",
+      element: <EditorTestingEnv />
     },
     {
       path: "/edituserwebsite/:id",

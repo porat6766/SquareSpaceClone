@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext, SetStateAction, Dispatch } from 'react'
+import { useRef, useEffect, useContext, useState, SetStateAction, Dispatch } from 'react'
 import { Position } from './BasicEditor3ProTypes';
 import { BasicEditorContext } from './BasicEditor3Pro';
 
@@ -25,14 +25,14 @@ export type backgroundGridPropType = {
 //seems there is no choice but to make the tracking based on cursor position rather
 //than mouseover event. The mouseover event is obstructed by the element being dragged.
 function BackgroundGrid({ setClosestPosition}:backgroundGridPropType) {
-    // const [gridPositions, setGridPositions] = useState<Position[]>([]);
+    const [gridPositions, setGridPositions] = useState<Position[]>([]);
     const gridPositionsRef = useRef<Position[]>([])
     const { originOfCoordinates, closestPosition } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
 
     useEffect(() => {
-        // console.log("closest position:", closestPosition)
+        console.log("closest position:", closestPosition)
     }, [closestPosition])
 
     useEffect(() => {
@@ -42,55 +42,59 @@ function BackgroundGrid({ setClosestPosition}:backgroundGridPropType) {
             const positions = Array.from(cells).map((cell) => {
                 const rect = cell.getBoundingClientRect();
                 const pos:Position = { x: rect.left, y: rect.top }
-                cell.addEventListener('mouseover', () => handleCellHover(pos));
+                // cell.addEventListener('mouseover', () => handleCellHover(pos));
                 return pos;
             });
-            // setGridPositions(positions);
+            setGridPositions(positions);
             gridPositionsRef.current = positions;
         }
     },[]);
 
     useEffect(() => {
-        // window.addEventListener('mousemove', handleCursorMove);
-        // return () => window.removeEventListener('mousemove', handleCursorMove);
+        window.addEventListener('mousemove', handleCursorMove);
+        return () => window.removeEventListener('mousemove', handleCursorMove);
     }, [])
 
-    function handleCellHover(pos:Position){
-        setClosestPosition(pos);
-    }
-
-    // function handleCursorMove(e) {
-    //     const xPos = e.clientX - (originOfCoordinates?.x ?? 0);
-    //     const yPos = e.clientY - (originOfCoordinates?.y ?? 0);
-    //     findClosestPosition(xPos, yPos, gridPositionsRef.current);
+    // function handleCellHover(pos:Position){
+    //     setClosestPosition(pos);
     // }
+
+    function handleCursorMove(e) {
+        const xPos = e.clientX - (originOfCoordinates?.x ?? 0);
+        const yPos = e.clientY - (originOfCoordinates?.y ?? 0);
+        findClosestPosition(xPos, yPos, gridPositionsRef.current);
+    }
 
     //instead of this, I could add to each div a function that sets the closest position
     //to be it's own position when hovered over.
-    // function findClosestPosition(cursorX: number, cursorY: number, positions: Position[]) {
-    //     let closestPosition = { x: 0, y: 0 };
-    //     let minDistance = Infinity;
+    function findClosestPosition(cursorX: number, cursorY: number, positions: Position[]) {
+        let closestPosition = { x: 0, y: 0 };
+        let minDistance = Infinity;
         
-    //     positions.forEach((position) => {
-    //         const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
+        positions.forEach((position) => {
+            const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
 
-    //         if (distance < minDistance) {
-    //             minDistance = distance;
-    //             closestPosition = position;
-    //         }
-    //     })
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestPosition = position;
+                if(originOfCoordinates){
+                    closestPosition.x -= originOfCoordinates.x
+                    closestPosition.y -= originOfCoordinates.y
+                }
+            }
+        })
 
-    //     setClosestPosition(closestPosition || { x: 0, y: 0 });
-    // }
+        setClosestPosition(closestPosition || { x: 0, y: 0 });
+    }
 
     const markerDivStyle = {
         width: '4rem',
         height: '4rem',
         position: 'absolute',
-        // left: '400px',
-        // top: '400px',
-        left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),
-        top: (closestPosition?.y || 0) - (originOfCoordinates?.y || 0),
+        left: closestPosition?.x || 0,
+        top: closestPosition?.y || 0,
+        // left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),
+        // top: (closestPosition?.y || 0) - (originOfCoordinates?.y || 0),
         border: '3px solid yellow'
     }
 

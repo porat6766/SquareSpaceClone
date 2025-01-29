@@ -207,6 +207,10 @@ function BasicEditor3Pro({
     },
   };
 
+  function getClosestPosition(){
+    return closestPosition
+  }
+
   //resize event? look for a react hooks that checks for a change in div position?
   function updateOOC() {
     //SHOULD REFACTOR currently works, but wasteful. For some reason the position is always considered different.
@@ -326,7 +330,8 @@ function BasicEditor3Pro({
         isEditMode,
         originOfCoordinates,
         duplicateElement,
-        closestPosition
+        closestPosition,
+        getClosestPosition
       }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
