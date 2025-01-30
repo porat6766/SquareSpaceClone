@@ -2,12 +2,13 @@ import { useRef, useEffect, useContext, useState, SetStateAction, Dispatch } fro
 import { Position } from './BasicEditor3ProTypes';
 import { BasicEditorContext } from './BasicEditor3Pro';
 
+const gridGap = 5
 const backgroundGridStyle = {
     width: '100%',
     height: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(50px, 1fr))',
-    gap: '5px'
+    gap: `${gridGap}px`
     // gridTemplateRows:'repeat(10, 1fr)'
 }
 
@@ -22,11 +23,13 @@ export type backgroundGridPropType = {
 }
 
 function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
+    const [isMarkerVisible, setIsMarkerVisible] = useState<boolean>(false);
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
     const gridPositionsRef = useRef<Position[]>([])
     const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
+    const cellWidth = gridPositions[0] ? Math.abs(gridPositions[0].x - gridPositions[1].x) - gridGap  : 50;
     // const [localOOC, setLocalOOC] = useState<Position>()
 
     //this is needed due to closure.
@@ -56,30 +59,21 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     },[originOfCoordinates]);
 
     useEffect(() => {
-        // window.addEventListener('mousemove', handleCursorMove);
-        // return () => window.removeEventListener('mousemove', handleCursorMove);
+        window.addEventListener('mousedown', () => setIsMarkerVisible(true))
+        window.addEventListener('mouseup', () => setIsMarkerVisible(false))
     }, [])
 
-    // function handleCellHover(pos:Position){
-    //     setClosestPosition(pos);
-    // }
-
     function handleCursorMove(e) {
-        // const xPos = e.clientX;
-        // const yPos = e.clientY;
-        const xPos = e.clientX - (originOfCoordinates?.x ?? 0) - offset.x;
-        const yPos = e.clientY - (originOfCoordinates?.y ?? 0) - offset.y;
+        const xPos = e.clientX - (originOfCoordinates?.x ?? 0) - offset.x - cellWidth/2;
+        const yPos = e.clientY - (originOfCoordinates?.y ?? 0) - offset.y - cellWidth/2;
         findClosestPosition(xPos, yPos, gridPositionsRef.current);
     }
 
-    //instead of this, I could add to each div a function that sets the closest position
-    //to be it's own position when hovered over.
     function findClosestPosition(cursorX: number, cursorY: number, positions: Position[]) {
         let closestPosition = { x: 0, y: 0 };
         let minDistance = Infinity;
         
         positions.forEach((position) => {
-            //this offset business needs some work...------------------------------
             const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
              
             if (distance < minDistance) {
@@ -96,8 +90,8 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     }
 
     const markerDivStyle = {
-        width: '4rem',
-        height: '4rem',
+        width: `${cellWidth}px`,
+        height: `${cellWidth}px`,
         position: 'absolute',
         left: closestPosition?.x || 0,
         top: closestPosition?.y || 0,
@@ -108,7 +102,10 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
 
     return (
         <>
+        {
+            isMarkerVisible &&
             <div style={markerDivStyle} ref={markerDivRef}></div>
+        }
             <div ref={gridRef} style={backgroundGridStyle}>
                 {Array.from({ length: 200 }).map((_, index) => (
                     <div key={index} style={cellStyle}/>

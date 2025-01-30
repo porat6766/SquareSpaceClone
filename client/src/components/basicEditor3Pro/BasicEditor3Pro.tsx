@@ -364,7 +364,7 @@ function BasicEditor3Pro({
         </div>
         }
         <div>
-          <BackgroundGrid setClosestPosition={setClosestPosition} />
+          {isEditMode && <BackgroundGrid setClosestPosition={setClosestPosition} /> }
           {mapRenderElements()}
         </div>
       </div>
