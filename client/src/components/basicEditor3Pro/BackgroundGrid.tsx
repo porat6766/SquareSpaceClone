@@ -27,10 +27,18 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
+    // const [localOOC, setLocalOOC] = useState<Position>()
 
+    //this is needed due to closure.
+    //otherwise, the handleCursorMove function refers to old ooc
     useEffect(() => {
-        // console.log("closest position:", closestPosition)
-    }, [closestPosition])
+        window.addEventListener('mousemove', handleCursorMove);
+        return () => window.removeEventListener('mousemove', handleCursorMove);
+    },[originOfCoordinates])
+
+    // useEffect(() => {
+    //     // console.log("closest position:", closestPosition)
+    // }, [closestPosition])
 
     useEffect(() => {
         const gridElement = gridRef.current;
@@ -38,18 +46,18 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
             const cells = gridElement.querySelectorAll('div');
             const positions = Array.from(cells).map((cell) => {
                 const rect = cell.getBoundingClientRect();
-                const pos:Position = { x: rect.left, y: rect.top }
+                const pos:Position = { x: rect.left - (originOfCoordinates?.x || 0), y: rect.top - (originOfCoordinates?.y || 0) }
                 // cell.addEventListener('mouseover', () => handleCellHover(pos));
                 return pos;
             });
             setGridPositions(positions);
             gridPositionsRef.current = positions;
         }
-    },[]);
+    },[originOfCoordinates]);
 
     useEffect(() => {
-        window.addEventListener('mousemove', handleCursorMove);
-        return () => window.removeEventListener('mousemove', handleCursorMove);
+        // window.addEventListener('mousemove', handleCursorMove);
+        // return () => window.removeEventListener('mousemove', handleCursorMove);
     }, [])
 
     // function handleCellHover(pos:Position){
@@ -57,8 +65,10 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     // }
 
     function handleCursorMove(e) {
-        const xPos = e.clientX - (originOfCoordinates?.x ?? 0);
-        const yPos = e.clientY - (originOfCoordinates?.y ?? 0);
+        // const xPos = e.clientX;
+        // const yPos = e.clientY;
+        const xPos = e.clientX - (originOfCoordinates?.x ?? 0) - offset.x;
+        const yPos = e.clientY - (originOfCoordinates?.y ?? 0) - offset.y;
         findClosestPosition(xPos, yPos, gridPositionsRef.current);
     }
 
@@ -70,16 +80,14 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
         
         positions.forEach((position) => {
             //this offset business needs some work...------------------------------
-            const distance = offset ?
-            Math.sqrt(Math.pow(cursorX - offset.x - position.x, 2) + Math.pow(cursorY - offset.y - position.y, 2))
-            : Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
+            const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
              
             if (distance < minDistance) {
                 minDistance = distance;
                 closestPosition = position;
                 if(originOfCoordinates){
-                    closestPosition.x -= originOfCoordinates.x 
-                    closestPosition.y -= originOfCoordinates.y
+                    // closestPosition.x -= originOfCoordinates.x 
+                    // closestPosition.y -= originOfCoordinates.y
                 }
             }
         })
