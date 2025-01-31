@@ -22,6 +22,8 @@ export type backgroundGridPropType = {
     setClosestPosition: Dispatch<SetStateAction<Position>>
 }
 
+//I can give this as an example of a challenge?
+//specifically, the part about locating the marker div
 function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     const [isMarkerVisible, setIsMarkerVisible] = useState<boolean>(false);
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
