@@ -56,6 +56,7 @@ export type BasicEditor3Website = {
   name: string;
   headerData: Header3Data;
   pages: BasicEditor3Page[];
+  lastEditorPage?: string;
   footerData: Footer3Data;
 };
 

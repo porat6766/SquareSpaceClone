@@ -125,13 +125,15 @@ function BasicEditor3Pro({
     }
   }, [saveTrigger]);
 
+  //this could cause the page to turn back to 0 on refresh
   useEffect(() => {
     if (!currentWebsite) {
       return;
     }
     setPages(currentWebsite.pages);
     if (currentWebsite.pages[0]) {
-      setCurrentPage(currentWebsite.pages[0].name);
+      setCurrentPage(currentWebsite.lastEditorPage || currentWebsite.pages[0].name)
+      // setCurrentPage(currentWebsite.pages[0].name);
     }
     setHeaderData(currentWebsite.headerData);
   }, [currentWebsite]);
@@ -148,6 +150,7 @@ function BasicEditor3Pro({
     displayPage(currentPage);
     if (!currentWebsite) return;
     currentWebsite.pages = pages;
+    currentWebsite.lastEditorPage = currentPage
   }, [currentPage, pages]);
 
   useEffect(() => {
