@@ -25,7 +25,8 @@ const ColorThemeSelector = () => {
   const [navigationColor, setNavigationColor] = useState("#000000");
 
   return (
-    <div className="w-80 p-4 bg-background rounded-lg border">
+    <div 
+    className="w-80 p-4 bg-background rounded-lg border">
       <Select value={selectedType} onValueChange={setSelectedType}>
         <SelectTrigger className="w-full mb-4">
           <div className="flex items-center gap-2">

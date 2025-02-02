@@ -27,6 +27,7 @@ export const DialogEditHeader = () => {
 
   return (
     <div
+    onClick={(e) => e.stopPropagation()}
       className="top-full min-h-[550px] max-h-[550px] overflow-y-auto mt-2 ml-auto w-auto bg-white rounded-lg shadow-lg border border-gray-300 flex flex-col min-w-[410px] font-serif"
       style={{
         transform: "none",
