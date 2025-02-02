@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import { findIconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 // # # # # # # # # # shadcn icons import export
 import {
@@ -232,45 +233,3 @@ export const Iconscn = () => {
 };
 
 export default Iconscn;
-
-// interface HeroiconsSearchProps {
-//     filteredIcons: string[];
-//     HeroIcons: Record<string, React.ElementType>;
-//   }
-
-//   export const HeroiconsSearch: React.FC<HeroiconsSearchProps> = ({
-//     filteredIcons,
-//     HeroIcons,
-//   }) => {
-//     useEffect(() => {
-//       axios
-//         .get(
-//           "https://raw.githubusercontent.com/tailwindlabs/heroicons/main/package.json"
-//         )
-//         .then((response) => {
-//           console.log(response.data); // This contains package info, not actual icons
-//         })
-//         .catch((error) => {
-//           console.error("Error fetching Heroicons:", error);
-//         });
-//     }, []);
-
-//     return (
-//       <div className="p-4">
-//         {/* Icons Grid */}
-//         <div className="grid grid-cols-3 gap-4 mt-4">
-//           {filteredIcons.map((iconName) => {
-//             const IconComponent = (
-//               HeroIcons as Record<string, React.ElementType>
-//             )[iconName];
-//             return IconComponent ? (
-//               <div key={iconName} className="grid grid-cols-4 gap-4 mt-4">
-//                 <IconComponent className="w-8 h-8" />
-//                 <span className="text-xs mt-1"></span>
-//               </div>
-//             ) : null;
-//           })}
-//         </div>
-//       </div>
-//     );
-//   };

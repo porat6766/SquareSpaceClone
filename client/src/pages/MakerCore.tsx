@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 // # # # # # # # icons importing
 import { ShadcnIcons, Iconscn } from "../components/LogoMaker/ShadcnIcons";
+import { FeatherIcons } from "../components/LogoMaker/ShadcnIcons";
 
 const MakerCore = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -100,8 +101,9 @@ const MakerCore = () => {
     setSearchQuery(e.target.value);
   };
 
+  //    shadcn icons
   type IconName = keyof typeof ShadcnIcons;
-  const IconscnMap: { [key in IconName]: React.ComponentType<any> } = {
+  const IconsMap: { [key in IconName]?: React.ComponentType<any> } = {
     sun: ShadcnIcons.sun,
     moon: ShadcnIcons.moon,
     readMore: ShadcnIcons.readMore,
@@ -138,10 +140,9 @@ const MakerCore = () => {
     edit: ShadcnIcons.edit,
     gitHub: ShadcnIcons.gitHub,
   };
+  const allIcons = [...Object.keys(IconsMap)];
 
-  const iconNames = Object.keys(IconscnMap);
-
-  const filteredIcons = iconNames.filter((icon) =>
+  const filteredIcons = allIcons.filter((icon) =>
     icon.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -220,7 +221,7 @@ const MakerCore = () => {
                 ) : (
                   <div className="grid grid-cols-3 gap-4 p-4">
                     {filteredIcons.map((icon) => {
-                      const IconComponent = IconscnMap[icon as IconName];
+                      const IconComponent = IconsMap[icon as IconName];
                       return IconComponent ? (
                         <IconComponent
                           key={icon}
