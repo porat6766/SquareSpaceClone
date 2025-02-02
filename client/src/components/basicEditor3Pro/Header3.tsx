@@ -281,12 +281,9 @@ function Header3({
       </div>
       {headerEditMode && headerEditButtonsVisible && (
         <div style={headerEditButtonsContainerStyle}>
-          {/* <button onClick={(e) => handleAddHeaderElementsClick(e)}>ADD ELEMENTS</button> */}
           <div onClick={(e) => handleAddHeaderElementsClick(e)}>
             <AddBtn />
-            {/* <DialogAddElementHeader /> */}
           </div>
-          {/* <button onClick={(e) => handleEditHeaderDesignClick(e)}>EDIT DESIGN</button> */}
           <div onClick={(e) => handleEditHeaderDesignClick(e)}>
             <EditBtn nameBtn={"EDIT DESIGN"} />
           </div>
@@ -300,12 +297,8 @@ function Header3({
               data={data}
             />
           )
-          // <></>
         }
         {editDesignMenuVisible && headerEditMode && (
-          // <div style={editDesignMenuStyle}>
-          //     this is the edit design menu
-          // </div>
           <DialogEditHeader />
         )}
       </div>

@@ -1,11 +1,17 @@
-import { utils2 } from "../basicEditor3Pro/utils2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { Slider } from "../ui/slider";
 
 const ColorPicker2 = ({ color, onChange }: any) => {
     const [hsv, setHsv] = useState({ h: 0, s: 0, v: 100 });
+    const [opacity, setOpacity] = useState<number[]>([100])
     const rgb = hsvToRgb(hsv.h, hsv.s / 100, hsv.v / 100)
+    const colorResult = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity[0]/100})`
 
-    
+    useEffect(() => {
+        onChange(colorResult)
+    }, [hsv, opacity])
+
     function hsvToRgb(h: any, s: any, v: any) {
         const f = (n: any, k = (n + h / 60) % 6) =>
             v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
@@ -26,9 +32,6 @@ const ColorPicker2 = ({ color, onChange }: any) => {
 
         const newHsv = { ...hsv, s, v };
         setHsv(newHsv);
-
-        const rgb = hsvToRgb(newHsv.h, newHsv.s / 100, newHsv.v / 100);
-        onChange(rgb);
     };
 
     const handleHueChange = (e: any) => {
@@ -38,9 +41,6 @@ const ColorPicker2 = ({ color, onChange }: any) => {
 
         const newHsv = { ...hsv, h };
         setHsv(newHsv);
-
-        const rgb = hsvToRgb(newHsv.h, newHsv.s / 100, newHsv.v / 100);
-        onChange(rgbToHex(rgb.r, rgb.g, rgb.b));
     };
 
     return (
@@ -49,8 +49,8 @@ const ColorPicker2 = ({ color, onChange }: any) => {
                 className="w-full h-40 mb-2 rounded cursor-crosshair relative"
                 style={{
                     background: `linear-gradient(to top, #000, transparent), 
-                      linear-gradient(to right, #fff, transparent), 
-                      hsl(${hsv.h}, 100%, 50%)`,
+                    linear-gradient(to right, #fff, transparent), 
+                    hsl(${hsv.h}, 100%, 50%)`,
                 }}
                 onMouseDown={(e) => {
                     handleSaturationValueChange(e);
@@ -69,8 +69,8 @@ const ColorPicker2 = ({ color, onChange }: any) => {
                 className="w-full h-4 rounded cursor-pointer mb-4"
                 style={{
                     background: `linear-gradient(to right, 
-            #ff0000 0%, #ffff00 17%, #00ff00 33%, 
-            #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)`,
+                    #ff0000 0%, #ffff00 17%, #00ff00 33%, 
+                    #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)`,
                 }}
                 onMouseDown={(e) => {
                     handleHueChange(e);
@@ -84,16 +84,29 @@ const ColorPicker2 = ({ color, onChange }: any) => {
                 }}
             />
 
-            <div className="flex gap-2 items-center">
+            <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                    <span className="text-sm">Opacity</span>
+                    <span className="text-sm text-gray-500">{opacity}%</span>
+                </div>
+                <Slider
+                    value={opacity}
+                    onValueChange={setOpacity}
+                    max={100}
+                    step={1}
+                    className="w-full"
+                />
+            </div>
+            <div className="flex gap-2 items-center pt-4">
                 <div
                     className="w-8 h-8 rounded-full border"
                     style={{ backgroundColor: color }}
                 />
                 <input
                     type="text"
-                    value={color.toUpperCase()}
+                    value={color.slice(5, color.length - 1)}
                     onChange={(e) => onChange(e.target.value)}
-                    className="border rounded px-2 py-1 text-sm w-24"
+                    className="border rounded px-2 py-1 text-sm w-36"
                 />
             </div>
         </div>
