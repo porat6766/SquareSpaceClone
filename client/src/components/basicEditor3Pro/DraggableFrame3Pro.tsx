@@ -76,14 +76,6 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     setPositionTrigger(false);
   }, [positionTrigger])
 
-  useEffect(() => {
-    console.log("offset:",offset);
-  },[offset])
-
-  // useEffect(() => {
-  //   // console.log("border hover says:", borderHover);
-  // }, [borderHover]);
-
   function detectBorderHoverWrapper(e: any) {
     if (!divRef.current) return;
     const result = utils2.detectBorderHover(
@@ -123,7 +115,6 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
     setOffset({x:offsetX, y:offsetY});
-    // console.log(`x:${e.clientX} y:${e.clientY}`);
 
     const handleMouseMove = (e: any) => {
       if (borderHover === "none") {
@@ -162,6 +153,7 @@ function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
     };
 
     const handleMouseUp = () => {
+      setOffset({x:0, y:0});
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
       //In testing, may need to remove>

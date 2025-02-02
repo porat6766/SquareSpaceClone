@@ -86,7 +86,7 @@ function BasicEditor3Pro({
   BasicEditor3ProProps) {
   const [isEditMode, setIsEditMode] = useState(true);
   const [headerEditMode, setHeaderEditMode] = useState(false);
-  const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>({ x: 0, y: 0, });
+  const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>();
 
   const [closestPosition, setClosestPosition] = useState<Position>({ x: 0, y: 0 });
   const [offset, setOffset] = useState<Position>({ x: 0, y: 0 });
@@ -125,13 +125,15 @@ function BasicEditor3Pro({
     }
   }, [saveTrigger]);
 
+  //this could cause the page to turn back to 0 on refresh
   useEffect(() => {
     if (!currentWebsite) {
       return;
     }
     setPages(currentWebsite.pages);
     if (currentWebsite.pages[0]) {
-      setCurrentPage(currentWebsite.pages[0].name);
+      setCurrentPage(currentWebsite.lastEditorPage || currentWebsite.pages[0].name)
+      // setCurrentPage(currentWebsite.pages[0].name);
     }
     setHeaderData(currentWebsite.headerData);
   }, [currentWebsite]);
@@ -148,6 +150,7 @@ function BasicEditor3Pro({
     displayPage(currentPage);
     if (!currentWebsite) return;
     currentWebsite.pages = pages;
+    currentWebsite.lastEditorPage = currentPage
   }, [currentPage, pages]);
 
   useEffect(() => {
@@ -209,10 +212,6 @@ function BasicEditor3Pro({
     },
   };
 
-  function getClosestPosition() {
-    return closestPosition
-  }
-
   //resize event? look for a react hooks that checks for a change in div position?
   function updateOOC() {
     //SHOULD REFACTOR currently works, but wasteful. For some reason the position is always considered different.
@@ -220,9 +219,11 @@ function BasicEditor3Pro({
     const rect: DOMRect = editorRef.current.getBoundingClientRect();
     const newPosition: Position = { x: rect.left, y: rect.top };
     const updateRule2 =
-      Math.abs(newPosition.x - originOfCoordinates.x) > TOLERANCE ||
-      Math.abs(newPosition.y - originOfCoordinates.y) > TOLERANCE;
+      Math.abs(newPosition.x - (originOfCoordinates?.x || 0)) > TOLERANCE ||
+      Math.abs(newPosition.y - (originOfCoordinates?.y || 0)) > TOLERANCE;
     if (updateRule2) {
+      // console.log("ooc:", originOfCoordinates)
+      // console.log("new position:", newPosition)
       setOriginOfCoordinates(newPosition);
     }
     setTimeout(updateOOC, 300);
@@ -366,7 +367,7 @@ function BasicEditor3Pro({
         </div>
         }
         <div>
-          <BackgroundGrid setClosestPosition={setClosestPosition} />
+          {isEditMode && <BackgroundGrid setClosestPosition={setClosestPosition} /> }
           {mapRenderElements()}
         </div>
       </div>

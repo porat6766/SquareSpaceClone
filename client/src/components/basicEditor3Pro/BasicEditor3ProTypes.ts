@@ -26,7 +26,7 @@ export type DataObject3 = {
   position: Position;
   content: DataObject3Content;
   style: DataObject3Style;
-  extraData?: {
+  extraData: {
     zIndex?: string;
     isBackground?: boolean;
     [key: string]: any;
@@ -56,6 +56,7 @@ export type BasicEditor3Website = {
   name: string;
   headerData: Header3Data;
   pages: BasicEditor3Page[];
+  lastEditorPage?: string;
   footerData: Footer3Data;
 };
 

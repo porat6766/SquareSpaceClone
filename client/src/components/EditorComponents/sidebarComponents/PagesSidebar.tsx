@@ -34,12 +34,13 @@ function PagesSidebar() {
     const index = currentWebsite?.pages.findIndex(
       (page: any) => page.name === pageName
     );
-    if (index === -1 || !index) return;
+    if (index === -1 || (!index && index !== 0) || currentWebsite.pages.length === 1) return;
+
     currentWebsite?.pages.splice(index, 1);
     setTimeout(() => setSaveTrigger(true), 1);
   }
 
-  function handlePageClick(pageName:string){
+  function handlePageClick(pageName: string) {
     setPageNameFromLayout(pageName);
     setTimeout(() => setSaveTrigger(true), 1);
   }
@@ -119,6 +120,7 @@ function PagesSidebar() {
                     className="flex justify-between items-center p-2 rounded-md"
                   >
                     <button onClick={() => handlePageClick(page.name)}>
+                      {currentWebsite.lastEditorPage === page.name && ">"}
                       {page.name}
                     </button>
                     <button

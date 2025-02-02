@@ -24,9 +24,12 @@ const EditElement = ({
   const [backgroundColor, setBackgroundColor] = useState(
     element?.data.style.backgroundColor || "clear"
   );
-  const [zIndex, setZIndex] = useState<string>(
-    element?.data.extraData?.zIndex || "50"
-  );
+
+  const [zIndex, setZIndex] = useState<string>(element?.data.extraData?.zIndex);
+  //changing zIndex does change the data, but for some reason it doesn't persist.
+  //Are the not saved? unlikely.
+  //or are not retrieved and assigned properly.
+
 
   useEffect(() => {
     const style = element?.data.style;
@@ -40,7 +43,9 @@ const EditElement = ({
   }, [backgroundColor]);
 
   useEffect(() => {
-    handleChangeZIndex(zIndex);
+    // console.log(element?.data)
+    console.log(element?.data.extraData)
+    // handleChangeZIndex(zIndex);
   }, [zIndex]);
 
   function handleToggleOpen() {
@@ -110,8 +115,8 @@ const EditElement = ({
       >
         <label>z-index:</label>
         <select
-          defaultValue={element?.data.style.zIndex || zIndex}
-          onChange={(e) => setZIndex(e.target.value)}
+          defaultValue={element?.data.extraData?.zIndex}//|| zIndex
+          onChange={(e) => handleChangeZIndex(e.target.value)}
         >
           <option value={"0"}>0</option>
           <option value={"10"}>10</option>

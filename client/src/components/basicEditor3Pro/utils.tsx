@@ -29,28 +29,29 @@ export function isEmpty(obj: any) {
   return true;
 }
 
+//perhaps extraData is being overwritten here?
 //recreates The RenderElement's component part from it's data part.
 export function hydrateRenderElement(
   id: string,
   renderElementName: RenderElementNames,
   position: Position = { x: 50, y: 50 },
   content: DataObject3Content = {},
-  style: DataObject3Style = {}
+  style: DataObject3Style = {},
+  extraData = {}
 ) {
-  //hydrate start
   let body;
-  if (renderElementName === RenderElementNames.red_rectangle3) {
-    if (isEmpty(style)) style = styles.default_red_rectangle_style;
-    body = <RedRectangle3 id={id} />;
-  }
-  if (renderElementName === RenderElementNames.color_rectangle3)
-    body = <ColorRectangle3 id={id} />;
-  if (renderElementName === RenderElementNames.text_box3)
-    body = <TextBox3 id={id} />;
-  if (renderElementName === RenderElementNames.red_text_rectangle3) {
-    body = <RedTextRectangle3 id={id} />;
-    if (isEmpty(content)) content = { textContent: "Lorem Ipsum" };
-  }
+  // if (renderElementName === RenderElementNames.red_rectangle3) {
+  //   if (isEmpty(style)) style = styles.default_red_rectangle_style;
+  //   body = <RedRectangle3 id={id} />;
+  // }
+  // if (renderElementName === RenderElementNames.color_rectangle3)
+  //   body = <ColorRectangle3 id={id} />;
+  // if (renderElementName === RenderElementNames.text_box3)
+  //   body = <TextBox3 id={id} />;
+  // if (renderElementName === RenderElementNames.red_text_rectangle3) {
+  //   body = <RedTextRectangle3 id={id} />;
+  //   if (isEmpty(content)) content = { textContent: "Lorem Ipsum" };
+  // }
   if (renderElementName === RenderElementNames.ImgContainer) {
     body = <ImgContainer id={id} />;
     if (isEmpty(style)) {
@@ -91,7 +92,7 @@ export function hydrateRenderElement(
     }
   }
   const newRenderElement: RenderElement3 = {
-    data: { id, renderElementName, position, content, style },
+    data: { id, renderElementName, position, content, style, extraData },
     body,
   };
   //hydrate end
@@ -101,14 +102,15 @@ export function hydrateRenderElement(
 export function hydratePage(page: BasicEditor3Page) {
   //recreates page components from page data
   page.renderElements = page.renderElements.map((element) => {
-    const { id, renderElementName, position, content, style }: DataObject3 =
+    const { id, renderElementName, position, content, style, extraData }: DataObject3 =
       element.data;
     return hydrateRenderElement(
       id,
       renderElementName,
       position,
       content,
-      style
+      style,
+      extraData
     );
   });
   return page;
