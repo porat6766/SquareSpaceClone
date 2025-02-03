@@ -2,7 +2,7 @@ import { BaseFunctions, RenderElement3 } from "./BasicEditor3ProTypes";
 
 
 export const utils2 = {
-    detectBorderHover: function (rect: DOMRect, mouseX: number, mouseY: number, borderWidth: number):string{
+    detectBorderHover: function (rect: DOMRect, mouseX: number, mouseY: number, borderWidth: number): string {
         //need to compensate for different ooc? maybe not.
 
         // Check for hovering over top border
@@ -33,10 +33,23 @@ export const utils2 = {
         // console.log("not hovering over a border");
         return 'none';
     },
-    
-    update0LayerStyle: function (element:RenderElement3, field: string, newValue: string | number, baseFunctions:BaseFunctions) {
+
+    update0LayerStyle: function (element: RenderElement3, field: string, newValue: string | number, baseFunctions: BaseFunctions) {
         const newStyle = { ...element.data.style }
         newStyle[field] = newValue;
         baseFunctions.setStyle(element.data.id, newStyle)
     },
+    hexToRgb: function (hex: string) {
+        // Remove the # if present
+        hex = hex.replace("#", "");
+        // Parse the RGB components
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        return { r, g, b };
+    },
+    hexToRgba: function (hex: string, opacity: number) {
+        const rgb = this.hexToRgb(hex);
+        return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+    }
 }

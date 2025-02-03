@@ -90,5 +90,7 @@ export type BasicEditorContextType = {
   duplicateElement?: (element: RenderElement3) => void;
   closestPosition:Position;
   offset:Position,
-  setOffset:Dispatch<SetStateAction<Position>>
+  setOffset:Dispatch<SetStateAction<Position>>,
+  headerData:Header3Data,
+  setHeaderData:Dispatch<SetStateAction<Header3Data>>
 };

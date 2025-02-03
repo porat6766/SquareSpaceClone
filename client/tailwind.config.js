@@ -4,6 +4,11 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      zIndex:{
+        '100':'100',
+        '200':'200',
+        '1000':'1000'
+      },
       screens: {
         xs: "320px",
         "3xl": "1710px",

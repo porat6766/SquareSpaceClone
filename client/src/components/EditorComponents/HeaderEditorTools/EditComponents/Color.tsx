@@ -14,29 +14,38 @@ import {
   PopoverTrigger,
 } from "../../../../components/ui/popover";
 import { Info } from "lucide-react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ColorPicker from "../../../EditorComponents/ColorPicker";
+import ColorPicker2 from "../../ColorPicker2";
+import { BasicEditorContext } from "../../../basicEditor3Pro/BasicEditor3Pro";
 
-const ColorThemeSelector = () => {
+function ColorThemeSelector(){
+  const { headerData, setHeaderData } = useContext(BasicEditorContext);
+
   const [selectedType, setSelectedType] = useState("solid");
   const [opacity, setOpacity] = useState([100]);
   const [blurBackground, setBlurBackground] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+  const [backgroundColor, setBackgroundColor] = useState(headerData.style.headerStyle.backgroundColor || "#FFFFFF");
   const [navigationColor, setNavigationColor] = useState("#000000");
+  
+  useEffect(() => {
+    setHeaderData({...headerData, style:{...headerData.style, headerStyle:{...headerData.style.headerStyle, backgroundColor:backgroundColor}}})
+    console.log(backgroundColor)
+  },[backgroundColor])
 
   return (
-    <div className="w-80 p-4 bg-background rounded-lg border">
+    <div
+      className="w-80 p-4 bg-background rounded-lg border">
       <Select value={selectedType} onValueChange={setSelectedType}>
         <SelectTrigger className="w-full mb-4">
           <div className="flex items-center gap-2">
             <div
-              className={`w-5 h-5 rounded ${
-                selectedType === "solid"
-                  ? "bg-black"
-                  : selectedType === "gradient"
+              className={`w-5 h-5 rounded ${selectedType === "solid"
+                ? "bg-black"
+                : selectedType === "gradient"
                   ? "bg-gradient-to-br from-gray-700 to-gray-900"
                   : "bg-gray-100"
-              }`}
+                }`}
             />
             <SelectValue placeholder="Select style" />
           </div>
@@ -85,11 +94,12 @@ const ColorThemeSelector = () => {
               />
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-64">
-            <ColorPicker
-              color={backgroundColor}
-              onChange={setBackgroundColor}
-            />
+
+          <PopoverContent className="w-64 z-200">
+              <ColorPicker2
+                color={backgroundColor}
+                onChange={setBackgroundColor}
+              />
           </PopoverContent>
         </Popover>
 
