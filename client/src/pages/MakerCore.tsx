@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 // # # # # # # # icons importing
 import { ShadcnIcons, Iconscn } from "../components/LogoMaker/ShadcnIcons";
-import { FeatherIcons } from "../components/LogoMaker/ShadcnIcons";
+import { Alert_triangle } from "../components/LogoMaker/FeatherIcons";
 
 const MakerCore = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -105,12 +105,10 @@ const MakerCore = () => {
   type IconName = keyof typeof ShadcnIcons;
   const IconsMap: { [key in IconName]?: React.ComponentType<any> } = {
     sun: ShadcnIcons.sun,
-    moon: ShadcnIcons.moon,
     readMore: ShadcnIcons.readMore,
     dooropen: ShadcnIcons.dooropen,
     newspaper: ShadcnIcons.newspaper,
     bookmark: ShadcnIcons.bookmark,
-    share: ShadcnIcons.share,
     copyLink: ShadcnIcons.copyLink,
     facebook: ShadcnIcons.facebook,
     linkedin: ShadcnIcons.linkedin,
@@ -156,7 +154,7 @@ const MakerCore = () => {
       >
         {/* icon */}
         <span
-          className="transition-all duration-700 ease-in-out absolute opacity-50 hover:opacity-80 left-6 top-5 cursor-pointer"
+          className="transition-all duration-500 ease-in-out absolute opacity-50 hover:opacity-80 left-6 top-5 cursor-pointer"
           onClick={() => navigate("/templates")}
         >
           <img src={Icon} alt="logo" className="max-w-9 max-h-9" />

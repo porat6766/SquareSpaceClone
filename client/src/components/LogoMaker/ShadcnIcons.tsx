@@ -1,14 +1,11 @@
 import { LucideIcon } from "lucide-react";
 import { findIconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-// # # # # # # # # # shadcn icons import export
 import {
   LucideProps,
-  Moon,
   SunMedium,
   ExternalLink,
   BookmarkIcon,
-  Share,
   Link,
   Facebook,
   Linkedin,
@@ -44,12 +41,10 @@ export type Icon = LucideIcon;
 
 export const ShadcnIcons = {
   sun: SunMedium,
-  moon: Moon,
   home: Home,
   logout: LogOut,
   readMore: ExternalLink,
   bookmark: BookmarkIcon,
-  share: Share,
   copyLink: Link,
   facebook: Facebook,
   linkedin: Linkedin,
@@ -95,10 +90,6 @@ export const Iconscn = () => {
         size={48}
         className="cursor-grab active:cursor-grabbing"
       />
-      <ShadcnIcons.moon
-        size={48}
-        className="cursor-grab active:cursor-grabbing"
-      />
       <ShadcnIcons.readMore
         size={48}
         className="cursor-grab active:cursor-grabbing"
@@ -112,10 +103,6 @@ export const Iconscn = () => {
         className="cursor-grab active:cursor-grabbing"
       />
       <ShadcnIcons.bookmark
-        size={48}
-        className="cursor-grab active:cursor-grabbing"
-      />
-      <ShadcnIcons.share
         size={48}
         className="cursor-grab active:cursor-grabbing"
       />
