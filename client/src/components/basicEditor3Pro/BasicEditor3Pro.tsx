@@ -335,7 +335,9 @@ function BasicEditor3Pro({
         duplicateElement,
         closestPosition,
         offset,
-        setOffset
+        setOffset,
+        headerData,
+        setHeaderData
       }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
@@ -345,8 +347,8 @@ function BasicEditor3Pro({
           setCurrentPage={setCurrentPage}
           headerEditMode={headerEditMode}
           setHeaderEditMode={setHeaderEditMode}
-          data={headerData}
-          setData={setHeaderData}
+          // data={headerData}
+          // setData={setHeaderData}
         />
         {isEditMode && <div style={{ position: 'relative', top: '200px' }}>
           {!addBlockMenuVisible ? (

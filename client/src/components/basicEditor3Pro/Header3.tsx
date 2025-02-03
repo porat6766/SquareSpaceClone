@@ -56,10 +56,10 @@ function Header3({
   setCurrentPage,
   headerEditMode,
   setHeaderEditMode,
-  data,
-  setData,
 }: any) {
-  const { isEditMode } = useContext(BasicEditorContext);
+  const { isEditMode, headerData, setHeaderData } = useContext(BasicEditorContext);
+  const data = headerData;
+  const setData = setHeaderData;
   const [editButtonVisible, setEditButtonVisible] = useState(false);
   const [headerEditButtonsVisible, setHeaderEditButtonsVisible] =
     useState(false);
@@ -88,6 +88,7 @@ function Header3({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    ...headerData.style.headerStyle
   };
 
   const overlayStyle: React.CSSProperties = {

@@ -14,16 +14,24 @@ import {
   PopoverTrigger,
 } from "../../../../components/ui/popover";
 import { Info } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ColorPicker from "../../../EditorComponents/ColorPicker";
 import ColorPicker2 from "../../ColorPicker2";
+import { BasicEditorContext } from "../../../basicEditor3Pro/BasicEditor3Pro";
 
 function ColorThemeSelector(){
+  const { headerData, setHeaderData } = useContext(BasicEditorContext);
+
   const [selectedType, setSelectedType] = useState("solid");
   const [opacity, setOpacity] = useState([100]);
   const [blurBackground, setBlurBackground] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+  const [backgroundColor, setBackgroundColor] = useState(headerData.style.headerStyle.backgroundColor || "#FFFFFF");
   const [navigationColor, setNavigationColor] = useState("#000000");
+  
+  useEffect(() => {
+    setHeaderData({...headerData, style:{...headerData.style, headerStyle:{...headerData.style.headerStyle, backgroundColor:backgroundColor}}})
+    console.log(backgroundColor)
+  },[backgroundColor])
 
   return (
     <div
