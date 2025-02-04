@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Header3Data } from "../../basicEditor3Pro/Header3";
+import { BasicEditorContext } from "../../basicEditor3Pro/BasicEditor3Pro";
 
-export type LogoEditorFormProps = {
-  data: Header3Data;
-  setData: any;
-};
-
-const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
+const LogoEditorForm = () => {
+  const { headerData, setHeaderData } = useContext(BasicEditorContext);
   const [activeTab, setActiveTab] = useState("Logo");
 
   function handleChangeLogoTextInput(e: React.ChangeEvent<HTMLInputElement>) {
     // if (e.target.value === "") return;
-    setData({ ...data, logo: { ...data.logo, text: e.target.value } });
+    setHeaderData({ ...headerData, logo: { ...headerData.logo, text: e.target.value } });
   }
 
   function handleChangeLogoSrcInput(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "") return;
-    setData({ ...data, logo: { ...data.logo, imgSrc: e.target.value } });
+    setHeaderData({ ...headerData, logo: { ...headerData.logo, imgSrc: e.target.value } });
   }
 
   return (
@@ -54,7 +51,7 @@ const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
               <input
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 // defaultValue={data.logo.imgSrc || "No source provided"}
-                value={data.logo.imgSrc || "No source provided"}
+                value={headerData.logo.imgSrc || "No source provided"}
                 onChange={(e: any) => handleChangeLogoSrcInput(e)}
                 placeholder="Enter image URL"
               />
@@ -68,7 +65,7 @@ const LogoEditorForm = ({ data, setData }: LogoEditorFormProps) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 // defaultValue={data.logo.text}
                 onChange={(e: any) => handleChangeLogoTextInput(e)}
-                value={data.logo.text || "default logo text"}
+                value={headerData.logo.text || "default logo text"}
                 placeholder="Enter logo text"
               />
             </div>

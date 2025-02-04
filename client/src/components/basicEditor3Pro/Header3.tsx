@@ -21,7 +21,11 @@ export type Header3Props = {
 };
 
 export type Header3Data = {
-  logo: { text: string; imgSrc: string | null };
+  logo: {
+    text: string;
+    imgSrc: string | null;
+    linkedPage:string;
+  };
   pages: string[];
   hasExtraButton: boolean;
   hasSocialLinks: boolean;
@@ -72,8 +76,10 @@ function Header3({
   const logo = data.logo || {
     text: "LOGO",
     imgSrc: defaultLogo,
+    // linkedPage: "Home"
   };
   logo.imgSrc = data.logo.imgSrc || defaultLogo;
+  logo.linkedPage = data.logo.linkedPage || "Home";
 
   const headerWrapperStyle: React.CSSProperties = {
     position: "absolute",
@@ -84,7 +90,7 @@ function Header3({
   const headerStyle: React.CSSProperties = {
     position: "relative",
     zIndex: "100",
-    border: "3px solid gray",
+    // border: "3px solid gray",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -212,6 +218,10 @@ function Header3({
     if (isLogoHover) {
       setIsLogoEditMenu((prev) => !prev);
     }
+    if (!isEditMode) {
+      console.log(logo.linkedPage)
+      handleNavigateToPage(logo.linkedPage)
+    }
   }
 
   return (
@@ -247,29 +257,29 @@ function Header3({
           {logo.text}
         </div>
         {isLogoEditMenu && isEditMode && (
-          <LogoEditorForm data={data} setData={setData} />
+          <LogoEditorForm />
         )}
         <div>
           <div style={navContainerStyle}>
             {data.pages.length > 0
               ? data.pages.map((name: any) => (
-                  <div
-                    key={name}
-                    style={navItemStyle}
-                    onClick={() => handleNavigateToPage(name)}
-                  >
-                    {name}
-                  </div>
-                ))
+                <div
+                  key={name}
+                  style={navItemStyle}
+                  onClick={() => handleNavigateToPage(name)}
+                >
+                  {name}
+                </div>
+              ))
               : pages.map((page: any) => (
-                  <div
-                    key={page.name}
-                    style={navItemStyle}
-                    onClick={() => handleNavigateToPage(page.name)}
-                  >
-                    {page.name}
-                  </div>
-                ))}
+                <div
+                  key={page.name}
+                  style={navItemStyle}
+                  onClick={() => handleNavigateToPage(page.name)}
+                >
+                  {page.name}
+                </div>
+              ))}
             {data.hasExtraButton && (
               <button style={navItemStyle}>Extra button</button>
             )}
