@@ -3119,7 +3119,7 @@ export const ClinicMedical = () => {
   );
 };
 
-export const Clipboard = () => {
+export const Clipboard2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faClipboard}
@@ -3549,7 +3549,7 @@ export const Columns = () => {
   );
 };
 
-export const Comment = () => {
+export const Comment2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faComment}
