@@ -19,13 +19,14 @@ function PagesSidebar() {
   const [activeSidebar, setActiveSidebar] = useState("main");
   const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: any = useContext(EditorLayoutContext);
   const [addPageFormVisible, setAddPageFormVisible] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || currentWebsite.pages[0]?.name);
+  const defaultPageName = (currentWebsite) ? currentWebsite.pages[0]?.name : undefined
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || defaultPageName);
 
   const newPageNameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setCurrentPage(currentWebsite.lastEditorPage)
-  }, [currentWebsite.lastEditorPage])
+    setCurrentPage(currentWebsite?.lastEditorPage)
+  }, [currentWebsite?.lastEditorPage])
 
   function handleAddPage(pageName: string) {
     setAddPageFormVisible(false);
@@ -57,8 +58,8 @@ function PagesSidebar() {
         return <SystemPagesSidebar setActiveSidebar={setActiveSidebar} />;
       case "websiteTools":
         return <WebsiteTools setActiveSidebar={setActiveSidebar} />;
-      case "trash":
-        return <TrashSidebar />;
+      // case "trash":
+        // return <TrashSidebar />;
       default:
         return null;
     }
@@ -118,7 +119,7 @@ function PagesSidebar() {
           {/* Main Navigation Items */}
           <div className="mt-16 text-xl">
             <ul className="space-y-2 mb-4">
-              {currentWebsite &&
+              {currentWebsite && currentWebsite.pages &&
                 currentWebsite.pages.map((page: any) => (
                   <li
                     key={page.name}

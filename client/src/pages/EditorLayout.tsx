@@ -45,7 +45,7 @@ function EditorLayout() {
   const screenshotRef = useRef<{ captureScreenshot: () => void }>(null);
 
   const [pageNameFromLayout, setPageNameFromLayout] = useState<string>(
-    currentWebsite?.lastEditorPage || currentWebsite?.pages[0].name || "Home"
+    currentWebsite?.lastEditorPage || currentWebsite?.pages[0]?.name// || "HomeFromLayout"//test
   );
 
   const { id } = useParams();

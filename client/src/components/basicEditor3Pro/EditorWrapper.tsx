@@ -25,7 +25,7 @@ const defaultWebsite: BasicEditor3Website = {
   name: "defaultWebsite0",
   headerData: defaultHeaderData,
   pages: [
-    { name: "Home", renderElements: [] }
+    // { name: "HomeFromDefaultWebsite", renderElements: [] }
   ],
   footerData: {},
 };
@@ -64,7 +64,8 @@ function EditorWrapper({
       setCurrentWebsite(websiteToEdit);
     } else if (templete) {
       setCurrentWebsite(templete);
-    } else {
+    } 
+    else {
       setCurrentWebsite(defaultWebsite);
     }
   }, [websiteToEdit, templete]);
