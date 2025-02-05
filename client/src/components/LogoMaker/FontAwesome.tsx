@@ -61,7 +61,7 @@ export const AirFreshener = () => {
   );
 };
 
-export const AlignCenter = () => {
+export const AlignCenter2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faAlignCenter}
@@ -71,7 +71,7 @@ export const AlignCenter = () => {
   );
 };
 
-export const AlignJustify = () => {
+export const AlignJustify2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faAlignJustify}
@@ -81,13 +81,13 @@ export const AlignJustify = () => {
   );
 };
 
-export const AlignLeft = () => {
+export const AlignLeft2 = () => {
   return (
     <FontAwesomeIcon icon={solidIcons.faAlignLeft} size="3x" className="mt-3" />
   );
 };
 
-export const AlignRight = () => {
+export const AlignRight2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faAlignRight}
@@ -127,7 +127,7 @@ export const AmericanSignLanguageInterpreting = () => {
   );
 };
 
-export const Anchor = () => {
+export const Anchor2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faAnchor}
@@ -337,7 +337,7 @@ export const AppleWhole = () => {
   );
 };
 
-export const Archive = () => {
+export const Archive2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faArchive}
@@ -887,7 +887,7 @@ export const Automobile = () => {
   );
 };
 
-export const Award = () => {
+export const Award2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faAward}
@@ -897,7 +897,7 @@ export const Award = () => {
   );
 };
 
-export const B = () => {
+export const Bletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faB}
