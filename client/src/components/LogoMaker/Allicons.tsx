@@ -975,7 +975,7 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   ArrowCircleUp: ArrowAltCircleUp,
   ArrowDown: ArrowDown,
   ArrowLeft: ArrowLeft,
-  ArrowRight: ArrowRight,
+  arrowRight: ArrowRight,
   ArrowRightArrowLeft: ArrowRightArrowLeft,
   ArrowRightFromBracket: ArrowRightFromBracket,
   ArrowRightFromFile: ArrowRightFromFile,
