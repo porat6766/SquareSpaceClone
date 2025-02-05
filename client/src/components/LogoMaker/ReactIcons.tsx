@@ -38,139 +38,309 @@ import {
 
 // Icons map for search render
 export const MoonIcon2 = () => {
-  return <Moon size={58} />;
+  return (
+    <Moon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ShareIcon2 = () => {
-  return <Share size={58} />;
+  return (
+    <Share
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const SunMediumIcon = () => {
-  return <SunMedium size={58} />;
+  return (
+    <SunMedium
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ExternalLinkIcon = () => {
-  return <ExternalLink size={58} />;
+  return (
+    <ExternalLink
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const BookmarkIconComponent = () => {
-  return <BookmarkIcon size={58} />;
+  return (
+    <BookmarkIcon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const LinkIcon = () => {
-  return <Link size={58} />;
+  return (
+    <Link
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const FacebookIcon = () => {
-  return <Facebook size={58} />;
+  return (
+    <Facebook
+      size={60}
+      className="mt-2 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const LinkedinIcon = () => {
-  return <Linkedin size={58} />;
+  return (
+    <Linkedin
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const MoreVerticalIcon = () => {
-  return <MoreVertical size={58} />;
+  return (
+    <MoreVertical
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const EyeOffIcon = () => {
-  return <EyeOff size={58} />;
+  return (
+    <EyeOff
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const BanIcon = () => {
-  return <Ban size={58} />;
+  return (
+    <Ban
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const FlagIconComponent = () => {
-  return <FlagIcon size={58} />;
+  return (
+    <FlagIcon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ChevronLeftIconComponent = () => {
-  return <ChevronLeft size={58} />;
+  return (
+    <ChevronLeft
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ChevronRightIconComponent = () => {
-  return <ChevronRight size={58} />;
+  return (
+    <ChevronRight
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const FlameIcon = () => {
-  return <Flame size={58} />;
+  return (
+    <Flame
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ArrowBigUpIcon = () => {
-  return <ArrowBigUp size={58} />;
+  return (
+    <ArrowBigUp
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const MessagesSquareIcon = () => {
-  return <MessagesSquare size={58} />;
+  return (
+    <MessagesSquare
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const SearchIcon = () => {
-  return <Search size={58} />;
+  return (
+    <Search
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const BellIcon = () => {
-  return <Bell size={58} />;
+  return (
+    <Bell
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const HistoryIcon = () => {
-  return <History size={58} />;
+  return (
+    <History
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const Xclose = () => {
-  return <X size={58} />;
+  return (
+    <X
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const UserIcon = () => {
-  return <User size={58} />;
+  return (
+    <User
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const SettingsIcon = () => {
-  return <Settings size={58} />;
+  return (
+    <Settings
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const LogOutIcon = () => {
-  return <LogOut size={58} />;
+  return (
+    <LogOut
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const BookOpenCheckIcon = () => {
-  return <BookOpenCheck size={58} />;
+  return (
+    <BookOpenCheck
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ChevronLeftIconComponent2 = () => {
-  return <ChevronLeftIcon size={58} />;
+  return (
+    <ChevronLeftIcon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const ChevronRightIconComponent2 = () => {
-  return <ChevronRightIcon size={58} />;
+  return (
+    <ChevronRightIcon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const NewspaperIcon = () => {
-  return <Newspaper size={58} />;
+  return (
+    <Newspaper
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const HomeIcon = () => {
-  return <Home size={58} />;
+  return (
+    <Home
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const Settings2Icon = () => {
-  return <Settings2 size={58} />;
+  return (
+    <Settings2
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const Loader2IconComponent = () => {
-  return <Loader2Icon size={58} />;
+  return (
+    <Loader2Icon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const CheckCircle2Icon = () => {
-  return <CheckCircle2 size={58} />;
+  return (
+    <CheckCircle2
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const PencilIcon = () => {
-  return <Pencil size={58} />;
+  return (
+    <Pencil
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 export const DoorOpenIcon = () => {
-  return <DoorOpen size={58} />;
+  return (
+    <DoorOpen
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
 };
 
 // // // // // // // icons grid for default

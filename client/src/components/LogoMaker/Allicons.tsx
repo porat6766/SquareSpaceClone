@@ -415,7 +415,9 @@ import {
   ZoomIn,
   ZoomOut,
 } from "./FeatherIcons";
-
+// // // // // font awesome
+import { Ad, Add, Compass2 } from "./FontAwesome";
+// // /// // // / // // / /// // // / // / // // // // // // // // / // // // // // / // // / / // // //
 export type Icon = LucideIcon;
 
 // // // props
@@ -458,6 +460,7 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   loading: Loader2IconComponent,
   checkCircle: CheckCircle2Icon,
   editPencil: PencilIcon,
+  //   // // // // // // // // //  shadcn
   booking: BookingLogo,
   Calendar: EmptyCalendarImg,
   heart: IconHeart,
@@ -543,6 +546,7 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   Outdoors: OutdoorsIcon,
   City: CityIcon,
   GeniusLoyalty: GeniusLoyaltyIcon,
+  //   // // // // // // // // // feather
   Activity: Activity,
   Airplay: Airplay,
   Alert_circle: Alert_circle,
@@ -830,6 +834,10 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   Zap: Zap,
   ZoomIn: ZoomIn,
   ZoomOut: ZoomOut,
+  //   // // // // // // //  font awesome
+  Ad: Ad,
+  plus: Add,
+  compass: Compass2,
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path
@@ -855,7 +863,7 @@ export const IconDisplay: React.FC<IconDisplayProps> = ({ searchQuery }) => {
       {filteredIcons.map((icon) => {
         const IconComponent = IconsMap[icon];
         return IconComponent ? (
-          <div key={icon} className="flex flex-col items-center">
+          <div key={icon} className="flex flex-col items-center ">
             <IconComponent className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing w-[58px] min-h-10" />
             {/* <span className="text-xs mt-2">{icon}</span> */}
           </div>
