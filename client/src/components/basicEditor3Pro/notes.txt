@@ -5,4 +5,9 @@ For now the direction is a separate display mode.
 For the next version, separating editing app and rendering app would be preferable?
 
 TODO:
+Problem:
+switching pages from the editor doesn't work as expected
+
 Fix the dragging behavior when enlarging elements
+
+should replace ColorPicker with ColorPicker2 in the elements editor

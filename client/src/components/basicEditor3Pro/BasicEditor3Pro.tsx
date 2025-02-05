@@ -95,11 +95,13 @@ function BasicEditor3Pro({
   const [pages, setPages] = useState<BasicEditor3Page[]>(
     currentWebsite?.pages || []
   );
-  const [currentPage, setCurrentPage] = useState<string>(pages[0]?.name);
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || pages[0]?.name);
+  const [prevPage, setPrevPage] = useState<string>(currentWebsite?.lastEditorPage || pages[0]?.name);
   const [renderElements, setRenderElements] = useState<RenderElement3[]>([]);
 
-  const [addBlockMenuVisible, setAddBlockMenuVisible] =
-    useState<boolean>(false);
+  const [addBlockMenuVisible, setAddBlockMenuVisible] = useState<boolean>(false);
+
+  const isFirstRender = useRef(true)
 
   const { pageNameFromLayout } = useContext(EditorLayoutContext) || {};
 
@@ -125,7 +127,6 @@ function BasicEditor3Pro({
     }
   }, [saveTrigger]);
 
-  //this could cause the page to turn back to 0 on refresh
   useEffect(() => {
     if (!currentWebsite) {
       return;
@@ -133,7 +134,9 @@ function BasicEditor3Pro({
     setPages(currentWebsite.pages);
     if (currentWebsite.pages[0]) {
       setCurrentPage(currentWebsite.lastEditorPage || currentWebsite.pages[0].name)
-      // setCurrentPage(currentWebsite.pages[0].name);
+    }
+    if(!isPages){
+      setCurrentPage("HomeFromEditor")
     }
     setHeaderData(currentWebsite.headerData);
   }, [currentWebsite]);
@@ -147,10 +150,16 @@ function BasicEditor3Pro({
 
   useEffect(() => {
     //displays the current page
-    displayPage(currentPage);
     if (!currentWebsite) return;
-    currentWebsite.pages = pages;
+    if(!isFirstRender){
+      saveSnapshotToPages(prevPage, renderElements)
+      console.log(prevPage, renderElements)
+    }
+    isFirstRender.current = false;
+    displayPage(currentPage);
+    currentWebsite.pages = pages;//what is the use of this line?
     currentWebsite.lastEditorPage = currentPage
+    setPrevPage(currentPage)
   }, [currentPage, pages]);
 
   useEffect(() => {
@@ -160,7 +169,7 @@ function BasicEditor3Pro({
     ) {
       setCurrentPage(pageNameFromLayout);
     } else if (pageNameFromLayout) {
-      saveSnapshotToPages(pageNameFromLayout, []);
+      // saveSnapshotToPages(pageNameFromLayout, []);
     }
   }, [pageNameFromLayout]);
 
@@ -222,8 +231,6 @@ function BasicEditor3Pro({
       Math.abs(newPosition.x - (originOfCoordinates?.x || 0)) > TOLERANCE ||
       Math.abs(newPosition.y - (originOfCoordinates?.y || 0)) > TOLERANCE;
     if (updateRule2) {
-      // console.log("ooc:", originOfCoordinates)
-      // console.log("new position:", newPosition)
       setOriginOfCoordinates(newPosition);
     }
     setTimeout(updateOOC, 300);
