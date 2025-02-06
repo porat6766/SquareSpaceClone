@@ -11,7 +11,6 @@ dotenv_1.default.config();
 const authenticateUser = async (req, res, next) => {
     try {
         const token = req.header("Authorization")?.replace("Bearer ", "");
-        console.log(token);
         if (!token) {
             res.status(401).json({ message: "Access denied, no token provided." });
             return;
@@ -26,7 +25,6 @@ const authenticateUser = async (req, res, next) => {
             res.status(401).json({ message: "User not found." });
             return;
         }
-        console.log(user);
         req.user = user;
         next();
     }
@@ -48,7 +46,6 @@ exports.authenticateUser = authenticateUser;
 const authenticateUserRefresh = async (req, res) => {
     try {
         const token = req.header("Authorization")?.replace("Bearer ", "");
-        console.log(token);
         if (!token) {
             res.status(401).json({ message: "Access denied, no token provided." });
             return;
@@ -58,7 +55,6 @@ const authenticateUserRefresh = async (req, res) => {
             res.status(403).json({ message: "Invalid token." });
             return;
         }
-        console.log(decoded);
         const user = await userModel_1.default.findById(decoded.id);
         if (!user) {
             res.status(401).json({ message: "User not found." });

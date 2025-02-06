@@ -75,7 +75,7 @@ const Login = () => {
   //   window.location.href = 'http://localhost:3000/api/auth/google';
   // };
   const handleGoogleLoginSuccess = () => {
-    window.location.href = 'http://localhost:3000/api/auth/google';
+    window.location.href = 'https://squarespaceclone.onrender.com/api/auth/google';
   };
 
 

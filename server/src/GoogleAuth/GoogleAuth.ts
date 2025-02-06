@@ -1,4 +1,3 @@
-
 import express, { Request, Response } from 'express';
 import passport from 'passport';
 import { Strategy as GoogleStrategy, VerifyCallback } from 'passport-google-oauth20';
@@ -30,13 +29,12 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-            callbackURL: 'http://localhost:3000/api/auth/google/callback',
+            callbackURL: 'https://squarespaceclone.onrender.com/api/auth/google/callback',
         },
         async (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => {
             console.log(profile);
 
             try {
-                // Find or create user by email
                 const email = profile.emails?.[0]?.value;
                 if (!email) {
                     return done(new Error('No email found'), undefined);
@@ -80,7 +78,6 @@ router.get('/api/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
 }));
 
-
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
@@ -88,9 +85,7 @@ router.get(
     "/api/auth/google/callback",
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
-
         const user = req.user as IUser;
-
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET as string,
@@ -100,25 +95,16 @@ router.get(
         );
 
         res.cookie("token", token, {
-            httpOnly: false, // process.env.NodeEnv === 'production'
-            secure: true, // process.env.NodeEnv === 'production'
+            httpOnly: false,
+            secure: true,
             sameSite: "strict",
         });
 
-        res.redirect(`http://localhost:5173`);
+        res.redirect(`https://squarespaceclone.onrender.com`);
     }
 );
 
-
 export default router;
-
-
-
-
-
-
-
-
 
 
 

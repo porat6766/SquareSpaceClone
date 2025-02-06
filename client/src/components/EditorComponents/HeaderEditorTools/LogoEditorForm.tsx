@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Header3Data } from "../../basicEditor3Pro/Header3";
+// import { Header3Data } from "../../basicEditor3Pro/Header3";
 import { BasicEditorContext } from "../../basicEditor3Pro/BasicEditor3Pro";
 
 const LogoEditorForm = () => {
