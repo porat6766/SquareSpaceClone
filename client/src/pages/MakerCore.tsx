@@ -9,8 +9,8 @@ import Options from "../assets/icon-gear.svg";
 import { useNavigate, useParams } from "react-router-dom";
 
 // # # # # # # # icons importing
-import { ShadcnIcons, Iconscn } from "../components/LogoMaker/ShadcnIcons";
-import { Alert_triangle } from "../components/LogoMaker/FeatherIcons";
+import { IconsGrid } from "../components/LogoMaker/ReactIcons";
+import IconDisplay from "../components/LogoMaker/Allicons";
 
 const MakerCore = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -97,52 +97,9 @@ const MakerCore = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isSearchOpen]);
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
-
-  //    shadcn icons
-  type IconName = keyof typeof ShadcnIcons;
-  const IconsMap: { [key in IconName]?: React.ComponentType<any> } = {
-    sun: ShadcnIcons.sun,
-    readMore: ShadcnIcons.readMore,
-    dooropen: ShadcnIcons.dooropen,
-    newspaper: ShadcnIcons.newspaper,
-    bookmark: ShadcnIcons.bookmark,
-    copyLink: ShadcnIcons.copyLink,
-    facebook: ShadcnIcons.facebook,
-    linkedin: ShadcnIcons.linkedin,
-    more: ShadcnIcons.more,
-    hide: ShadcnIcons.hide,
-    block: ShadcnIcons.block,
-    report: ShadcnIcons.report,
-    left: ShadcnIcons.left,
-    right: ShadcnIcons.right,
-    flame: ShadcnIcons.flame,
-    upvote: ShadcnIcons.upvote,
-    discussion: ShadcnIcons.discussion,
-    search: ShadcnIcons.search,
-    notification: ShadcnIcons.notification,
-    history: ShadcnIcons.history,
-    user: ShadcnIcons.user,
-    close: ShadcnIcons.close,
-    settings: ShadcnIcons.settings,
-    logout: ShadcnIcons.logout,
-    read: ShadcnIcons.read,
-    chevronLeft: ShadcnIcons.chevronLeft,
-    chevronRight: ShadcnIcons.chevronRight,
-    articlesSettings: ShadcnIcons.articlesSettings,
-    home: ShadcnIcons.home,
-    loading: ShadcnIcons.loading,
-    checkCircle: ShadcnIcons.checkCircle,
-    edit: ShadcnIcons.edit,
-    gitHub: ShadcnIcons.gitHub,
-  };
-  const allIcons = [...Object.keys(IconsMap)];
-
-  const filteredIcons = allIcons.filter((icon) =>
-    icon.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="flex relative w-screen min-h-screen overflow-x-hidden">
@@ -197,16 +154,20 @@ const MakerCore = () => {
                 <div className="fixed inset-0 flex items-center justify-start pl-10 pb-24 bg-black/50 z-50 cursor-auto">
                   <div
                     ref={dialogRef}
-                    className="bg-white bg-opacity-10 p-4 rounded-md shadow-lg w-96 max-w-full"
+                    className="bg-white bg-opacity-10 backdrop-blur-[2px] p-4 rounded-md shadow-lg w-96 max-w-full mb-20"
                     onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
                   >
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={handleSearch}
-                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                      className="mb-2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                       placeholder="Search for icons ..."
                     />
+                    <h1 className="text-black underline font-bold text-2xl ml-1 cursor-pointer">
+                      Key Words
+                    </h1>
+                    <div className="mt-8 max-h-80 w-full bg-white rounded-lg"></div>
                   </div>
                 </div>
               )}
@@ -215,20 +176,9 @@ const MakerCore = () => {
             <div className="group relative mt-4 border-t-2 border-opacity-35 border-gray-600 group-hover:border-black w-5/6 max-h-[365px] h-screen">
               <div className="grid overflow-y-auto max-h-[365px]">
                 {!searchQuery ? (
-                  <Iconscn />
+                  <IconsGrid />
                 ) : (
-                  <div className="grid grid-cols-3 gap-4 p-4">
-                    {filteredIcons.map((icon) => {
-                      const IconComponent = IconsMap[icon as IconName];
-                      return IconComponent ? (
-                        <IconComponent
-                          key={icon}
-                          size={48}
-                          className="cursor-grab active:cursor-grabbing"
-                        />
-                      ) : null;
-                    })}
-                  </div>
+                  <IconDisplay searchQuery={searchQuery} />
                 )}
               </div>
             </div>

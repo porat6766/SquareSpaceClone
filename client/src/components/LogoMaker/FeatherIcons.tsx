@@ -221,7 +221,7 @@ export const ArrowRightCircle = ({ className }: IconsProps) => {
   );
 };
 
-export const ArrowRight = ({ className }: IconsProps) => {
+export const ArrowRight2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -353,7 +353,7 @@ export const BellOff = ({ className }: IconsProps) => {
   );
 };
 
-export const Bell = ({ className }: IconsProps) => {
+export const Bell2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -529,7 +529,7 @@ export const ChevronDown = ({ className }: IconsProps) => {
   );
 };
 
-export const ChevronLeft = ({ className }: IconsProps) => {
+export const ChevronLeft2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -540,7 +540,7 @@ export const ChevronLeft = ({ className }: IconsProps) => {
   );
 };
 
-export const ChevronRight = ({ className }: IconsProps) => {
+export const ChevronRight2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -628,7 +628,7 @@ export const Circle = ({ className }: IconsProps) => {
   );
 };
 
-export const Clipboard = ({ className }: IconsProps) => {
+export const Clipboard2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1079,7 +1079,7 @@ export const Edit3 = ({ className }: IconsProps) => {
   );
 };
 
-export const Edit = ({ className }: IconsProps) => {
+export const Edit4 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1090,7 +1090,7 @@ export const Edit = ({ className }: IconsProps) => {
   );
 };
 
-export const ExternalLink = ({ className }: IconsProps) => {
+export const ExternalLink2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1101,7 +1101,7 @@ export const ExternalLink = ({ className }: IconsProps) => {
   );
 };
 
-export const EyeOff = ({ className }: IconsProps) => {
+export const EyeOff2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1123,7 +1123,7 @@ export const Eye = ({ className }: IconsProps) => {
   );
 };
 
-export const Facebook = ({ className }: IconsProps) => {
+export const Facebook2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1200,7 +1200,7 @@ export const FileText = ({ className }: IconsProps) => {
   );
 };
 
-export const File = ({ className }: IconsProps) => {
+export const File2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1431,7 +1431,7 @@ export const Headphones = ({ className }: IconsProps) => {
   );
 };
 
-export const Heart = ({ className }: IconsProps) => {
+export const Heart3 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1464,7 +1464,7 @@ export const Hexagon = ({ className }: IconsProps) => {
   );
 };
 
-export const Home = ({ className }: IconsProps) => {
+export const Home2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1475,7 +1475,7 @@ export const Home = ({ className }: IconsProps) => {
   );
 };
 
-export const Image = ({ className }: IconsProps) => {
+export const Image2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1585,7 +1585,7 @@ export const Link2 = ({ className }: IconsProps) => {
   );
 };
 
-export const Link = ({ className }: IconsProps) => {
+export const Link3 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1596,7 +1596,7 @@ export const Link = ({ className }: IconsProps) => {
   );
 };
 
-export const Linkedin = ({ className }: IconsProps) => {
+export const Linkedin2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1629,7 +1629,7 @@ export const Loader = ({ className }: IconsProps) => {
   );
 };
 
-export const Lock = ({ className }: IconsProps) => {
+export const Lock2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1651,7 +1651,7 @@ export const LogIn = ({ className }: IconsProps) => {
   );
 };
 
-export const LogOut = ({ className }: IconsProps) => {
+export const LogOut2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1684,7 +1684,7 @@ export const MapPin = ({ className }: IconsProps) => {
   );
 };
 
-export const Map = ({ className }: IconsProps) => {
+export const Map2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1849,7 +1849,7 @@ export const Monitor = ({ className }: IconsProps) => {
   );
 };
 
-export const Moon = ({ className }: IconsProps) => {
+export const Moon3 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -1871,7 +1871,7 @@ export const MoreHorizontal = ({ className }: IconsProps) => {
   );
 };
 
-export const MoreVertical = ({ className }: IconsProps) => {
+export const MoreVertical2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2146,7 +2146,7 @@ export const PlusSquare = ({ className }: IconsProps) => {
   );
 };
 
-export const Plus = ({ className }: IconsProps) => {
+export const Plus2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2300,7 +2300,7 @@ export const Scissors = ({ className }: IconsProps) => {
   );
 };
 
-export const Search = ({ className }: IconsProps) => {
+export const Search2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2333,7 +2333,7 @@ export const Server = ({ className }: IconsProps) => {
   );
 };
 
-export const Settings = ({ className }: IconsProps) => {
+export const Settings3 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2344,7 +2344,7 @@ export const Settings = ({ className }: IconsProps) => {
   );
 };
 
-export const Share2 = ({ className }: IconsProps) => {
+export const Share3 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2355,7 +2355,7 @@ export const Share2 = ({ className }: IconsProps) => {
   );
 };
 
-export const Share = ({ className }: IconsProps) => {
+export const Share4 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2850,7 +2850,7 @@ export const Underline = ({ className }: IconsProps) => {
   );
 };
 
-export const Unlock = ({ className }: IconsProps) => {
+export const Unlock2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -2927,7 +2927,7 @@ export const UserX = ({ className }: IconsProps) => {
   );
 };
 
-export const User = ({ className }: IconsProps) => {
+export const User2 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -3015,7 +3015,7 @@ export const VolumeX = ({ className }: IconsProps) => {
   );
 };
 
-export const Volume = ({ className }: IconsProps) => {
+export const Volume3 = ({ className }: IconsProps) => {
   return (
     <img
       className={className}
@@ -3103,7 +3103,7 @@ export const XSquare = ({ className }: IconsProps) => {
   );
 };
 
-export const X = ({ className }: IconsProps) => {
+export const X3 = ({ className }: IconsProps) => {
   return (
     <img className={className} src={featherIcons.x} alt="X Icon" width="65px" />
   );
