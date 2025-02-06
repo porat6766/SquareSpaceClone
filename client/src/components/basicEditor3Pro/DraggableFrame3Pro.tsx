@@ -14,7 +14,7 @@ export type DraggableFrame3Props = {
 };
 
 function DraggableFrame3({ renderElement }: DraggableFrame3Props) {
-  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition, offset, setOffset }: BasicEditorContextType = useContext(BasicEditorContext);
+  const { baseFunctions, originOfCoordinates, isEditMode, closestPosition, setOffset }: BasicEditorContextType = useContext(BasicEditorContext);
   const [position, setPosition] = useState<Position>(renderElement.data.position);
   const [displayEditButtons, setDisplayEditButtons] = useState(false);
   const [borderHover, setBorderHover] = useState<string>("none");

@@ -6,7 +6,7 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 // Import your other sidebar components
 import SystemPagesSidebar from "./SystemPagesSidebar";
 import WebsiteTools from "./WebsiteTools";
-import TrashSidebar from "./TrashSidebar";
+// import TrashSidebar from "./TrashSidebar";
 import { EditorLayoutContext } from "../../../pages/EditorLayout";
 
 const addPageFormStyle: React.CSSProperties = {
