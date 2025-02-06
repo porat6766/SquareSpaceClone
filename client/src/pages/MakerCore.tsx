@@ -154,16 +154,20 @@ const MakerCore = () => {
                 <div className="fixed inset-0 flex items-center justify-start pl-10 pb-24 bg-black/50 z-50 cursor-auto">
                   <div
                     ref={dialogRef}
-                    className="bg-white bg-opacity-10 p-4 rounded-md shadow-lg w-96 max-w-full"
+                    className="bg-white bg-opacity-10 backdrop-blur-[2px] p-4 rounded-md shadow-lg w-96 max-w-full mb-20"
                     onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
                   >
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={handleSearch}
-                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                      className="mb-2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                       placeholder="Search for icons ..."
                     />
+                    <h1 className="text-black underline font-bold text-2xl ml-1 cursor-pointer">
+                      Key Words
+                    </h1>
+                    <div className="mt-8 max-h-80 w-full bg-white rounded-lg"></div>
                   </div>
                 </div>
               )}

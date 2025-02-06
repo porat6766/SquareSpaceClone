@@ -13,7 +13,6 @@ export const authenticateUser = async (
 ): Promise<void> => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
-    console.log(token);
 
     if (!token) {
       res.status(401).json({ message: "Access denied, no token provided." });
@@ -35,7 +34,6 @@ export const authenticateUser = async (
       res.status(401).json({ message: "User not found." });
       return;
     }
-    console.log(user);
 
     req.user = user;
 
@@ -59,7 +57,6 @@ export const authenticateUserRefresh = async (
 ): Promise<void> => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
-    console.log(token);
 
     if (!token) {
       res.status(401).json({ message: "Access denied, no token provided." });
@@ -73,7 +70,6 @@ export const authenticateUserRefresh = async (
       return;
     }
 
-    console.log(decoded);
 
     const user = await User.findById(decoded.id);
     if (!user) {
