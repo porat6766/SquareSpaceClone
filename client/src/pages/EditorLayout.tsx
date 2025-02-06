@@ -45,7 +45,7 @@ function EditorLayout() {
   const screenshotRef = useRef<{ captureScreenshot: () => void }>(null);
 
   const [pageNameFromLayout, setPageNameFromLayout] = useState<string>(
-    currentWebsite?.lastEditorPage || currentWebsite?.pages[0]?.name// || "HomeFromLayout"//test
+    currentWebsite?.lastEditorPage || currentWebsite?.pages[0]?.name!// || "HomeFromLayout"//test. Should fix the ts here
   );
 
   const { id } = useParams();

@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginService } from "../services/userService";
 import toast, { Toaster } from "react-hot-toast";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const location = useLocation();
@@ -69,6 +70,14 @@ const Login = () => {
       mutation.mutate({ email, password });
     }
   };
+
+  // const handleGoogleLoginSuccess = () => {
+  //   window.location.href = 'http://localhost:3000/api/auth/google';
+  // };
+  const handleGoogleLoginSuccess = () => {
+    window.location.href = 'http://localhost:3000/api/auth/google';
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center min-w-[330px]">
@@ -171,11 +180,10 @@ const Login = () => {
             </div>
             <button
               disabled={!isFormValid}
-              className={`w-full py-2 rounded font-medium transition-all ${
-                isFormValid
-                  ? "bg-black text-white hover:bg-gray-800"
-                  : "bg-gray-300 text-gray-600 cursor-not-allowed "
-              }`}
+              className={`w-full py-2 rounded font-medium transition-all ${isFormValid
+                ? "bg-black text-white hover:bg-gray-800"
+                : "bg-gray-300 text-gray-600 cursor-not-allowed "
+                }`}
             >
               LOG IN
             </button>
@@ -193,6 +201,17 @@ const Login = () => {
               <span className="relative flex items-center gap-2 px-4 py-2 text-black group-hover:text-white z-10">
                 <img src={GoogleIcon} alt="Google logo" className="w-4 h-4" />
                 <span className="pl-[50px]">Continue with Google</span>
+                <GoogleLogin
+                  onSuccess={handleGoogleLoginSuccess}
+                  containerProps={{
+                    style: {
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      opacity: 0,
+                    },
+                  }}
+                />
               </span>
             </button>
             <button className="relative overflow-hidden border border-black group min-w-[285px]">
