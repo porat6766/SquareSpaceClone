@@ -2,6 +2,15 @@ import { ReactNode, SetStateAction, Dispatch } from "react";
 import { Header3Data } from "./Header3";
 import { Footer3Data } from "./Footer3";
 
+export type CssPosition = 'absolute' | 'relative' | 'fixed' | 'sticky' | 'static';
+
+export type MarkerDivStyleType = {
+  width: string,
+  height: string,
+  position: CssPosition,
+  [key:string]:any
+}
+
 export type Position = {
   x: number;
   y: number;
