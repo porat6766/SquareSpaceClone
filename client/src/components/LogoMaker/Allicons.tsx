@@ -404,7 +404,6 @@ import {
   Wifi,
   WifiOff,
   Wind,
-  X2,
   X3,
   XCircle,
   XOctagon,
