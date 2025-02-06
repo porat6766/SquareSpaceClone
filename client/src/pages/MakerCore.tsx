@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 // # # # # # # # icons importing
 import { IconsGrid } from "../components/LogoMaker/ReactIcons";
-import IconDisplay from "../components/LogoMaker/Allicons";
+import IconDisplay, { SearchKeyWords } from "../components/LogoMaker/Allicons";
 
 const MakerCore = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -101,6 +101,10 @@ const MakerCore = () => {
     setSearchQuery(e.target.value);
   };
 
+  const handleItemSelect = (item: string) => {
+    setSearchQuery(item);
+  };
+
   return (
     <div className="flex relative w-screen min-h-screen overflow-x-hidden">
       {/* Sidebar */}
@@ -148,13 +152,13 @@ const MakerCore = () => {
                 </svg>
               </button>
               <span className="text-gray-600 group-hover:text-black">
-                {searchQuery ? searchQuery : "search"}
+                {searchQuery ? searchQuery : "for more icons ..."}
               </span>
               {isSearchOpen && (
-                <div className="fixed inset-0 flex items-center justify-start pl-10 pb-24 bg-black/50 z-50 cursor-auto">
+                <div className="fixed inset-0 flex items-center justify-start pl-10 pb-24 bg-black/50 z-50 cursor-pointer">
                   <div
                     ref={dialogRef}
-                    className="bg-white bg-opacity-10 backdrop-blur-[2px] p-4 rounded-md shadow-lg w-96 max-w-full mt-64"
+                    className="bg-white bg-opacity-20 backdrop-blur-[3px] p-4 rounded-md shadow-lg w-[350px] max-w-full mt-64 cursor-auto"
                     onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
                   >
                     <input
@@ -162,14 +166,15 @@ const MakerCore = () => {
                       value={searchQuery}
                       onChange={handleSearch}
                       className="mb-2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black bg-slate-100"
-                      placeholder="Search for icons ..."
+                      placeholder="Search icons here"
                     />
-                    <h1 className="text-gray-900 underline font-bold text-2xl ml-1 cursor-pointer">
+                    <h1 className="text-gray-900 underline font-bold text-2xl ml-1 cursor-default">
                       Key Words
                     </h1>
                     <div className="flex flex-col mt-10 h-80 w-full bg-slate-100 bg-opacity-80 rounded-lg">
-                      <div className="h-1/2 w-4/5 self-center border-b-2 border-black"></div>
-                      <div></div>
+                      <div className="h-full w-4/5 self-center overflow-y-auto scrollbar-hide">
+                        <SearchKeyWords onItemSelect={handleItemSelect} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -200,6 +205,9 @@ const MakerCore = () => {
           ref={canvasRef}
           className={`relative top-0 left-0 shadow transition-all duration-700 ease-in-out w-screen h-screen`}
         ></canvas>
+        <h1 className="absolute text-7xl text-black z-50 self-center flex top-[300px] cursor-grab active:cursor-grabbing">
+          {companyName}
+        </h1>
         <span
           className={`absolute text-black right-6 opacity-70 transition-all duration-500 ease-in-out ${
             fullscreen ? "bottom-8" : "bottom-[265px]"
