@@ -81,7 +81,7 @@ export const PhotoVideo = () => {
   );
 };
 
-export const PieChart = () => {
+export const PieChart2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPieChart}
@@ -91,7 +91,7 @@ export const PieChart = () => {
   );
 };
 
-export const PiggyBank = () => {
+export const PiggyBank2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPiggyBank}
@@ -141,7 +141,7 @@ export const PlaceOfWorship = () => {
   );
 };
 
-export const Plane = () => {
+export const Plane2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlane}
@@ -251,7 +251,7 @@ export const PlateWheat = () => {
   );
 };
 
-export const Play = () => {
+export const Play2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlay}
@@ -261,7 +261,7 @@ export const Play = () => {
   );
 };
 
-export const PlayCircle = () => {
+export const PlayCircle2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlayCircle}
@@ -271,7 +271,7 @@ export const PlayCircle = () => {
   );
 };
 
-export const Plug = () => {
+export const Plug2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlug}
@@ -341,7 +341,7 @@ export const PlugCircleXmark = () => {
   );
 };
 
-export const Plus = () => {
+export const Plus2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlus}
@@ -351,7 +351,7 @@ export const Plus = () => {
   );
 };
 
-export const PlusCircle = () => {
+export const PlusCircle2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlusCircle}
@@ -371,7 +371,7 @@ export const PlusMinus = () => {
   );
 };
 
-export const PlusSquare = () => {
+export const PlusSquare2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPlusSquare}
@@ -381,7 +381,7 @@ export const PlusSquare = () => {
   );
 };
 
-export const Podcast = () => {
+export const Podcast2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faPodcast}
@@ -601,7 +601,7 @@ export const PuzzlePiece = () => {
   );
 };
 
-export const Q = () => {
+export const Qletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faQ}
@@ -705,6 +705,16 @@ export const Quran = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faQuran}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const Rletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faR}
       size="3x"
       className="mt-3 opacity-50 hover:opacity-100"
     />
@@ -1381,7 +1391,7 @@ export const RupiahSign = () => {
   );
 };
 
-export const S = () => {
+export const Sletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faS}
@@ -3531,7 +3541,7 @@ export const Syringe = () => {
   );
 };
 
-export const T = () => {
+export const Tletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faT}

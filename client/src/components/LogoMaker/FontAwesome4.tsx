@@ -21,7 +21,7 @@ export const TriangleExclamation = () => {
   );
 };
 
-export const Trophy = () => {
+export const Trophy2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faTrophy}
@@ -51,7 +51,7 @@ export const TrowelBricks = () => {
   );
 };
 
-export const Truck = () => {
+export const Truck2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faTruck}
@@ -261,7 +261,7 @@ export const TurnUp = () => {
   );
 };
 
-export const Tv = () => {
+export const Tv2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faTv}
@@ -281,7 +281,7 @@ export const TvAlt = () => {
   );
 };
 
-export const U = () => {
+export const Uletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faU}
@@ -901,7 +901,7 @@ export const Utensils = () => {
   );
 };
 
-export const V = () => {
+export const Vletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faV}
@@ -1281,7 +1281,7 @@ export const VrCardboard = () => {
   );
 };
 
-export const W = () => {
+export const Wletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faW}
@@ -1671,7 +1671,7 @@ export const Wrench = () => {
   );
 };
 
-export const X = () => {
+export const Xletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faX}
@@ -1731,7 +1731,7 @@ export const XmarksLines = () => {
   );
 };
 
-export const Y = () => {
+export const Yletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faY}
@@ -1771,7 +1771,7 @@ export const YinYang = () => {
   );
 };
 
-export const Z = () => {
+export const Zletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faZ}

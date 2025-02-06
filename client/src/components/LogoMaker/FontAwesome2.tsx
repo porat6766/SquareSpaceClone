@@ -1,7 +1,17 @@
 import * as solidIcons from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Gamepad = () => {
+export const Gletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faG}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const Gamepad3 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faGamepad}
@@ -591,6 +601,15 @@ export const Gun = () => {
   );
 };
 
+export const Hletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faH}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
 export const HSquare = () => {
   return (
     <FontAwesomeIcon
@@ -1521,7 +1540,7 @@ export const Hippo = () => {
   );
 };
 
-export const History = () => {
+export const History2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faHistory}
@@ -2071,6 +2090,16 @@ export const Hurricane = () => {
   );
 };
 
+export const Iletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faI}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
 export const ICursor = () => {
   return (
     <FontAwesomeIcon
@@ -2171,7 +2200,7 @@ export const Ils = () => {
   );
 };
 
-export const Image = () => {
+export const Image2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faImage}
@@ -2251,7 +2280,7 @@ export const Industry = () => {
   );
 };
 
-export const Infinity = () => {
+export const Infinity2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faInfinity}
@@ -2401,6 +2430,16 @@ export const JugDetergent = () => {
   );
 };
 
+export const Kletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faK}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
 export const Kaaba = () => {
   return (
     <FontAwesomeIcon
@@ -2485,6 +2524,46 @@ export const KitMedical = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faKitMedical}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const KitchenSet = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faKitchenSet}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const KiwiBird = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faKiwiBird}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const Krw = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faKrw}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const Lletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faL}
       size="3x"
       className="mt-3 opacity-50 hover:opacity-100"
     />
@@ -2951,7 +3030,7 @@ export const LitecoinSign = () => {
   );
 };
 
-export const Location = () => {
+export const Location2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faLocation}
@@ -3011,7 +3090,7 @@ export const LocationPinLock = () => {
   );
 };
 
-export const Lock = () => {
+export const Lock3 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faLock}
@@ -3161,7 +3240,7 @@ export const LungsVirus = () => {
   );
 };
 
-export const M = () => {
+export const Mletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faM}
@@ -3331,7 +3410,7 @@ export const ManatSign = () => {
   );
 };
 
-export const Map = () => {
+export const Map2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faMap}
@@ -4261,7 +4340,7 @@ export const Music = () => {
   );
 };
 
-export const N = () => {
+export const Nletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faN}
@@ -4361,7 +4440,7 @@ export const NotesMedical = () => {
   );
 };
 
-export const O = () => {
+export const Oletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faO}
@@ -4441,7 +4520,7 @@ export const Outdent = () => {
   );
 };
 
-export const P = () => {
+export const Pletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faP}

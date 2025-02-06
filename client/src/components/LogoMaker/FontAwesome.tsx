@@ -1,6 +1,116 @@
 import * as solidIcons from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+export const num0 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa0}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num1 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa1}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num2 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa2}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num3 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa3}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num4 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa4}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num5 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa5}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num6 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa6}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num7 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa7}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num8 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa8}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const num9 = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.fa9}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const Aletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faA}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
 export const Ad = () => {
   return (
     <FontAwesomeIcon
@@ -1769,7 +1879,7 @@ export const BusinessTime = () => {
   );
 };
 
-export const C = () => {
+export const Cletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faC}
@@ -3989,7 +4099,7 @@ export const Cutlery = () => {
   );
 };
 
-export const D = () => {
+export const Dletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faD}
@@ -4619,7 +4729,7 @@ export const Dungeon = () => {
   );
 };
 
-export const E = () => {
+export const Eletter = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faE}
@@ -5103,6 +5213,16 @@ export const Eyedropper = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faEyedropper}
+      size="3x"
+      className="mt-3 opacity-50 hover:opacity-100"
+    />
+  );
+};
+
+export const Fletter = () => {
+  return (
+    <FontAwesomeIcon
+      icon={solidIcons.faF}
       size="3x"
       className="mt-3 opacity-50 hover:opacity-100"
     />
@@ -5599,7 +5719,7 @@ export const FighterJet = () => {
   );
 };
 
-export const File = () => {
+export const File2 = () => {
   return (
     <FontAwesomeIcon
       icon={solidIcons.faFile}
