@@ -243,7 +243,7 @@ export const IconApple = ({ className }: IconsProps) => {
 export const IconFacebook = ({ className }: IconsProps) => {
   return (
     <svg
-      className={cn("w-8 h-8 fill-[#4267b2]", className)}
+      className={cn("mt-4 w-8 h-8 fill-[#4267b2]", className)}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
@@ -364,7 +364,7 @@ export const Copy = ({ className }: IconsProps) => {
 export const FacebookWhiteIcon = ({ className }: IconsProps) => {
   return (
     <svg
-      className={className}
+      className={cn("mt-3 w-14 h-14", className)}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width="58px"

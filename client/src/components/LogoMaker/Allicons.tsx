@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 // // // // // // // // // icons importing from components
 import { LucideIcon, LucideProps } from "lucide-react";
 // // // // // react
@@ -433,16 +433,17 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
       ></path>
     </svg>
   ),
-  moon: MoonIcon2,
+  //   // // // // // // // // react
+  moonWeather: MoonIcon2,
   share: ShareIcon2,
-  sun: SunMediumIcon,
+  sunWeather: SunMediumIcon,
   home: HomeIcon,
   logout: LogOutIcon,
   readMoreLink: ExternalLinkIcon,
   bookmark: BookmarkIconComponent,
   copyLink: LinkIcon,
-  facebook: FacebookIcon,
-  linkedin: LinkedinIcon,
+  facebookCompany: FacebookIcon,
+  linkedinCompany: LinkedinIcon,
   moreVertical: MoreVerticalIcon,
   hideEye: EyeOffIcon,
   blockBan: BanIcon,
@@ -471,7 +472,7 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   booking: BookingLogo,
   Calendar: EmptyCalendarImg,
   heart: IconHeart,
-  cardX: CardXIcon,
+  x: CardXIcon,
   plusminus: IconPlusMinus,
   stars: Stars,
   info: Information,
@@ -481,9 +482,9 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   X: XIcon,
   Vi: ViIcon,
   SmallUpDown: SmallUpDown,
-  google: IconGoogle,
-  apple: IconApple,
-  facebook2: IconFacebook,
+  googleCompany: IconGoogle,
+  appleCompany: IconApple,
+  facebook2Company: IconFacebook,
   error: IconError,
   guest: IconGuest,
   hamburger: IconHamburger,
@@ -492,7 +493,7 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   Share2: ShareIcon,
   Discount: Discount,
   Copy: Copy,
-  FacebookWhite: FacebookWhiteIcon,
+  FacebookWhiteCompany: FacebookWhiteIcon,
   X2: Xicon,
   Unlock: Unlock,
   Lock: LockIcon,
@@ -537,14 +538,14 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   Map: MapIcon,
   Up: UpIcon,
   Down: DownIcon,
-  BookingLogoBlue: BookingLogoBlue,
+  BookingLogoBlueCompany: BookingLogoBlue,
   Crib: CribIcon,
   OpenTable: OpenTableIcon,
-  Agoda: AgodaIcon,
+  AgodaCompany: AgodaIcon,
   Priceline: PricelineIcon,
-  Kayak: KayakIcon,
+  KayakCompany: KayakIcon,
   account: MyAccountIcon,
-  bookingTrips: BookingTripsIcon,
+  bookingTripsCompany: BookingTripsIcon,
   RewardsWallet: RewardsWalletIcon,
   Reviews: ReviewsIcon,
   Saved: SavedIcon,
@@ -552,7 +553,9 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   Beach: BeachIcon,
   Outdoors: OutdoorsIcon,
   City: CityIcon,
-  GeniusLoyalty: GeniusLoyaltyIcon,
+  GeniusLoyaltyCompany: GeniusLoyaltyIcon,
+  //   // // // // // // //  font awesome
+  ...AwesomeIconsMap,
   //   // // // // // // // // // feather
   Activity: Activity,
   Airplay: Airplay,
@@ -841,12 +844,159 @@ export const IconsMap: Record<string, React.FC<IconsProps>> = {
   Zap: Zap,
   ZoomIn: ZoomIn,
   ZoomOut: ZoomOut,
-  //   // // // // // // //  font awesome
-  ...AwesomeIconsMap,
 };
 
 interface IconDisplayProps {
   searchQuery: string;
+}
+
+interface SearchKeyWordsProps {
+  onItemSelect: (item: string) => void;
+}
+// // // // // // // key words
+export const items = [
+  "number",
+  "letter",
+  "angle",
+  "ad",
+  "plus",
+  "minus",
+  "face",
+  "symbol",
+  "company",
+  "arrow",
+  "back",
+  "sign",
+  "book",
+  "car",
+  "box",
+  "food",
+  "ball",
+  "fire",
+  "heart",
+  "Circle",
+  "Calendar",
+  "square",
+  "weather",
+  "eye",
+  "hand",
+  "star",
+  "person",
+  "people",
+  "user",
+  "Potter",
+  "vi",
+  "x",
+  "Code",
+];
+
+export function SearchKeyWords({ onItemSelect }: SearchKeyWordsProps) {
+  const [hoverColors, setHoverColors] = useState<{ [key: number]: string }>({});
+
+  const getRandomColor = () => {
+    const colors = [
+      // Reds & Oranges
+      "#FF6347",
+      "#FF4500",
+      "#DC143C",
+      "#FF5733",
+      "#FF0000",
+      "#FF8C00",
+      "#FF1493",
+
+      // Browns
+      "#F4A300",
+      "#D2B48C",
+      "#E4B169",
+
+      // Blues
+      "#1E3A8A",
+      "#4169E1",
+      "#1E90FF",
+      "#00BFFF",
+      "#ADD8E6",
+      "#4682B4",
+
+      // Cyans
+      "#20B2AA",
+      "#5F9EA0",
+      "#40E0D0",
+      "#00FFFF",
+      "#00CED1",
+      "#48D1CC",
+
+      // Greens
+      "#32CD32",
+      "#3CB371",
+      "#00FF00",
+      "#98FB98",
+
+      // Yellows & Golds
+      "#FFD700",
+      "#F0E68C",
+      "#FFFF00",
+      "#F9A602",
+      "#D4AF37",
+
+      // Purples
+      "#8A2BE2",
+      "#9370DB",
+      "#BA55D3",
+      "#D8BFD8",
+      "#663399",
+
+      // Bright colors (added)
+      "#FF69B4",
+      "#00FF7F",
+      "#FF1493",
+      "#32CD32",
+      "#00FA9A",
+      "#FFB6C1",
+      "#00CED1",
+
+      // Extra Bright Colors
+      "#FF00FF",
+      "#FF7F50",
+      "#FF6347",
+      "#FFD700",
+      "#00FFFF",
+      "#FF1493",
+      "#DA70D6",
+      "#F5A9B8",
+    ];
+
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  const handleClick = (item: string) => {
+    onItemSelect(item);
+  };
+  return (
+    <ul className="grid grid-cols-3 gap-2 p-3">
+      {items.map((item, index) => (
+        <li
+          key={index}
+          className="text-gray-900 text-lg cursor-pointer transition-colors duration-75"
+          style={{ color: hoverColors[index] || "inherit" }}
+          onMouseEnter={() =>
+            setHoverColors((prev: Record<number, string>) => ({
+              ...prev,
+              [index]: getRandomColor(),
+            }))
+          }
+          onMouseLeave={() =>
+            setHoverColors((prev: Record<number, string>) => ({
+              ...prev,
+              [index]: "inherit",
+            }))
+          }
+          onClick={() => handleClick(item)}
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export const IconDisplay: React.FC<IconDisplayProps> = ({ searchQuery }) => {

@@ -427,16 +427,6 @@ export const Ankh = () => {
   );
 };
 
-export const AppleAlt = () => {
-  return (
-    <FontAwesomeIcon
-      icon={solidIcons.faAppleAlt}
-      size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
-    />
-  );
-};
-
 export const AppleWhole = () => {
   return (
     <FontAwesomeIcon
