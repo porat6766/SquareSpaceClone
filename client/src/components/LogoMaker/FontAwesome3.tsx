@@ -3186,7 +3186,7 @@ export const StarOfDavid = () => {
     <FontAwesomeIcon
       icon={solidIcons.faStarOfDavid}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -3196,7 +3196,7 @@ export const StarOfLife = () => {
     <FontAwesomeIcon
       icon={solidIcons.faStarOfLife}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };

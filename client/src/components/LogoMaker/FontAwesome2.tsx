@@ -196,7 +196,7 @@ export const GlassMartini = () => {
     <FontAwesomeIcon
       icon={solidIcons.faGlassMartini}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -1095,7 +1095,7 @@ export const HandshakeSlash = () => {
     <FontAwesomeIcon
       icon={solidIcons.faHandshakeSlash}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -1105,7 +1105,7 @@ export const Hanukiah = () => {
     <FontAwesomeIcon
       icon={solidIcons.faHanukiah}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };

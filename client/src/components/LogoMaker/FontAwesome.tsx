@@ -1322,7 +1322,7 @@ export const BottleDroplet = () => {
     <FontAwesomeIcon
       icon={solidIcons.faBottleDroplet}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -1332,7 +1332,7 @@ export const BottleWater = () => {
     <FontAwesomeIcon
       icon={solidIcons.faBottleWater}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -1342,7 +1342,7 @@ export const BowlFood = () => {
     <FontAwesomeIcon
       icon={solidIcons.faBowlFood}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -1352,7 +1352,7 @@ export const BowlRice = () => {
     <FontAwesomeIcon
       icon={solidIcons.faBowlRice}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };
@@ -1362,7 +1362,7 @@ export const BowlingBall = () => {
     <FontAwesomeIcon
       icon={solidIcons.faBowlingBall}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };

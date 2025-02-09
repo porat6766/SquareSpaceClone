@@ -1,5 +1,12 @@
 // react icons
+import { RocketLaunchIcon } from "@heroicons/react/24/solid";
 import {
+  Square,
+  Circle,
+  Triangle,
+  TriangleRight,
+  StarIcon,
+  Hexagon,
   Moon,
   Share,
   SunMedium,
@@ -34,7 +41,24 @@ import {
   CheckCircle2,
   Pencil,
   DoorOpen,
+  Fish,
+  Diamond,
+  Music,
+  Heart,
+  Ribbon,
+  Disc,
+  Eye,
+  Cloud,
+  Donut,
+  Code2,
+  Music2,
+  SunDim,
 } from "lucide-react";
+import { BowlFood, BowlingBall } from "./FontAwesome";
+import { GlassMartini, Handshake, Hanukiah } from "./FontAwesome2";
+import { Vi } from "./CNIcons";
+import { StarOfDavid } from "./FontAwesome3";
+import { Github } from "./FeatherIcons";
 
 // Icons map for search render
 export const MoonIcon2 = () => {
@@ -343,10 +367,218 @@ export const DoorOpenIcon = () => {
   );
 };
 
+export const SquareIcon = () => {
+  return (
+    <Square
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const SquareAltIcon = () => {
+  return (
+    <Square
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const circleIcon = () => {
+  return (
+    <Circle
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const circleAltIcon = () => {
+  return (
+    <Circle
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const triangleIcon = () => {
+  return (
+    <Triangle
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const triangleAltIcon = () => {
+  return (
+    <Triangle
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const triangleRightIcon = () => {
+  return (
+    <TriangleRight
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const triangleRightAltIcon = () => {
+  return (
+    <TriangleRight
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const hexagonIcon = () => {
+  return (
+    <Hexagon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const hexagonAltIcon = () => {
+  return (
+    <Hexagon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const DonutIcon = () => {
+  return (
+    <Donut
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const RibbonIcon = () => {
+  return (
+    <Ribbon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const MusicIcon = () => {
+  return (
+    <Music
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const MusicIcon2 = () => {
+  return (
+    <Music2
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const diamondIcon = () => {
+  return (
+    <Diamond
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const diamondAltIcon = () => {
+  return (
+    <Diamond
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const FishIcon = () => {
+  return (
+    <Fish
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const Star1Icon = () => {
+  return (
+    <StarIcon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
+export const StarAltIcon = () => {
+  return (
+    <StarIcon
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+    />
+  );
+};
+
+export const SunAltIcon = () => {
+  return (
+    <SunDim
+      size={60}
+      className="mt-1 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+    />
+  );
+};
+
 // // // // // // // icons grid for default
 export const IconsGrid = () => {
   return (
     <div className="grid grid-cols-3 gap-4 p-4 ">
+      <div className="opacity-50 hover:opacity-100">
+        <Ban size={48} className="cursor-grab active:cursor-grabbing" />
+        <h1 className="mr-1 text-sm">No Icon</h1>
+      </div>
+      <Circle
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+      />
+      <Square
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+      />
+      <Triangle
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+      />
+      <TriangleRight
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+      />
+      <Hexagon
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+      />
+      <StarIcon
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing fill-black"
+      />
       <SunMedium
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
@@ -359,50 +591,41 @@ export const IconsGrid = () => {
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <ExternalLink
+      <X
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <DoorOpen
+      <Fish
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <Newspaper
+      <Diamond
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <BookmarkIcon
+      <Music
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <Link
+      <Heart
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <Facebook
+      <RocketLaunchIcon className="w-12 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing" />
+      <Disc
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <Linkedin
+      <Ribbon
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <MoreVertical
+      <Eye
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <EyeOff
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <Ban
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <FlagIcon
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
+      <BowlFood />
+      <BowlingBall />
       <ChevronLeft
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
@@ -415,15 +638,12 @@ export const IconsGrid = () => {
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <ArrowBigUp
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
+      <GlassMartini />
       <MessagesSquare
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <Search
+      <Cloud
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
@@ -431,39 +651,19 @@ export const IconsGrid = () => {
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <History
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
+      <Hanukiah />
       <User
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <X
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
+      <Vi className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing" />
       <Settings
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <LogOut
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <BookOpenCheck
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <ChevronLeftIcon
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <ChevronRightIcon
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <Settings2
+      <Handshake />
+      <StarOfDavid />
+      <SunDim
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
@@ -475,7 +675,7 @@ export const IconsGrid = () => {
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
-      <CheckCircle2
+      <Donut
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
@@ -483,6 +683,11 @@ export const IconsGrid = () => {
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
       />
+      <Code2
+        size={48}
+        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
+      />
+      <Github className="w-12 opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing" />
     </div>
   );
 };
