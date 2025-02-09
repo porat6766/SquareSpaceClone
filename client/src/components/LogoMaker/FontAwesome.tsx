@@ -1012,7 +1012,7 @@ export const Baby = () => {
     <FontAwesomeIcon
       icon={solidIcons.faBaby}
       size="3x"
-      className="mt-3 opacity-50 hover:opacity-100"
+      className="opacity-50 hover:opacity-100"
     />
   );
 };

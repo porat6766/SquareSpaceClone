@@ -73,7 +73,7 @@ function App() {
     },
     {
       path: "/editorTestingEnv",
-      element: <EditorTestingEnv />
+      element: <EditorTestingEnv />,
     },
     {
       path: "/edituserwebsite/:id",
@@ -148,7 +148,7 @@ function App() {
       element: <LogoMaker />,
     },
     {
-      path: "/logo-maker/:companyName",
+      path: "/logo-maker/:companyNameParams",
       element: <MakerCore />,
     },
   ]);

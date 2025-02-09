@@ -4,15 +4,15 @@ import Banner from "../assets/splash-businesscard-copy.png";
 import { useState } from "react";
 
 function LogoMaker() {
-  const [companyName, setCompanyName] = useState("");
+  const [companyNameParams, setCompanyNameParams] = useState("");
   const navigate = useNavigate();
 
   const makerNavigate = () => {
-    if (!companyName) {
+    if (!companyNameParams) {
       alert("you have'nt entered any name");
     } else {
-      localStorage.setItem("companyName", companyName);
-      navigate(`/logo-maker/${companyName}`);
+      localStorage.setItem("companyName", companyNameParams);
+      navigate(`/logo-maker/${companyNameParams}`);
     }
   };
 
@@ -37,8 +37,8 @@ function LogoMaker() {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="relative flex items-center p-1 pl-3 w-80 mb-10">
               <input
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
+                value={companyNameParams}
+                onChange={(e) => setCompanyNameParams(e.target.value)}
                 placeholder="your logo / company name . . ."
                 className="bg-black text-white placeholder:opacity-70 p-2 rounded-sm w-screen"
               />

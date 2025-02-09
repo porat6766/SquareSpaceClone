@@ -19,7 +19,10 @@ const MakerCore = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { companyName } = useParams<string>();
+  const { companyNameParams } = useParams<{ companyNameParams: string }>();
+  const [companyName, setCompanyName] = useState<string | undefined>(
+    companyNameParams
+  );
   const navigate = useNavigate();
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
@@ -105,6 +108,10 @@ const MakerCore = () => {
     setSearchQuery(item);
   };
 
+  useEffect(() => {
+    setCompanyName(companyNameParams);
+  }, [companyNameParams]);
+
   return (
     <div className="flex relative w-screen min-h-screen overflow-x-hidden">
       {/* Sidebar */}
@@ -125,6 +132,7 @@ const MakerCore = () => {
           {/* inputs */}
           <input
             placeholder={companyName ? companyName : "company name"}
+            onChange={(e) => setCompanyName(e.target.value)}
             className="py-6 px-4 bg-neutral-200 w-5/6 max-h-[55px] placeholder:font-bold placeholder:text-sm placeholder:opacity-50 hover:placeholder:opacity-70 placeholder:text-black focus:placeholder:text-transparent mb-4"
           />
           <input
@@ -206,7 +214,7 @@ const MakerCore = () => {
           className={`relative top-0 left-0 shadow transition-all duration-700 ease-in-out w-screen h-screen`}
         ></canvas>
         <h1 className="absolute text-7xl text-black z-50 self-center flex top-[300px] cursor-grab active:cursor-grabbing">
-          {companyName}
+          {companyName ? companyName : "company name"}
         </h1>
         <span
           className={`absolute text-black right-6 opacity-70 transition-all duration-500 ease-in-out ${
