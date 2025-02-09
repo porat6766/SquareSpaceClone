@@ -149,7 +149,10 @@ function BasicEditor3Pro({
     //displays the current page
     displayPage(currentPage);
     if (!currentWebsite) return;
-    currentWebsite.pages = pages;
+    saveSnapshotToPages(prevPage, renderElements)
+    console.log(prevPage, renderElements)
+    displayPage(currentPage);
+    currentWebsite.pages = pages;//what is the use of this line?
     currentWebsite.lastEditorPage = currentPage
   }, [currentPage, pages]);
 

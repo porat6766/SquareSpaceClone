@@ -20,8 +20,13 @@ function PagesSidebar() {
   const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: any =
     useContext(EditorLayoutContext);
   const [addPageFormVisible, setAddPageFormVisible] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || currentWebsite.pages[0]?.name);
 
   const newPageNameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setCurrentPage(currentWebsite.lastEditorPage)
+  }, [currentWebsite.lastEditorPage])
 
   function handleAddPage(pageName: string) {
     setAddPageFormVisible(false);
