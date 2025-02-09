@@ -10,10 +10,10 @@ import {
   BasicEditor3Website,
 } from "./BasicEditor3ProTypes";
 import {
-  RedRectangle3,
-  ColorRectangle3,
-  TextBox3,
-  RedTextRectangle3,
+  // RedRectangle3,
+  // ColorRectangle3,
+  // TextBox3,
+  // RedTextRectangle3,
   ImgContainer,
   VideoContainer,
   TextBlock3,

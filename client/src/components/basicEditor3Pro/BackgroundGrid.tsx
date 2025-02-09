@@ -1,5 +1,5 @@
 import { useRef, useEffect, useContext, useState, SetStateAction, Dispatch } from 'react'
-import { Position } from './BasicEditor3ProTypes';
+import { Position, MarkerDivStyleType } from './BasicEditor3ProTypes';
 import { BasicEditorContext } from './BasicEditor3Pro';
 
 const gridGap = 5
@@ -46,10 +46,10 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     // }, [closestPosition])
 
     useEffect(() => {
-        const gridElement = gridRef.current;
+        const gridElement:any = gridRef.current;
         if (gridElement) {
             const cells = gridElement.querySelectorAll('div');
-            const positions = Array.from(cells).map((cell) => {
+            const positions = Array.from(cells).map((cell:any) => {
                 const rect = cell.getBoundingClientRect();
                 const pos:Position = { x: rect.left - (originOfCoordinates?.x || 0), y: rect.top - (originOfCoordinates?.y || 0) }
                 // cell.addEventListener('mouseover', () => handleCellHover(pos));
@@ -65,7 +65,7 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
         window.addEventListener('mouseup', () => setIsMarkerVisible(false))
     }, [])
 
-    function handleCursorMove(e) {
+    function handleCursorMove(e:any) {
         const xPos = e.clientX - (originOfCoordinates?.x ?? 0) - offset.x - cellWidth/2;
         const yPos = e.clientY - (originOfCoordinates?.y ?? 0) - offset.y - cellWidth/2;
         findClosestPosition(xPos, yPos, gridPositionsRef.current);
@@ -91,10 +91,11 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
         setClosestPosition(closestPosition || { x: 0, y: 0 });
     }
 
-    const markerDivStyle = {
+    
+    const markerDivStyle:MarkerDivStyleType = {
         width: `${cellWidth}px`,
         height: `${cellWidth}px`,
-        position: 'absolute',
+        position:'absolute',
         left: closestPosition?.x || 0,
         top: closestPosition?.y || 0,
         // left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),

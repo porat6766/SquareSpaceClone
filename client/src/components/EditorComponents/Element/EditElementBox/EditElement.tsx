@@ -25,11 +25,15 @@ const EditElement = ({
     element?.data.style.backgroundColor || "clear"
   );
 
-  const [zIndex, setZIndex] = useState<string>(element?.data.extraData?.zIndex);
+  const [zIndex, setZIndex] = useState<string>(element?.data.extraData?.zIndex || "this string is a placeholder for typescript");
   //changing zIndex does change the data, but for some reason it doesn't persist.
   //Are the not saved? unlikely.
   //or are not retrieved and assigned properly.
 
+
+  useEffect(() => {
+    console.log(setZIndex)
+  },[])
 
   useEffect(() => {
     const style = element?.data.style;

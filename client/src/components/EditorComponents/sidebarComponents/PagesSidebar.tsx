@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
@@ -6,7 +6,7 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 // Import your other sidebar components
 import SystemPagesSidebar from "./SystemPagesSidebar";
 import WebsiteTools from "./WebsiteTools";
-import TrashSidebar from "./TrashSidebar";
+// import TrashSidebar from "./TrashSidebar";
 import { EditorLayoutContext } from "../../../pages/EditorLayout";
 
 const addPageFormStyle: React.CSSProperties = {
@@ -17,16 +17,16 @@ const addPageFormStyle: React.CSSProperties = {
 function PagesSidebar() {
   const navigate = useNavigate();
   const [activeSidebar, setActiveSidebar] = useState("main");
-  const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: any =
-    useContext(EditorLayoutContext);
+  const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: any = useContext(EditorLayoutContext);
   const [addPageFormVisible, setAddPageFormVisible] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || currentWebsite.pages[0]?.name);
+  const defaultPageName = (currentWebsite) ? currentWebsite.pages[0]?.name : undefined
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || defaultPageName);
 
   const newPageNameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setCurrentPage(currentWebsite.lastEditorPage)
-  }, [currentWebsite.lastEditorPage])
+    setCurrentPage(currentWebsite?.lastEditorPage)
+  }, [currentWebsite?.lastEditorPage])
 
   function handleAddPage(pageName: string) {
     setAddPageFormVisible(false);
@@ -47,7 +47,8 @@ function PagesSidebar() {
 
   function handlePageClick(pageName: string) {
     setPageNameFromLayout(pageName);
-    setTimeout(() => setSaveTrigger(true), 1);
+    console.log("attempted to move to:", pageName)
+    // setTimeout(() => setSaveTrigger(true), 1);
   }
 
   // Function to render the correct sidebar based on `activeSidebar`
@@ -57,8 +58,8 @@ function PagesSidebar() {
         return <SystemPagesSidebar setActiveSidebar={setActiveSidebar} />;
       case "websiteTools":
         return <WebsiteTools setActiveSidebar={setActiveSidebar} />;
-      case "trash":
-        return <TrashSidebar />;
+      // case "trash":
+        // return <TrashSidebar />;
       default:
         return null;
     }
@@ -118,14 +119,14 @@ function PagesSidebar() {
           {/* Main Navigation Items */}
           <div className="mt-16 text-xl">
             <ul className="space-y-2 mb-4">
-              {currentWebsite &&
+              {currentWebsite && currentWebsite.pages &&
                 currentWebsite.pages.map((page: any) => (
                   <li
                     key={page.name}
                     className="flex justify-between items-center p-2 rounded-md"
                   >
                     <button onClick={() => handlePageClick(page.name)}>
-                      {currentWebsite.lastEditorPage === page.name && ">"}
+                      {currentPage === page.name && ">"}
                       {page.name}
                     </button>
                     <button

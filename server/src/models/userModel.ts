@@ -12,7 +12,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       unique: true,
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
-    password: { type: String, required: true },
+    password: { type: String },
     googleId: { type: String, default: null },
     profileImage: {
       type: String,
