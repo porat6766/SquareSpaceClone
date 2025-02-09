@@ -8,7 +8,6 @@ import passport from 'passport';
 import userRoutes from "./routes/userRoutes";
 import siteRoutes from "./routes/siteRoutes";
 import googleAuth from "./GoogleAuth/GoogleAuth";
-import crypto from "crypto"
 
 dotenv.config();
 
@@ -26,8 +25,6 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
-
-const secret = crypto.randomBytes(64).toString('hex');
 
 app.use(session({
   secret: 'secret',
@@ -59,7 +56,6 @@ app.use(googleAuth);
 app.use("/api/users", userRoutes);
 app.use("/api/sites", siteRoutes);
 
-// Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send({ error: err.message });

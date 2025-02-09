@@ -11,17 +11,6 @@ declare module 'express-session' {
     }
 }
 
-interface UserProfile {
-    id: string;
-    email: string;
-    displayName: string;
-    googleId: string;
-}
-
-interface GoogleAuthenticatedRequest extends Request {
-    user?: any;
-}
-
 const router = express.Router();
 
 passport.use(
