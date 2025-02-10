@@ -57,10 +57,12 @@ function PagesSidebar() {
   }
 
   function handlePageClick(pageName: string) {
-    if(!setPageNameFromLayout) return;
-    setPageNameFromLayout(pageName);
+    if(!setPageNameFromLayout || !currentWebsite) return;
+    // setPageNameFromLayout(pageName);
+    currentWebsite.lastEditorPage = pageName;
     console.log("attempted to move to:", pageName)
-    // setTimeout(() => setSaveTrigger(true), 1);
+    if(!setSaveTrigger) return;
+    setTimeout(() => setSaveTrigger(true), 1);
   }
 
   // Function to render the correct sidebar based on `activeSidebar`
