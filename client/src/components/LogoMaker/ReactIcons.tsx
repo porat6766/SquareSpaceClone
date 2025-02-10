@@ -54,11 +54,12 @@ import {
   Music2,
   SunDim,
 } from "lucide-react";
-import { BowlFood, BowlingBall } from "./FontAwesome";
+import { Baby, BowlFood, BowlingBall } from "./FontAwesome";
 import { GlassMartini, Handshake, Hanukiah } from "./FontAwesome2";
 import { Vi } from "./CNIcons";
 import { StarOfDavid } from "./FontAwesome3";
 import { Github } from "./FeatherIcons";
+import { CubeTransparent } from "./HeroIcons";
 
 // Icons map for search render
 export const MoonIcon2 = () => {
@@ -626,14 +627,8 @@ export const IconsGrid = () => {
       />
       <BowlFood />
       <BowlingBall />
-      <ChevronLeft
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
-      <ChevronRight
-        size={48}
-        className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"
-      />
+      <Baby />
+      <CubeTransparent />
       <Flame
         size={48}
         className="opacity-50 hover:opacity-100 cursor-grab active:cursor-grabbing"

@@ -25,7 +25,7 @@ const defaultWebsite: BasicEditor3Website = {
   name: "defaultWebsite0",
   headerData: defaultHeaderData,
   pages: [
-    // { name: "HomeFromDefaultWebsite", renderElements: [] }
+    { name: "HomeFromDefaultWebsite", renderElements: [] }
   ],
   footerData: {},
 };
@@ -40,16 +40,6 @@ export type Wrapper3ProProps = {
 //for adding a new website:
 //conform to the BasicEditor3Website type, can use the addWebsite function here for reference.
 
-// interface EditorWrapperProps {
-//   templete: any;
-//   websiteToEdit: any;
-//   saveCurrentWebsite?: () => void;
-//   currentWebsite: any;
-//   setCurrentWebsite: (website: any) => void;
-//   saveTrigger: boolean;
-//   setSaveTrigger: Dispatch<SetStateAction<boolean>>;
-// }
-
 function EditorWrapper({
   templete,
   websiteToEdit,
@@ -61,11 +51,14 @@ function EditorWrapper({
 }: any) {
   useEffect(() => {
     if (websiteToEdit) {
+      console.log("wrapper says websiteToEdit")
       setCurrentWebsite(websiteToEdit);
     } else if (templete) {
+      console.log("wrapper says template")
       setCurrentWebsite(templete);
     } 
     else {
+      console.log("wrapper says defaultWebsite")
       setCurrentWebsite(defaultWebsite);
     }
   }, [websiteToEdit, templete]);

@@ -1083,7 +1083,7 @@ export const CreditCard = () => {
 
 export const CubeTransparent = () => {
   return (
-    <CubeTransparentIcon className="w-12 h-12 mt-3 opacity-50 hover:opacity-100" />
+    <CubeTransparentIcon className="w-12 h-12 opacity-50 hover:opacity-100" />
   );
 };
 

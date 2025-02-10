@@ -114,6 +114,7 @@ function BasicEditor3Pro({
   const [closestPosition, setClosestPosition] = useState<Position>({ x: 0, y: 0 });
   const [offset, setOffset] = useState<Position>({ x: 0, y: 0 });
 
+  //---------------------------------------------------------------------------relevant to saving start------------------------------
   const [headerData, setHeaderData]: any = useState(currentWebsite?.headerData);
   const [pages, setPages] = useState<BasicEditor3Page[]>(
     currentWebsite?.pages || []
@@ -121,6 +122,8 @@ function BasicEditor3Pro({
   const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || pages[0]?.name);
   const [prevPage, setPrevPage] = useState<string>(currentWebsite?.lastEditorPage || pages[0]?.name);
   const [renderElements, setRenderElements] = useState<RenderElement3[]>([]);
+  //---------------------------------------------------------------------------relevant to saving end------------------------------
+
 
   const [addBlockMenuVisible, setAddBlockMenuVisible] = useState<boolean>(false);
 
@@ -172,6 +175,7 @@ function BasicEditor3Pro({
       setCurrentPage("HomeFromEditor")
     }
     setHeaderData(currentWebsite.headerData);
+    console.log("test test",currentWebsite)
   }, [currentWebsite]);
 
   useEffect(() => {
@@ -319,6 +323,7 @@ function BasicEditor3Pro({
       : [];
   }
 
+  //this could empty out an existing page if called with a page name before it's elements got retrieved.
   function saveSnapshotToPages(
     pageName: string,
     pageElements?: RenderElement3[]

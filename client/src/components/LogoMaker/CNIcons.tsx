@@ -630,6 +630,7 @@ export const YellowCube = ({ className }: IconsProps) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 112 128"
       width="58px"
+      fill="yellow"
     >
       <path d="M96 8H16A16 16 0 0 0 0 24v96h96a16 16 0 0 0 16-16V24A16 16 0 0 0 96 8M56 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24"></path>
     </svg>
