@@ -2,7 +2,7 @@ import { useRef, useEffect, useContext, useState, SetStateAction, Dispatch } fro
 import { Position, MarkerDivStyleType } from './BasicEditor3ProTypes';
 import { BasicEditorContext } from './BasicEditor3Pro';
 
-const gridGap = 5
+const gridGap = 5;
 const backgroundGridStyle = {
     width: '100%',
     height: '100%',
@@ -32,7 +32,9 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
     const cellWidth = gridPositions[0] ? Math.abs(gridPositions[0].x - gridPositions[1].x) - gridGap  : 50;
-    // const [localOOC, setLocalOOC] = useState<Position>()
+    
+    // const gridWidthPx = gridRef.current.getBoundingClientRect().width;
+    const gridLength = 200;
 
     //this is needed due to closure.
     //otherwise, the handleCursorMove function refers to old ooc
@@ -110,7 +112,7 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
             <div style={markerDivStyle} ref={markerDivRef}></div>
         }
             <div ref={gridRef} style={backgroundGridStyle}>
-                {Array.from({ length: 200 }).map((_, index) => (
+                {Array.from({ length: gridLength }).map((_, index) => (
                     <div key={index} style={cellStyle}/>
                 ))}
             </div>
