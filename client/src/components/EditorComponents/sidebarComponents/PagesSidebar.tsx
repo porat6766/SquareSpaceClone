@@ -31,6 +31,8 @@ function PagesSidebar() {
   function handleAddPage(pageName: string) {
     setAddPageFormVisible(false);
     if (!pageName || typeof pageName !== "string" || pageName === "") return;
+    
+    //I should find a different way of adding pages that does depend on navigating to them.
     setPageNameFromLayout(pageName);
     setTimeout(() => setSaveTrigger(true), 1);
   }
