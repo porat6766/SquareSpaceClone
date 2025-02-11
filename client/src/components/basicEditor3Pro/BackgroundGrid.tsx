@@ -31,13 +31,11 @@ function BackgroundGrid({ setClosestPosition }: backgroundGridPropType) {
     const [gridLength, setGridLength] = useState(200)
     const gridPositionsRef = useRef<Position[]>([])
     const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
-    const gridRef = useRef(null);
+    const gridRef:any = useRef(null);//this any is a bandage, should be replaced by a more thorough solution
     const markerDivRef = useRef(null);
     const cellWidth = gridPositions[0] ? Math.abs(gridPositions[0].x - gridPositions[1].x) - gridGap : 50;
 
     useEffect(() => {
-        //the problem with the current configuration is that the number of squares makes the
-        //grid larger causing a feedback loop where the grid gets larger and larger.
         if(!gridRef.current) return;
         const gridWidthPx = gridRef.current.getBoundingClientRect().width;
         const gridHeightPx = gridRef.current.getBoundingClientRect().height;
