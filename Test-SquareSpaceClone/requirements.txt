@@ -1,2 +1,5 @@
 selenium
 pytest
+
+
+start command: "python -m pytest"
