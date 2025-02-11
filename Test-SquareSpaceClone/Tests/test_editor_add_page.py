@@ -9,6 +9,17 @@ URL = "https://squarespaceclone.onrender.com"
 XPATH_FEATURE_LIST = "//span[contains(text(), 'Feature List')]"
 WAIT_TIME = 20
 
+def test_test():
+    driver = webdriver.Chrome()
+    driver.get("https://squarespaceclone.onrender.com/")
+    driver.maximize_window()
+    loginButton = driver.find_element(By.XPATH, "//button[normalize-space()='LOG IN']")
+    loginButton.click()
+    emailField = driver.find_element(By.XPATH, "//input[@id='email']")
+    time.sleep(3)
+    driver.quit()
+
+test_test()
 
 # def test_main():
 #     options = webdriver.ChromeOptions()
@@ -41,7 +52,3 @@ WAIT_TIME = 20
 
 # if __name__ == "__main__":
 #     test_main()
-
-def test_test():
-    driver = webdriver.Chrome()
-
