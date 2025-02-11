@@ -4,6 +4,7 @@ import { BasicEditorContext } from './BasicEditor3Pro';
 
 const gridGap = 5;
 const backgroundGridStyle = {
+    border: "1px solid black",
     width: '100%',
     height: '100%',
     display: 'grid',
@@ -24,66 +25,82 @@ export type backgroundGridPropType = {
 
 //I can give this as an example of a challenge?
 //specifically, the part about locating the marker div
-function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
+function BackgroundGrid({ setClosestPosition }: backgroundGridPropType) {
     const [isMarkerVisible, setIsMarkerVisible] = useState<boolean>(false);
     const [gridPositions, setGridPositions] = useState<Position[]>([]);
+    const [gridLength, setGridLength] = useState(200)
     const gridPositionsRef = useRef<Position[]>([])
     const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
     const gridRef = useRef(null);
     const markerDivRef = useRef(null);
-    const cellWidth = gridPositions[0] ? Math.abs(gridPositions[0].x - gridPositions[1].x) - gridGap  : 50;
-    
-    // const gridWidthPx = gridRef.current.getBoundingClientRect().width;
-    const gridLength = 200;
+    const cellWidth = gridPositions[0] ? Math.abs(gridPositions[0].x - gridPositions[1].x) - gridGap : 50;
+
+    useEffect(() => {
+        //the problem with the current configuration is that the number of squares makes the
+        //grid larger causing a feedback loop where the grid gets larger and larger.
+        if(!gridRef.current) return;
+        const gridWidthPx = gridRef.current.getBoundingClientRect().width;
+        const gridHeightPx = gridRef.current.getBoundingClientRect().height;
+        const gridL = gridWidthPx ? Math.floor((gridWidthPx * gridHeightPx) / (cellWidth * cellWidth)) : 200;
+        console.log(gridL);
+        setGridLength(gridL);
+        console.log(gridLength);
+    }, [])
+
+
+    // const gridLength = 200;
+
+    // As a solution for now, I can add a few hard coded grid lengths to fit different situations
+    // and screen sizes
 
     //this is needed due to closure.
     //otherwise, the handleCursorMove function refers to old ooc
     useEffect(() => {
         window.addEventListener('mousemove', handleCursorMove);
         return () => window.removeEventListener('mousemove', handleCursorMove);
-    },[originOfCoordinates])
+    }, [originOfCoordinates])
 
     // useEffect(() => {
     //     // console.log("closest position:", closestPosition)
     // }, [closestPosition])
 
     useEffect(() => {
-        const gridElement:any = gridRef.current;
+        const gridElement: any = gridRef.current;
         if (gridElement) {
             const cells = gridElement.querySelectorAll('div');
-            const positions = Array.from(cells).map((cell:any) => {
+            const positions = Array.from(cells).map((cell: any) => {
                 const rect = cell.getBoundingClientRect();
-                const pos:Position = { x: rect.left - (originOfCoordinates?.x || 0), y: rect.top - (originOfCoordinates?.y || 0) }
+                const pos: Position = { x: rect.left - (originOfCoordinates?.x || 0), y: rect.top - (originOfCoordinates?.y || 0) }
                 // cell.addEventListener('mouseover', () => handleCellHover(pos));
                 return pos;
             });
             setGridPositions(positions);
             gridPositionsRef.current = positions;
         }
-    },[originOfCoordinates]);
+    }, [originOfCoordinates]);
 
     useEffect(() => {
         window.addEventListener('mousedown', () => setIsMarkerVisible(true))
         window.addEventListener('mouseup', () => setIsMarkerVisible(false))
     }, [])
 
-    function handleCursorMove(e:any) {
-        const xPos = e.clientX - (originOfCoordinates?.x ?? 0) - offset.x - cellWidth/2;
-        const yPos = e.clientY - (originOfCoordinates?.y ?? 0) - offset.y - cellWidth/2;
+    function handleCursorMove(e: any) {
+        const xPos = e.clientX - (originOfCoordinates?.x ?? 0) - offset.x - cellWidth / 2;
+        const yPos = e.clientY - (originOfCoordinates?.y ?? 0) - offset.y - cellWidth / 2;
         findClosestPosition(xPos, yPos, gridPositionsRef.current);
     }
 
     function findClosestPosition(cursorX: number, cursorY: number, positions: Position[]) {
         let closestPosition = { x: 0, y: 0 };
         let minDistance = Infinity;
-        
+
         positions.forEach((position) => {
             const distance = Math.sqrt(Math.pow(cursorX - position.x, 2) + Math.pow(cursorY - position.y, 2));
-             
+
             if (distance < minDistance) {
                 minDistance = distance;
                 closestPosition = position;
-                if(originOfCoordinates){
+                if (originOfCoordinates) {
                     // closestPosition.x -= originOfCoordinates.x 
                     // closestPosition.y -= originOfCoordinates.y
                 }
@@ -93,11 +110,11 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
         setClosestPosition(closestPosition || { x: 0, y: 0 });
     }
 
-    
-    const markerDivStyle:MarkerDivStyleType = {
+
+    const markerDivStyle: MarkerDivStyleType = {
         width: `${cellWidth}px`,
         height: `${cellWidth}px`,
-        position:'absolute',
+        position: 'absolute',
         left: closestPosition?.x || 0,
         top: closestPosition?.y || 0,
         // left: (closestPosition?.x || 0) - (originOfCoordinates?.x || 0),
@@ -107,13 +124,13 @@ function BackgroundGrid({ setClosestPosition }:backgroundGridPropType) {
 
     return (
         <>
-        {
-            isMarkerVisible &&
-            <div style={markerDivStyle} ref={markerDivRef}></div>
-        }
+            {
+                isMarkerVisible &&
+                <div style={markerDivStyle} ref={markerDivRef}></div>
+            }
             <div ref={gridRef} style={backgroundGridStyle}>
                 {Array.from({ length: gridLength }).map((_, index) => (
-                    <div key={index} style={cellStyle}/>
+                    <div key={index} style={cellStyle} />
                 ))}
             </div>
         </>

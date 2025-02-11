@@ -25,7 +25,7 @@ const defaultWebsite: BasicEditor3Website = {
   name: "defaultWebsite0",
   headerData: defaultHeaderData,
   pages: [
-    { name: "HomeFromDefaultWebsite", renderElements: [] }
+    { name: "Home", renderElements: [] }
   ],
   footerData: {},
 };
