@@ -1,10 +1,10 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 import path from "path";
 import session from 'express-session';
-// import passport from 'passport';
+import passport from 'passport';
 import userRoutes from "./routes/userRoutes";
 import siteRoutes from "./routes/siteRoutes";
 import googleAuth from "./GoogleAuth/GoogleAuth";
@@ -38,19 +38,19 @@ app.use(session({
 }));
 
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
-// if (process.env.URI) {
-//   mongoose
-//     .connect(process.env.URI)
-//     .then(() => console.log("Successfully Connected to DB"))
-//     .catch((err) => console.error("Connection to DB failed", err));
-// } else {
-//   console.error("DB_URI environment variable is not defined");
-// }
+if (process.env.URI) {
+  mongoose
+    .connect(process.env.URI)
+    .then(() => console.log("Successfully Connected to DB"))
+    .catch((err) => console.error("Connection to DB failed", err));
+} else {
+  console.error("DB_URI environment variable is not defined");
+}
 
 app.use(googleAuth);
 app.use("/api/users", userRoutes);

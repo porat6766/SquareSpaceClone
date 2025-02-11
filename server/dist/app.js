@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-// import mongoose from "mongoose";
+const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
 const express_session_1 = __importDefault(require("express-session"));
-// import passport from 'passport';
+const passport_1 = __importDefault(require("passport"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const siteRoutes_1 = __importDefault(require("./routes/siteRoutes"));
 const GoogleAuth_1 = __importDefault(require("./GoogleAuth/GoogleAuth"));
@@ -34,17 +34,18 @@ app.use((0, express_session_1.default)({
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(express.static(path.join(__dirname, "../public")));
-// if (process.env.URI) {
-//   mongoose
-//     .connect(process.env.URI)
-//     .then(() => console.log("Successfully Connected to DB"))
-//     .catch((err) => console.error("Connection to DB failed", err));
-// } else {
-//   console.error("DB_URI environment variable is not defined");
-// }
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
+app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
+if (process.env.URI) {
+    mongoose_1.default
+        .connect(process.env.URI)
+        .then(() => console.log("Successfully Connected to DB"))
+        .catch((err) => console.error("Connection to DB failed", err));
+}
+else {
+    console.error("DB_URI environment variable is not defined");
+}
 app.use(GoogleAuth_1.default);
 app.use("/api/users", userRoutes_1.default);
 app.use("/api/sites", siteRoutes_1.default);
