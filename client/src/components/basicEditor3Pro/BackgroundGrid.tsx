@@ -31,7 +31,7 @@ function BackgroundGrid({ setClosestPosition }: backgroundGridPropType) {
     const [gridLength, setGridLength] = useState(200)
     const gridPositionsRef = useRef<Position[]>([])
     const { originOfCoordinates, closestPosition, offset } = useContext(BasicEditorContext);
-    const gridRef:any = useRef(null);//this any is a bandage, should be replaced by a more thorough solution
+    const gridRef= useRef<HTMLDivElement>(null);
     const markerDivRef = useRef(null);
     const cellWidth = gridPositions[0] ? Math.abs(gridPositions[0].x - gridPositions[1].x) - gridGap : 50;
 
@@ -75,7 +75,7 @@ function BackgroundGrid({ setClosestPosition }: backgroundGridPropType) {
             setGridPositions(positions);
             gridPositionsRef.current = positions;
         }
-    }, [originOfCoordinates]);
+    }, [originOfCoordinates, gridLength]);
 
     useEffect(() => {
         window.addEventListener('mousedown', () => setIsMarkerVisible(true))
