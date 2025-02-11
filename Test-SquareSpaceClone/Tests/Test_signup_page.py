@@ -1,15 +1,75 @@
+import pytest
+import random
+import string
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-import time
 
 URL = "https://squarespaceclone.onrender.com/signup"
 WAIT_TIME = 10
 
-def test_signup_page():
+
+def generate_random_email():
+    domains = ["@gmail.com", "@yahoo.com", "@hotmail.com"]
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=10)) + random.choice(domains)
+
+
+def generate_random_password():
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+
+
+@pytest.fixture(scope="function")
+def driver():
     options = webdriver.ChromeOptions()
-    with webdriver.Chrome(options=options) as driver:
-        driver.get(URL)
-        time.sleep(3)
+    driver = webdriver.Chrome(options=options)
+    driver.get(URL)
+    yield driver
+    driver.quit()
+
+
+def test_signup_success(driver):
+    wait = WebDriverWait(driver, WAIT_TIME)
+
+    random_email = generate_random_email()
+    random_password = generate_random_password()
+
+    try:
+        first_name_input = wait.until(
+            EC.presence_of_element_located((By.ID, "firstName")))
+        last_name_input = wait.until(
+            EC.presence_of_element_located((By.ID, "lastName")))
+        email_input = wait.until(
+            EC.presence_of_element_located((By.ID, "email")))
+        password_input = wait.until(
+            EC.presence_of_element_located((By.ID, "password")))
+
+        first_name_input.send_keys("TestFirstName")
+        last_name_input.send_keys("TestLastName")
+        email_input.send_keys(random_email)
+        password_input.send_keys(random_password)
+
+        signup_button = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, "//button[normalize-space()='CONTINUE']")))
+        signup_button.click()
+
+        profile_img = wait.until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "//span[@class='w-12 h-12 rounded-full bg-black text-white font-bold text-2xl flex items-center justify-center pb-1']")
+            )
+        )
+        profile_img.click()
+
+        profile_name = wait.until(EC.presence_of_element_located(
+            (By.XPATH, "//li[@class='px-4 py-2 font-semibold text-lg']")))
+
+        assert "TestFirstName" in profile_name.text, "❌ Username is incorrect!"
+
+    except TimeoutException:
+        pytest.fail(
+            "❌ One of the elements was not found within the allocated time!")
+
+
+if __name__ == "__main__":
+    pytest.main(["-v", __file__])
