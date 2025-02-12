@@ -25,12 +25,18 @@ def wait_for_element(driver, by, locator, clickable=False, timeout=WAIT_TIME):
     return wait.until(EC.presence_of_element_located((by, locator)))
 
 
-def test_login_success(driver):
+@pytest.mark.parametrize(
+    "email, password, expected_name",
+    [
+        ("eden@gmail.com", "eden", "eden shabi"),
+    ]
+)
+def test_login_success(driver, email, password, expected_name):
     try:
         email_input = wait_for_element(driver, By.ID, "email")
         password_input = wait_for_element(driver, By.ID, "password")
-        email_input.send_keys("eden@gmail.com")
-        password_input.send_keys("eden")
+        email_input.send_keys(email)
+        password_input.send_keys(password)
         login_button = wait_for_element(
             driver, By.XPATH, "//button[normalize-space()='LOG IN']", clickable=True)
         login_button.click()
@@ -39,7 +45,7 @@ def test_login_success(driver):
         profile_img.click()
         profile_name = wait_for_element(
             driver, By.XPATH, "//li[@class='px-4 py-2 font-semibold text-lg']")
-        assert "eden shabi" in profile_name.text, "❌ Username is incorrect!"
+        assert expected_name in profile_name.text, f"❌ Username is incorrect! Expected {expected_name}, got {profile_name.text}"
     except TimeoutException:
         pytest.fail(
             "❌ One of the elements was not found within the allocated time!")
