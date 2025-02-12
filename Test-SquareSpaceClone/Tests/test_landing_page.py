@@ -12,7 +12,6 @@ WAIT_TIME = 20
 
 def test_main():
     options = webdriver.ChromeOptions()
-
     with webdriver.Chrome(options=options) as driver:
         wait = WebDriverWait(driver, WAIT_TIME)
         driver.get(URL)
@@ -25,17 +24,23 @@ def test_main():
 
         sidebar = wait.until(
             EC.visibility_of_element_located(
-                (By.CLASS_NAME, "fixed.top-0.right-0.h-full.w-64.bg-black.text-white.shadow-lg.transition-transform.duration-300.translate-x-0"))
+                (By.CLASS_NAME, "fixed.top-0.right-0.h-full.w-64.bg-black.text-white.shadow-lg.transition-transform.duration-300.translate-x-0")
+            )
         )
 
-        assert sidebar.is_displayed()
+        print("1")
 
-        close_sidebar = wait.until(
-            EC.presence_of_element_located(
-                (By.CLASS_NAME, "absolute.top-4.right-4.text-2xl"))
-        )
+        assert sidebar.is_displayed(), "Sidebar did not display after clicking the hamburger button."
 
-        close_sidebar.click()
+        print("2")
+
+        body = driver.find_element(By.TAG_NAME, "body")
+
+        print("3")
+
+        body.click()
+
+        print("4")
 
         driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight);")
