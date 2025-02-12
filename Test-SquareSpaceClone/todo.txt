@@ -1,0 +1,3 @@
+Amit:
+Add a test for adding pages
+Add a test for adding a page, saving, then checking if the page was added

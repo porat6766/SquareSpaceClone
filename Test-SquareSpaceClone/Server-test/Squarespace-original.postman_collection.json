@@ -1,0 +1,487 @@
+{
+	"info": {
+		"_postman_id": "4dd2bced-7fde-4ad8-9d97-882050723077",
+		"name": "Squarespace-original",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37996054",
+		"_collection_link": "https://pathway-hackaton.postman.co/workspace/Final-project~0a4aef59-d53b-4560-8941-64adc5cbbbb1/collection/37996054-4dd2bced-7fde-4ad8-9d97-882050723077?action=share&source=collection_link&creator=37996054"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Sign-Up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    \r",
+									"    var userId = pm.response.json().user.id;\r",
+									"    \r",
+									"    pm.environment.set(\"userId\", userId);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    \r",
+									"\r",
+									"    var cookieValue = pm.cookies.get('token'); \r",
+									"    \r",
+									"    pm.environment.set(\"token\", cookieValue);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"jhon\",\r\n  \"lastName\": \"jhon\",\r\n  \"email\": \"jhon@gmail.com\",\r\n  \"password\": \"jhon\"\r\n}\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_user}}/signup",
+							"host": [
+								"{{base_url}}{{base_user}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log-In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"email\": \"jhon@gmail.com\",\r\n  \"password\": \"jhon\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_user}}/login",
+							"host": [
+								"{{base_url}}{{base_user}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updata user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"{{$randomFullName}}\",\r\n  \"lastName\": \"{{$randomFullName}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"{{$randomPassword}}\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_user}}/updateUser/{{userId}}",
+							"host": [
+								"{{base_url}}{{base_user}}"
+							],
+							"path": [
+								"updateUser",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-User-Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_user}}/getuserbyid",
+							"host": [
+								"{{base_url}}{{base_user}}"
+							],
+							"path": [
+								"getuserbyid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "website",
+			"item": [
+				{
+					"name": "Create-Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    \r",
+									"    var siteId = pm.response.json()._id;\r",
+									"    \r",
+									"    pm.environment.set(\"siteId\", siteId);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"data\": \"{\\\"owner\\\":{\\\"mongoId\\\":\\\"64b5f8c8f0e1234567890abc\\\",\\\"username\\\":\\\"JohnDoe\\\"},\\\"name\\\":\\\"My First Website\\\",\\\"headerData\\\":{\\\"title\\\":\\\"Welcome to My Site\\\",\\\"menuItems\\\":[{\\\"name\\\":\\\"Home\\\",\\\"link\\\":\\\"/\\\"},{\\\"name\\\":\\\"About\\\",\\\"link\\\":\\\"/about\\\"}]},\\\"pages\\\":[{\\\"name\\\":\\\"Home Page\\\",\\\"renderElements\\\":[{\\\"data\\\":{\\\"id\\\":\\\"element1\\\",\\\"renderElementName\\\":\\\"red_rectangle3\\\",\\\"position\\\":{\\\"x\\\":10,\\\"y\\\":20},\\\"content\\\":{\\\"text\\\":\\\"Hello World!\\\"},\\\"style\\\":{\\\"color\\\":\\\"red\\\",\\\"fontSize\\\":\\\"16px\\\"}},\\\"body\\\":\\\"<div>Hello World!</div>\\\"}]}],\\\"footerData\\\":{\\\"text\\\":\\\"© 2025 My First Website\\\"}}\",\r\n  \"owner\": \"{{userId}}\",\r\n  \"screenShot\": \"https://images.squarespace-cdn.com/content/624b503a44c70245022f56eb/4f087c54-b53a-44f7-9234-01f8e58d8ffb/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w\",\r\n  \"name\": \" PoratWebsite7\",\r\n  \"domain\": \"myfirstwejלbלsקגitגe7.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_site}}/create",
+							"host": [
+								"{{base_url}}{{base_site}}"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-All-Sites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{base_site}}/",
+							"host": [
+								"{{base_url}}{{base_site}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Site-By-Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_site}}/{{siteId}}",
+							"host": [
+								"{{base_url}}{{base_site}}"
+							],
+							"path": [
+								"{{siteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user sites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_site}}/user/sites",
+							"host": [
+								"{{base_url}}{{base_site}}"
+							],
+							"path": [
+								"user",
+								"sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"data\": \"{\\\"owner\\\":{\\\"mongoId\\\":\\\"64b5f8c8f0e1234567890abc\\\",\\\"username\\\":\\\"JohnDoe\\\"},\\\"name\\\":\\\"My First Website\\\",\\\"headerData\\\":{\\\"title\\\":\\\"Welcome to My Site\\\",\\\"menuItems\\\":[{\\\"name\\\":\\\"Home\\\",\\\"link\\\":\\\"/\\\"},{\\\"name\\\":\\\"About\\\",\\\"link\\\":\\\"/about\\\"}]},\\\"pages\\\":[{\\\"name\\\":\\\"Home Page\\\",\\\"renderElements\\\":[{\\\"data\\\":{\\\"id\\\":\\\"element1\\\",\\\"renderElementName\\\":\\\"red_rectangle3\\\",\\\"position\\\":{\\\"x\\\":10,\\\"y\\\":20},\\\"content\\\":{\\\"text\\\":\\\"Hello World!\\\"},\\\"style\\\":{\\\"color\\\":\\\"red\\\",\\\"fontSize\\\":\\\"16px\\\"}},\\\"body\\\":\\\"<div>Hello World!</div>\\\"}]}],\\\"footerData\\\":{\\\"text\\\":\\\"© 2025 My First Website\\\"}}\",\r\n  \"owner\": \"64b5f8c8f0e1234567890abc\",\r\n  \"screenShot\": \"https://example.com/screenshot.png\",\r\n  \"name\": \"My First Website\",\r\n  \"domain\": \"myfirstwebsiteoooo.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_site}}/{{siteId}}",
+							"host": [
+								"{{base_url}}{{base_site}}"
+							],
+							"path": [
+								"{{siteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_site}}/{{siteId}}",
+							"host": [
+								"{{base_url}}{{base_site}}"
+							],
+							"path": [
+								"{{siteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove-User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_user}}/deleteUser/{{userId}}",
+							"host": [
+								"{{base_url}}{{base_user}}"
+							],
+							"path": [
+								"deleteUser",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

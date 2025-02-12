@@ -7,7 +7,8 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import SystemPagesSidebar from "./SystemPagesSidebar";
 import WebsiteTools from "./WebsiteTools";
 // import TrashSidebar from "./TrashSidebar";
-import { EditorLayoutContext } from "../../../pages/EditorLayout";
+import { EditorLayoutContext, EditorLayoutContextType } from "../../../pages/EditorLayout";
+import { BasicEditor3Page } from "../../basicEditor3Pro/BasicEditor3ProTypes";
 
 const addPageFormStyle: React.CSSProperties = {
   display: "flex",
@@ -17,21 +18,30 @@ const addPageFormStyle: React.CSSProperties = {
 function PagesSidebar() {
   const navigate = useNavigate();
   const [activeSidebar, setActiveSidebar] = useState("main");
-  const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: any = useContext(EditorLayoutContext);
+  const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: EditorLayoutContextType = useContext(EditorLayoutContext);
   const [addPageFormVisible, setAddPageFormVisible] = useState<boolean>(false);
   const defaultPageName = (currentWebsite) ? currentWebsite.pages[0]?.name : undefined
-  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || defaultPageName);
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || defaultPageName || "HomeFromPagesSidebarForTS");
 
   const newPageNameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setCurrentPage(currentWebsite?.lastEditorPage)
+    if(currentWebsite && currentWebsite.lastEditorPage){
+      setCurrentPage(currentWebsite?.lastEditorPage)
+    }
   }, [currentWebsite?.lastEditorPage])
 
   function handleAddPage(pageName: string) {
     setAddPageFormVisible(false);
     if (!pageName || typeof pageName !== "string" || pageName === "") return;
-    setPageNameFromLayout(pageName);
+
+    //I should find a different way of adding pages that does depend on navigating to them.
+    // setPageNameFromLayout(pageName);
+
+    if (currentWebsite?.pages.find(page => page.name === pageName)) return;
+    const newPage:BasicEditor3Page = { name:pageName, renderElements:[]}
+    currentWebsite?.pages.push(newPage)
+    if(!setSaveTrigger) return;//for TS
     setTimeout(() => setSaveTrigger(true), 1);
   }
 
@@ -39,16 +49,20 @@ function PagesSidebar() {
     const index = currentWebsite?.pages.findIndex(
       (page: any) => page.name === pageName
     );
-    if (index === -1 || (!index && index !== 0) || currentWebsite.pages.length === 1) return;
+    if (index === -1 || (!index && index !== 0) || currentWebsite?.pages.length === 1) return;
 
     currentWebsite?.pages.splice(index, 1);
+    if(!setSaveTrigger) return;
     setTimeout(() => setSaveTrigger(true), 1);
   }
 
   function handlePageClick(pageName: string) {
-    setPageNameFromLayout(pageName);
+    if(!setPageNameFromLayout || !currentWebsite) return;
+    // setPageNameFromLayout(pageName);
+    currentWebsite.lastEditorPage = pageName;
     console.log("attempted to move to:", pageName)
-    // setTimeout(() => setSaveTrigger(true), 1);
+    if(!setSaveTrigger) return;
+    setTimeout(() => setSaveTrigger(true), 1);
   }
 
   // Function to render the correct sidebar based on `activeSidebar`
@@ -59,7 +73,7 @@ function PagesSidebar() {
       case "websiteTools":
         return <WebsiteTools setActiveSidebar={setActiveSidebar} />;
       // case "trash":
-        // return <TrashSidebar />;
+      // return <TrashSidebar />;
       default:
         return null;
     }
