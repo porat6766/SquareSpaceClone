@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
+import datetime
 
 URL = "https://squarespaceclone.onrender.com"
 WAIT_TIME = 5
@@ -18,6 +19,10 @@ def find_and_click_website_and_pages(wait):
         EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Pages']"))
     )
     pages_button.click()
+
+test_log = {
+
+}
 
 def test_test():
     driver = webdriver.Chrome()
@@ -70,8 +75,7 @@ def test_test():
     time.sleep(3)
     driver.quit()
 
-
-test_test()
+# test_test()
 
 # def test_main():
 #     options = webdriver.ChromeOptions()
@@ -101,6 +105,7 @@ test_test()
 #         except TimeoutException:
 #             print("❌ Element not found!")
 
+# test_test()
 
-# if __name__ == "__main__":
-#     test_main()
+if __name__ == "__main__":
+    test_test()
