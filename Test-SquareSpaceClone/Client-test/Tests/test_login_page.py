@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 URL = "https://squarespaceclone.onrender.com/login"
-WAIT_TIME = 10
+WAIT_TIME = 20
 
 
 @pytest.fixture(scope="function")
@@ -41,7 +41,7 @@ def test_login_success(driver, email, password, expected_name):
             driver, By.XPATH, "//button[normalize-space()='LOG IN']", clickable=True)
         login_button.click()
         profile_img = wait_for_element(
-            driver, By.CLASS_NAME, "min-w-12.rounded-full.aspect-square.object-cover", clickable=True)
+            driver, By.XPATH, "//span[@class='w-12 h-12 rounded-full bg-black text-white font-bold text-2xl flex items-center justify-center pb-1']", clickable=True)
         profile_img.click()
         profile_name = wait_for_element(
             driver, By.XPATH, "//li[@class='px-4 py-2 font-semibold text-lg']")
