@@ -3,3 +3,9 @@ pytest
 
 
 start command: "python -m pytest"
+
+
+dependencies:
+npm install -g newman-reporter-htmlextra
+
+
