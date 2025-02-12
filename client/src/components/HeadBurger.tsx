@@ -21,12 +21,12 @@ const MobileMenu: React.FC = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-black text-white shadow-lg transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-64 bg-black text-white shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Close Button */}
         <button
+          id="close_sidebar"
           className="absolute top-4 right-4 text-2xl"
           onClick={toggleMenu}
           aria-label="Close Mobile Menu"
