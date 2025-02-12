@@ -3,12 +3,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+
 import time
 import datetime
+
+import db_handle
 
 URL = "https://squarespaceclone.onrender.com"
 WAIT_TIME = 5
 
+test_log = {
+    "current_time":datetime.datetime.now().isoformat(),
+    "login":False,
+    "navigate_to_pages":False,
+    "added_page":False,
+    "removed_page":False
+}
 
 def find_and_click_website_and_pages(wait):
     website_button = wait.until(
@@ -20,9 +30,12 @@ def find_and_click_website_and_pages(wait):
     )
     pages_button.click()
 
-test_log = {
+    if(website_button and pages_button):
+        test_log["login"] = True
+        test_log["navigate_to_pages"] = True
 
-}
+# def check_if_added(name):
+# def check_if_removed(name):
 
 def test_test():
     driver = webdriver.Chrome()
@@ -70,10 +83,11 @@ def test_test():
     # driver.execute_script("window.scrollTo(0, 100);")
     find_and_click_website_and_pages(wait)
     delete_button = driver.find_element(By.XPATH, "//li[button[normalize-space()='test_page_test_page']]//button[@aria-label='Delete']")
-    time.sleep(1)
+    # time.sleep(1)
     delete_button.click()
-    time.sleep(3)
+    # time.sleep(3)
     driver.quit()
+    db_handle.add_log(test_log)
 
 # test_test()
 
