@@ -12,8 +12,8 @@ WAIT_TIME = 10
 
 
 def generate_random_email():
-    domains = ["@gmail.com", "@yahoo.com", "@hotmail.com",
-               "@outlook.com", "@icloud.com", "bhsdb@gmail.com"]
+    domains = ["@gmaijl1.com", "@jyahoo1.com", "@hohtmail1.com",
+               "@ojutlook1.com", "@icljoud1.com", "bjhsdb@gmail1.com"]
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=10)) + random.choice(domains)
 
 
