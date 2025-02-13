@@ -63,18 +63,6 @@ def test_main():
 
 time.sleep(15)
 
-#  getting template by type
-try:
-    logging.info("start checking prompt button")
-    Online_store_button = WebDriverWait(driver, 30).until(
-        EC.presence_of_element_located((By.XPATH, "//span[normalize-space()='Online Store']"))
-        ).click()
-    logging.info("succses in online_button✅")
-except ArithmeticError as e:
-    logging.error("failed to click online_button")
-
-time.sleep(15)
-
 
 if __name__ == "__main__":
     test_main()
