@@ -1,3 +1,5 @@
+import logging
+import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -8,11 +10,14 @@ from selenium.common.exceptions import TimeoutException
 URL = "https://squarespaceclone.onrender.com"
 XPATH_FEATURE_LIST = "//span[contains(text(), 'Feature List')]"
 WAIT_TIME = 20
+options = webdriver.ChromeOptions()
+driver= webdriver.Chrome(options=options) 
+driver.get(URL)
 
 
 def test_main():
-    options = webdriver.ChromeOptions()
-    with webdriver.Chrome(options=options) as driver:
+    options 
+    with driver:
         wait = WebDriverWait(driver, WAIT_TIME)
         driver.get(URL)
 
@@ -56,6 +61,22 @@ def test_main():
         except TimeoutException:
             print("❌ Element not found!")
 
+time.sleep(15)
+
+#  getting template by type
+try:
+    logging.info("start checking prompt button")
+    Online_store_button = WebDriverWait(driver, 30).until(
+        EC.presence_of_element_located((By.XPATH, "//span[normalize-space()='Online Store']"))
+        ).click()
+    logging.info("succses in online_button✅")
+except ArithmeticError as e:
+    logging.error("failed to click online_button")
+
+time.sleep(15)
+
 
 if __name__ == "__main__":
     test_main()
+
+
