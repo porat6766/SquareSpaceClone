@@ -27,7 +27,8 @@ except ArithmeticError as e:
     logging.error("failed to click online_button")
 
 print("sucsses in pressing templates button")
-# first failed log
+
+# first empty log
 time.sleep(2)
 try:
     logging.info("succses in getting to templates✅")
@@ -37,7 +38,7 @@ try:
         ).click()
     logging.info("succses in logging in which means testing failed")
 except ArithmeticError as e:
-    logging.error("failed to get inside the page✅")
+    logging.error("get inside the empty page✅")
 time.sleep(2)
 
 # back to templates
