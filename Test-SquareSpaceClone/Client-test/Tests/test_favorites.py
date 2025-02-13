@@ -92,4 +92,5 @@ try:
 except ArithmeticError as e:
     logging.error("failed to get inside the page")
 
-time.sleep(15)
+# ✅ Close the browser after test completion
+driver.quit()
