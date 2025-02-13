@@ -16,6 +16,7 @@ driver= webdriver.Chrome(options=options)
 driver.get(URL)
 
 #  getting template by type
+time.sleep(2)
 try:
     logging.info("start checking prompt button")
     Online_store_button = WebDriverWait(driver, 30).until(
@@ -27,6 +28,7 @@ except ArithmeticError as e:
 
 print("sucsses in pressing templates button")
 # first failed log
+time.sleep(2)
 try:
     logging.info("succses in getting to templates✅")
     logging.info("start checking favorites button")
@@ -36,8 +38,7 @@ try:
     logging.info("succses in logging in which means testing failed")
 except ArithmeticError as e:
     logging.error("failed to get inside the page✅")
-
-time.sleep(8)
+time.sleep(2)
 
 # back to templates
 back_button = WebDriverWait(driver, WAIT_TIME).until(
@@ -69,18 +70,21 @@ try:
 except TimeoutException:
     pytest.fail(
         "❌ One of the elements was not found within the allocated time!")
+    
+time.sleep(6)
 
 # getting into templates page again
 templates_button = WebDriverWait(driver, WAIT_TIME).until(
     EC.presence_of_element_located((By.XPATH, "//b[normalize-space()='TEMPLATES']"))
 )
-time.sleep(2)
 templates_button.click()
+time.sleep(2)
 
 # adding favorite
 fav_button = WebDriverWait(driver, WAIT_TIME).until(
     EC.presence_of_element_located((By.XPATH, "//body//div//div//div//div//div//div//div//div//div//div[1]//div[1]//div[1]//button[1]//span[2]"))
 ).click()
+time.sleep(2)
 
 # second working log
 try:
@@ -93,4 +97,5 @@ except ArithmeticError as e:
     logging.error("failed to get inside the page")
 
 # ✅ Close the browser after test completion
+time.sleep(4)
 driver.quit()
